@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 1 Dẫn nhập</title>
+    <!--DƯỚI ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+<style type="text/css">
+    body{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 21px;
+        width: 960px;
+        margin: 0 auto;
+        text-align: justify;
+        line-height: 1.5;
+    }
+    p{
+        text-indent: 40px;
+    }
+</style>
+<style>
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+<style>
+    .highlight-yellow { background-color: rgb(255, 255, 71); }
+    .highlight-red { background-color: rgb(132, 230, 255); }
+    .highlight-green { background-color: rgb(125, 255, 125); }
+    .highlight-popup {
+        display: none;
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        z-index: 1000;
+    }
+    .highlight-popup button {
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC TRẢ LỜI CÂU TƯƠNG TÁC-->
+<style>
+    #textArea {
+        width: 100%;
+        height: 200px;
+    }
+    #saveButton, #clearButton {
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC TRẢ LỜI CÂU TƯƠNG TÁC-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+<style type="text/css">
+    a:hover{
+            text-decoration: none;
+        }
+        a[data-tooltip]{
+            border-bottom: 1px dotted #333;
+            position:relative;
+        }
+        a[data-tooltip]::before{
+            content: attr(data-tooltip);
+            position:absolute;
+            background: #ffafaf;
+            font-size:14px;
+            color: black;
+            text-align: justify;
+            padding: 3px 9px;
+            border-radius: 6px;
+            width: 250px;
+            left: -800%;
+            right: -800%;
+            bottom: 100%;
+            display: none;
+        }
+    a[data-tooltip]:hover::before{
+        display: block;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+
+
+<link rel="stylesheet" href="cssnoidung.css">
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+    <style>
+        .my-gallery img:hover {
+            transform: scale(1.05);
+        }
+        .my-gallery img {
+            /* width: 200px; */
+            height: auto;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+</head>
+
+<body id="text" >
+    <!--DƯỚI ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+    <div class="thanhphai">
+        <a target="_self" href="/File htmlnoidung/chuong13phan2.html"><button id="nut1"><i class="bi bi-arrow-right-circle-fill"></i></button></a>
+    </div>
+    <div class="thanhtrai">
+        <a target="_self" href="/File htmlnoidung/chuong12phan2.html"><button id="nut2"><i class="bi bi-arrow-left-circle-fill"></i></button></a>
+    </div>
+    <!--TRÊN ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+    <div class="highlight-popup" id="highlight-popup">
+        <!-- <p align="center" id="takenote">Ghi chú</p> -->
+        <button onclick="highlightText('yellow')" id="notevang"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('red')" id="notedo"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('green')" id="notexanh"><i class="bi bi-square-fill"></i></button>
+        <button onclick="removeHighlight()" id="xoanote"><i class="bi bi-eraser-fill"></i></i></button>
+    </div>
+<!--TRÊN ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+
+
+
+<!--PHẦN BẮT ĐẦU NỘI DUNG CHÍNH-->
+
+    <div align="center" style="margin-top: 20px;"><img src="/Fileanhnoidung/bannerchuong13.png"></div>
+    <h1 align="center">
+        Chương 13 <br/> Chủ nghĩa Hiện thực, Manet và Nghệ thuật của đời sống hiện đại 
+    </h1>
+    <p align="center" style="font-size: 30px;">(1850–thập niên 1860)</p>
+    <h2>
+        1. Quay trở lại với thế giới hiện thực
+    </h2>
+    <p>
+        Ở Paris những năm 1850, không phải ai cũng hưởng ứng cánh cửa nhìn ra thế giới kiểu hàn lâm. Thực tế là có một số họa sĩ đã bắt đầu chống đối những quy tắc chính thống của viện hàn lâm và những đạii diện tiêu biểu của nó như William Bouguereau. Đối với những họa sĩ này, nghệ thuật hàn lâm thật khó chịu và nếu có ai cảm thấy tranh của mình quá bóng bẩy và giả tạo, họ sẽ phỉ báng nó là bị “Bouguereau hóa”. Họ định sẽ vẽ những gì họ muốn và theo đuổi sự thôi thúc mỹ học của riêng họ về cách vẽ. Dĩ nhiên, điều đó đồng nghĩa với khả năng rất cao là họ sẽ không được chấp nhận ở những cuộc triển lãm thường niên. Chấp nhận rủi ro chết đói, các họa sĩ này nguyện sẽ trung thành với con đường nghệ thuật mà mình đã chọn bên trên mọi thứ khác.
+    </p>
+    <p>
+        Khái niệm về “họa sĩ chết đói” sống bên rìa xã hội và những quán ăn đầy những trí thức tự do cùng nhau thảo luận về nghệ thuật, triết học và cuộc đời khởi đầu từ đây. Những người đàn ông và phụ nữ này đã chỉ huy một cuộc chiến nghệ thuật, sống chết ở tuyến dầu văn hóa. Ngay từ lúc bắt đầu, họ đã bị xem là mối đe dọa đối với hiện trạng nghệ thuật và những viện hàn lâm do chính quyền điều hành. Họ là những người phải hy sinh nhiều nhất. Họ được gán cho tên gọi vốn dùng cho quân đội: tiên phong (avant-garde).
+    </p>
+    <p>
+        Ngay bên ngoài khuôn viên Hội chợ Quốc tế năm 1855 ở Paris do chính quyền tài trợ, Gustave Courbet dựng một chiếc lều riêng, gọi nó là “Hội chợ Courbet”. Nhằm chống đối việc chỉ trưng bày những bức tranh hàn lâm, Courbet tự tổ chức triển lãm cá nhân và công bố bản tuyên ngôn về Chủ nghĩa Hiện thực, ghi lại những nguyên tắc mỹ học của riêng mình và đơn thương độc mã khởi xướng một xu hướng nghệ thuật mới. Trong bản tuyên ngôn, ông đã viết một câu rất nổi tiếng: “Chừng nào tôi nhìn thấy một thiên thần thì tôi mới vẽ thiên thần”.
+    </p>
+    <p>
+        Chủ nghĩa Hiện thực của Courbet bắt đầu vung cây búa của mình lên và đập vỡ dần những truyền thống Cổ điển phương Tây. Ông cho rằng nghệ thuật phải quan tâm đến đời sống đương đại chứ không phải những chuyện kể và thần thoại trong quá khứ. Nó phải miêu tả những gì trung thực nhất, những điều được nhìn thấy và trải nghiệm thật sự, chứ không phải những thứ được gọt giũa và sắp đặt hoàn hảo. Các nhà phê bình cáo buộc ông tội cổ súy cho một “trào lưu xấu xí” Chủ nghĩa Hiện thực của Courbet thì cho rằng cuộc sống thực mới chính là nghệ thuật.
+    </p>
+        
+
+<!--DƯỚI ĐÂY LÀ PHẦN ĐIỀN HÌNH ẢNH-->
+        <div class="my-gallery">
+            <figure align="center">
+                <a href="/Fileanhnoidung/d4.jpg" data-size="1000x700">
+                    <img src="/Fileanhnoidung/d4.jpg" alt="Image 1" width="700">
+                </a>
+            </figure>
+        </div>
+        <p id="chuthich" align="center">Những người thợ chẻ đá (The Stone Breakers), Gustave Courbet, 1849, đã bị phá hủy bởi bom trong Thế chiến thứ hai ở Dresden, Đức</p>
+<!--TRÊN ĐÂY LÀ PHẦN ĐIỀN HÌNH ẢNH-->
+
+        <p>
+            Bức tranh Những người thợ chỉ đá (1849) của Courbet vẽ lại công việc lao động nặng nhọc. Một cậu bé và người đàn ông lớn tuổi hơn, dơ bẩn và nghèo hèn, phải chẻ đá cả ngày, không có gì ăn ngoài một mẩu bánh mì cũ khô cứng. Cuộc Cách mạng Công nghiệp đã tách nhiều thế hệ thiếu niên và đàn ông ra khỏi các trang trại, buộc họ oằn lưng kiếm sống để tìm đường đến Paris. Courbet đã chứng kiến thực trạng này và khước từ bất kỳ sự lý tưởng hóa nào ở đây. Bảng màu của ông tối tăm và vấy bẩn, chất thì xù xì. Mặc dù cái vòng luẩn quẩn nhiều thế hệ ngụ ý một sự vô vọng tất yếu, tranh vẫn thể hiện một sự thẳng thắn và trung thực khi mô tả những mảnh đời này. Không hề có những thiên thần của thiên đàng ở đây. Người nghệ sĩ chỉ vẽ những gì mình thấy. Và nghệ thuật có một bước nhảy vọt, đụng chạm đến tất cả mọi thứ thuộc về cuộc sống.
+        </p>
+
+        <p>
+            Eduoard Manet biết rằng cuộc sống những năm 1860 ở Paris không hé ngăn nắp như những gì nghệ thuật hàn lâm phản ánh. Cũng như Courbet, Manet tim trong đời sống hiện đại và cuộc đời của mình những chủ để dáng vẽ. Khi làm như vậy, tác phẩm của ông thường chỉ trích những truyền thống Cổ điển và Phục hưng, làm suy yếu những lý tưởng cao vợi của chúng bằng cách bộc lộ một mặt trái xấu xí. Manet mở ra cánh cửa hướng về thế giới Hiện đại. Và thay vì tìm kiếm một nàng Vệ nữ yêu kiều, giờ đây chúng ta có thể nhìn thấy trọn vẹn những người phụ nữ thân quen, với ngấn mỡ bụng và mọi thứ.
+        </p>
+        <p>
+            Trong bức tranh Bữa trưa trên cỏ (1863), Manet đã mượn bố cục của bậc thầy Phục hưng Ý Raphael. Nhưng đề tài Có diễn của các nhân vật được đặt trong bối cảnh thiên nhiên đã trở nên hiện đại. Trong tác phẩm của Manet, hai người đàn ông và hai người phụ nữ là bạn và họ hàng của ông. Họ là những người Paris đang tận hưởng một thú tiêu khiến còn khá mới mẻ, cắm trại trong công viên. Việc dễ dàng nhận ra các nhân vật này đã gây xì căng đan tại thời điểm đó. Và việc người phụ nữ, một người mẫu có tiếng, ngồi không một mảnh vải che thân trong khi những “quý ông” vẫn đóng bộ chỉnh chu chẳng giúp ích được gì. Ở phần tiến cảnh, ta thấy trang phục của cô nàng rơi vãi thành đống, và những thứ bên trong giỏ trái cây đặt trên đó đang đổ ra (sự ám chỉ, sự ám chỉ)! Dẫu vậy, có lẽ điều “trơ trẽn” nhất đối với người Paris dương thời chính là cách người phụ nữ khỏa thân với gương mặt hơi ửng hồng kia nhìn thẳng vào chúng ta hoàn toàn bình tĩnh. Cô ta hoàn toàn thoải mái với khoảnh khắc này, và dường như đang hỏi người xem, “tại sao bạn cũng không như vậy đi?”
+        </p>
+        <div class="my-gallery">
+            <figure align="center">
+                <a href="/Fileanhnoidung/d5.jpg" data-size="1000x700">
+                    <img src="/Fileanhnoidung/d5.jpg" alt="Image 1" width="600">
+                </a>
+            </figure>
+        </div>
+        <p id="chuthich" align="center">Bữa trưa trên cỏ (Le Dejeuner sur L’Herbe), Eduoard Manet, 1863, Bảo tàng Musee d’Orsay, Paris</p>
+
+        <div class="my-gallery">
+            <figure align="center">
+                <a href="/Fileanhnoidung/d5(1).png" data-size="1000x700">
+                    <img src="/Fileanhnoidung/d5(1).png" alt="Image 1" width="700">
+                </a>
+            </figure>
+        </div>
+        <p><b>Áp dụng ngay</b></p>
+        <p>
+            Manet thích thú với việc dựng nên những mảng sáng trưng bên cạnh những mảng tối đen. Như trong phần tiền cảnh của bức Bữa trưa trên cỏ, bạn sẽ thấy lòng bàn chân sáng sủa của người phụ nữ bên cạnh màu đen tuyền của đôi giày người đàn ông. Manet thích cảm giác phẳng bẹt trong tranh đến nỗi ông thường để cả mảng trong bức tranh không tạo khói. Điều này gây ra sự phản đối kịch liệt! Sự nhạy cảm nghệ thuật của Manet phớt lờ nguyên tắc cơ bản: Không phá vỡ ảo giác ba chiều. Sự trung thành tuyệt đối của Manet với cách nhìn của mình – khám phá thế giới hai chiều trên mặt phẳng hai chiều, hay tính phẳng bẹt trên bề mặt phẳng – đã góp phần định nghĩa lại nghệ thuật cho đến tận hôm nay.
+        </p>
+        <p align="center"><b>Hãy chú ý sự phẳng bẹt trong thế giới bạn đang thấy.</b></p>
+        <p><b>Tấm bưu thiếp nào đang ở trên tủ lạnh của bạn?</b></p>
+        <p>
+            Ở phần Câu hỏi hay bên trên, bạn đã dành thời gian xem qua các tác phẩm nghệ thuật, chú ý đến các tác phẩm khiến bạn phản ứng một cách mạnh mẽ, và đặt ra những câu hỏi nhằm lý giải nguyên do. Những khía cạnh nào trong cuộc sống của bạn đã được những tác phẩm này soi sáng? Chúng có gì khiến bạn phải dừng lại và muốn xem kỹ hơn Dù không nhận ra nhưng có lẽ bạn đang sống cùng một hình ảnh nghệ thuật phản chiếu một cách đặc sắc những khát khao, dự định, nỗi sợ cả đời của bạn, hay là hơn thế nữa.
+        </p>
+        <p>
+            Bạn có bản sao nghệ thuật nào – có thể là bưu thiếp hay một tấm poster lớn bằng người thật – mà bạn đã gìn giữ trong nhiều năm không? Có bao giờ bạn tự hỏi tại sao mình lại giữ hình đó lâu vậy không? Điều gì ở nó đang nói chuyện trực tiếp với bạn? Nó đặt ra câu hỏi gì? Tại sao nó lại rất đẹp trong mắt bạn? Hay là vô cùng thu hút? Trong hàng triệu hình ảnh trên thế giới, bạn đã chọn sống cùng hình ảnh này. Tại sao lại như vậy? Gần đây, tôi cũng hỏi bản thân những câu hỏi tương tự. Bên cạnh những bài học nho nhỏ về lịch sử nghệ thuật, dây là câu trả lời của tôi.
+        </p>
+        <p>
+            Trong hơn 30 năm, bên cạnh những bức tranh màu nước, sơn dầu, và ảnh gia đình và bạn bè, lúc nào trên tường nhà tôi cũng có một chỗ để treo một món quà lưu niệm – một bản sao nghệ thuật. Tôi lấy tấm ảnh có khung của bức Olympia của Edouard Manet này ở đâu? Có phải chị cả của tôi đã tặng tôi để ghi nhận niềm đam mê nghệ thuật đang chín muối trong tôi? Hay là chị đã tặng cho tôi khung tranh với một thứ gì khác bên trong? Tôi nhớ mang máng hình như là một bức tranh vẽ một con mèo của cùng tác giả. Xin lỗi Susie! Tuy nhiên, vì một lý do nào đó, tôi luôn gắn việc có được bức tranh này với sự khởi đầu giai đoạn độc lập của một người trưởng thành. Và tôi không chỉ nói về giới tính ở đây.
+        </p>
+        <div class="my-gallery">
+            <figure align="center">
+                <a href="/Fileanhnoidung/d6.jpg" data-size="1000x700">
+                    <img src="/Fileanhnoidung/d6.jpg" alt="Image 1" width="600">
+                </a>
+            </figure>
+        </div>
+        <p id="chuthich" align="center">Vệ nữ xứ Urbino (Venus of Urbino), Titian, 1538, Phòng trưng bày Uffizi, Florence</p>
+        <p>
+            Tác phẩm theo trường phái Tiền-Ấn tượng năm 1863 này vẽ một phụ nữ da trắng, khỏa thân, đang nằm tựa vào giường, bên cạnh là một người hầu da đen. Và bộ phim Titanic thì nói về một con tàu lớn bị đắm! Hiểu theo một cách nào đó, ảnh hưởng của Olympia đối với chuẩn mực nghệ thuật phương Tây cũng giống như tảng băng kia đối với con tàu nổi tiếng. Có lẽ không quá khi cho rằng cùng với bức tranh này, những truyền thống Cổ điển khả kính cũng bắt đầu chìm dần. Dù Manet quan tâm đến truyền thống này bằng việc mượn ý tưởng từ bức Vệ Nữ xứ Urbino của Titian (1538), ông đã mang chủ đề thời Phục hưng Ý này đi đến hiện tại. Ông không hề che giấu nội dung bằng bất kỳ tấm màn thần thoại nào. Người phụ nữ này, cũng như tất cả những nàng Vệ Nữ và cung nữ trước đó, đều được vẽ ra nhằm mua vui cho đàn ông. Và đây chính là điểm khiến nó trở nên đáng chú ý.
+        </p>
+        <p>
+            Những bức vẽ phụ nữ khỏa thân trong nghệ thuật phương Tây luôn rất mời gọi đối với những người xem là nam. Tác phẩm của Titian đã minh họa điều này. Nàng Vệ Nữ của ông, với da thịt hồng hào và mềm mại, đang e lệ nhìn vào người bảo trợ của mình. Cánh tay trái mềm oặt của nàng trễ nải qua bên hông, để lại bàn tay mềm yếu che di phần kín. Sẽ chẳng nhọc công để giở nó lên! Nàng cũng sẽ trung thành và sẵn sàng phục vụ một cách dịu dàng, giống như chú chó đang cuộn mình ở dưới chân nàng vậy. Công tước xứ Urbino đã treo bức tranh này ở tư gia của mình.
+        </p>
+        <p>
+            Bức Olympia của Manet thoát được ban hội thẩm bảo thủ của Hàn lâm viện, và được đưa vào cuộc triển lãm thường niên ở Paris. Đó là một buổi trưng bày hết sức công khai về một chủ đề đã bị che giấu từ xưa: nghề mại dâm. Cũng như những từ “Boom Boom” hay “Trixie” có thể gợi nhớ đến nghệ thuật múa thoát y ở đất nước này, “Olympia” chỉ ra những thứ đang diễn ra trên đường phố Paris những năm 1860. Một bông phong lan lạ lùng nở bung rực rỡ, quyến rũ lạ kỳ, tô điểm cho mái tóc của nàng. Một dải lụa đen quấn quanh cổ nàng, cùng đôi guốc – chiếc mang trên chân chiếc rơi xuống giường, tất cả khiến cho nghề nghiệp của nàng dư rõ đối với người xem tranh đương thời. Con mèo đen đang động dục ở chân nàng cho ta thấy óc hài hước của người họa sĩ.
+        </p>
+        <div class="my-gallery">
+            <figure align="center">
+                <a href="/Fileanhnoidung/d7.jpg" data-size="1000x700">
+                    <img src="/Fileanhnoidung/d7.jpg" alt="Image 1" width="600">
+                </a>
+            </figure>
+        </div>
+        <p id="chuthich" align="center">Olympia, Eduoard Manet, 1863, Bảo tàng Musee d’Orsay, Paris</p>
+        <p>
+            Tuy nhiên, tôi giữ bức ảnh tranh này hơn nửa đời mình không phải vì nó phô bày một sự thức tỉnh xã hội hay một sự châm biếm. Khi tôi nhìn thấy bức tranh, cả bản sao lẫn bản chính ở bảo tàng Musee d’Orsay, tôi cảm thấy biết ơn người họa sĩ nam này. Là một phụ nữ trẻ, tôi đánh giá Olympia là một tấm gương của sự ngoan cường của người phụ nữ, dám nhìn thẳng vào sự đàn áp. Qua hình ảnh người hầu gái da đen đang nhìn cô chủ với ánh mắt thương xót, rồi đến lượt mình, cô chủ ấy lại nhìn “ông chủ” của mình không chớp mắt, những phương thức mưu sinh đã được định sẵn của những người phụ nữ nghèo trưng ra trước mắt ta một cách rõ ràng. Vào cuối những năm 1970 và đầu những năm 1980, ý thức nữ quyền trong tôi hiếm khi được lợi lỏng. Có một sự tương đồng giữa việc các hiệu trưởng ép tôi đứng lớp như đang “dạy dỗ” tôi và việc các khách hàng nam hành xử trịch thượng thái quá với cô gái bán hoa trẻ tuổi kia. Hệt như cách Olympia đã khiến cho những khách làng chơi giữa thế kỷ 19 phải cúi mặt, tôi cũng cố gắng không chớp mắt trước sự phân biệt giới tính ở cuối thế kỷ 20.
+        </p>
+        <p>
+            Càng trưởng thành, mối quan hệ giữa tôi và Olympia càng trở nên sâu sắc và dịu dàng hơn. Tôi nhìn vào cái bụng mập mạp, nước da trắng ngà, màu son và mascara lem luốc của nàng và nghĩ, “này cô gái, dù rằng có đôi lúc cô cảm thấy bị vắt kiệt sức, cô vẫn ngẩng cao đầu”. Người phụ nữ này tự vực bản thân dậy, và, với đôi vai thẳng và cái cổ vươn cao, cô đã nâng đỡ trí tuệ của mình. Mới nhìn qua, có lẽ cô cũng chỉ như một nhân vật nữ khỏa thân nằm nghiêng khác. Nhưng hãy nhìn kỹ hơn.
+        </p>
+        <p>
+            Càng trưởng thành, mối quan hệ giữa tôi và Olympia càng trở nên sâu sắc và dịu dàng hơn. Tôi nhìn vào cái bụng mập mạp, nước da trắng ngà, màu son và mascara lem luốc của nàng và nghĩ, “này cô gái, dù rằng có đôi lúc cô cảm thấy bị vắt kiệt sức, cô vẫn ngẩng cao đầu”. Người phụ nữ này tự vực bản thân dậy, và, với đôi vai thẳng và cái cổ vươn cao, cô đã nâng đỡ trí tuệ của mình. Mới nhìn qua, có lẽ cô cũng chỉ như một nhân vật nữ khỏa thân nằm nghiêng khác. Nhưng hãy nhìn kỹ hơn.
+        </p>
+        <p>
+            Nghệ thuật luôn đặt ra những câu hỏi. Mỗi ngày, Olympia đều nhìn thẳng vào mắt tôi và âm thầm nhắc tôi phải tôn trọng trí óc của mình và phải sử dụng nó! Dù trông cô có vẻ rất thành thạo trong việc phô bày thân thể nhưng thế giới nội tâm của cô lại được che giấu rất kỹ đằng sau điệu bộ buông lời kia. Tôi có nên che giấu sự sôi nổi của mình như thế không? Bức tranh người phụ nữ khỏa thân này, vừa yếu đuối vừa cương nghị, yêu cầu tôi phải giải phóng tinh thần và trí tuệ của mình trong cuộc đời này... bởi vì tôi có thể làm như vậy. Hiểu theo một cách nào đó, tôi đã lớn lên cùng với sự chỉ dẫn của Olympia. Vô tình, cô ấy đã trở thành vị thánh bảo hộ của tôi, che chở tôi khỏi thiên hướng âm ỉ lắm lúc hay xuất hiện trong tôi – và khá quen thuộc với rất nhiều phụ nữ – là giấu đi sự thông minh của mình. Thay vào đó, cô ấy cầu khẩn tôi hãy phơi bày ra tất cả!
+        </p>
+
+
+
+    
+
+
+
+
+
+
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+    <div id="backtop1" class="vecuoitrang" >
+        <i onclick="scrollToBottom()" class="bi bi-arrow-down-square-fill"></i>
+    </div>
+    <div id="backtop" class="vedautrang">
+        <i onclick="scrollToTop()" class="bi bi-arrow-up-square-fill"></i>
+    </div>
+<!--TRÊN ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+
+
+
+
+<!-- DƯỚI ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+    <!-- PhotoSwipe core JS files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+    <!-- PhotoSwipe template -->
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <div class="pswp__counter"></div>
+                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                    <button class="pswp__button pswp__button--share" title="Share"></button>
+                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div>
+                <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+                <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- TRÊN ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+
+
+</body>
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+<script>
+    function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+function scrollToBottom() {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+    });
+}
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+    loadHighlights();
+
+    document.addEventListener('mouseup', function(e) {
+        const selection = window.getSelection();
+        if (!selection.rangeCount || selection.isCollapsed) {
+            hidePopup();
+            return;
+        }
+
+        const range = selection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+        showPopup(rect.left + window.scrollX, rect.bottom + window.scrollY);
+    });
+
+    document.addEventListener('mousedown', function(e) {
+        const popup = document.getElementById('highlight-popup');
+        if (!popup.contains(e.target)) {
+            hidePopup();
+        }
+    });
+});
+
+function showPopup(x, y) {
+    const popup = document.getElementById('highlight-popup');
+    popup.style.left = x + 'px';
+    popup.style.top = y + 'px';
+    popup.style.display = 'block';
+}
+
+function hidePopup() {
+    const popup = document.getElementById('highlight-popup');
+    popup.style.display = 'none';
+}
+
+function highlightText(color) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    if (range.collapsed) return;
+
+    const span = document.createElement('span');
+    span.className = `highlight highlight-${color}`;
+    range.surroundContents(span);
+
+    saveHighlights();
+    hidePopup();
+}
+
+function removeHighlight() {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    const parentElement = range.commonAncestorContainer.parentElement;
+
+    if (parentElement.classList.contains('highlight')) {
+        const parent = parentElement.parentNode;
+        while (parentElement.firstChild) {
+            parent.insertBefore(parentElement.firstChild, parentElement);
+        }
+        parent.removeChild(parentElement);
+    }
+
+    saveHighlights();
+    hidePopup();
+}
+
+// Hàm lưu các highlight vào local storage
+function saveHighlights() {
+    let highlights = document.querySelectorAll('.highlight-yellow, .highlight-green, .highlight-red');
+    let highlightData = [];
+
+    highlights.forEach((highlight) => {
+        highlightData.push({
+            text: highlight.textContent,
+            class: highlight.className
+        });
+    });
+
+    localStorage.setItem('highlights', JSON.stringify(highlightData));
+}
+// Hàm tải các highlight từ local storage
+function loadHighlights() {
+    let highlightData = JSON.parse(localStorage.getItem('highlights') || '[]');
+    let bodyHtml = document.body.innerHTML;
+
+    highlightData.forEach((highlight) => {
+        let tempDiv = document.createElement('div');
+        tempDiv.textContent = highlight.text;
+        let highlightHtml = `<span class="${highlight.class}">${tempDiv.innerHTML}</span>`;
+        bodyHtml = bodyHtml.replace(highlight.text, highlightHtml);
+    });
+    document.body.innerHTML = bodyHtml;
+}
+
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+
+
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC CỦA CÂU HỎI TƯƠNG TÁC-->
+<!-- <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const textArea = document.getElementById('textArea');
+    const saveButton = document.getElementById('saveButton');
+    const clearButton = document.getElementById('clearButton');
+
+    // Load the saved text from Local Storage when the page loads
+    const savedText = localStorage.getItem('textAreaContent');
+    if (savedText) {
+        textArea.value = savedText;
+    }
+
+    // Save the text to Local Storage when the "Save" button is clicked
+    saveButton.addEventListener('click', function() {
+        localStorage.setItem('textAreaContent', textArea.value);
+        alert('Bạn muốn lưu ghi chép của mình?');
+    });
+
+    // Clear the text from Local Storage and the text area when the "Clear" button is clicked
+    clearButton.addEventListener('click', function() {
+        localStorage.removeItem('textAreaContent');
+        textArea.value = '';
+        alert('Bạn muốn xóa ghi chép?');
+    });
+});
+
+</script> -->
+<script>
+    // Function to save data to local storage
+    function saveData(id) {
+        const data = document.getElementById(id).value;
+        localStorage.setItem(id, data);
+        alert('Câu trả lời của bạn đã được lưu!');
+    }
+
+    // Function to load data from local storage
+    function loadData() {
+        const writingAreas = document.querySelectorAll('.writing-area');
+        writingAreas.forEach(area => {
+            const savedData = localStorage.getItem(area.id);
+            if (savedData) {
+                area.value = savedData;
+            }
+        });
+    }
+
+    // Load data when the page loads
+    window.onload = loadData;
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC CỦA CÂU HỎI TƯƠNG TÁC-->
+
+
+
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+<script>
+    // Initialize PhotoSwipe
+    document.addEventListener('DOMContentLoaded', function() {
+        var initPhotoSwipeFromDOM = function(gallerySelector) {
+            var parseThumbnailElements = function(el) {
+                var thumbElements = el.childNodes,
+                    numNodes = thumbElements.length,
+                    items = [],
+                    figureEl,
+                    linkEl,
+                    size,
+                    item;
+
+                for (var i = 0; i < numNodes; i++) {
+                    figureEl = thumbElements[i];
+
+                    if (figureEl.nodeType !== 1) {
+                        continue;
+                    }
+
+                    linkEl = figureEl.children[0];
+                    size = linkEl.getAttribute('data-size').split('x');
+
+                    item = {
+                        src: linkEl.getAttribute('href'),
+                        w: parseInt(size[0], 10),
+                        h: parseInt(size[1], 10)
+                    };
+
+                    if (figureEl.children.length > 1) {
+                        item.title = figureEl.children[1].innerHTML;
+                    }
+
+                    if (linkEl.children.length > 0) {
+                        item.msrc = linkEl.children[0].getAttribute('src');
+                    }
+
+                    item.el = figureEl;
+                    items.push(item);
+                }
+
+                return items;
+            };
+
+            var closest = function closest(el, fn) {
+                return el && (fn(el) ? el : closest(el.parentNode, fn));
+            };
+
+            var onThumbnailsClick = function(e) {
+                e = e || window.event;
+                e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+                var eTarget = e.target || e.srcElement;
+
+                var clickedListItem = closest(eTarget, function(el) {
+                    return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+                });
+
+                if (!clickedListItem) {
+                    return;
+                }
+
+                var clickedGallery = clickedListItem.parentNode,
+                    childNodes = clickedListItem.parentNode.childNodes,
+                    numChildNodes = childNodes.length,
+                    nodeIndex = 0,
+                    index;
+
+                for (var i = 0; i < numChildNodes; i++) {
+                    if (childNodes[i].nodeType !== 1) {
+                        continue;
+                    }
+
+                    if (childNodes[i] === clickedListItem) {
+                        index = nodeIndex;
+                        break;
+                    }
+                    nodeIndex++;
+                }
+
+                if (index >= 0) {
+                    openPhotoSwipe(index, clickedGallery);
+                }
+                return false;
+            };
+
+            var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+                var pswpElement = document.querySelectorAll('.pswp')[0],
+                    gallery,
+                    options,
+                    items;
+
+                items = parseThumbnailElements(galleryElement);
+
+                options = {
+                    galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+                    getThumbBoundsFn: function(index) {
+                        var thumbnail = items[index].el.getElementsByTagName('img')[0],
+                            pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                            rect = thumbnail.getBoundingClientRect();
+
+                        return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+                    }
+                };
+
+                if (fromURL) {
+                    if (options.galleryPIDs) {
+                        for (var j = 0; j < items.length; j++) {
+                            if (items[j].pid == index) {
+                                options.index = j;
+                                break;
+                            }
+                        }
+                    } else {
+                        options.index = parseInt(index, 10) - 1;
+                    }
+                } else {
+                    options.index = parseInt(index, 10);
+                }
+
+                if (isNaN(options.index)) {
+                    return;
+                }
+
+                if (disableAnimation) {
+                    options.showAnimationDuration = 0;
+                }
+
+                gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+                gallery.init();
+            };
+
+            var galleryElements = document.querySelectorAll(gallerySelector);
+
+            for (var i = 0, l = galleryElements.length; i < l; i++) {
+                galleryElements[i].setAttribute('data-pswp-uid', i + 1);
+                galleryElements[i].onclick = onThumbnailsClick;
+            }
+        };
+
+        initPhotoSwipeFromDOM('.my-gallery');
+    });
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+
+
+
+</html>

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 16 phần 1</title>
+    <!--DƯỚI ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+<style type="text/css">
+    body{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 21px;
+        width: 960px;
+        margin: 0 auto;
+        text-align: justify;
+        line-height: 1.5;
+    }
+    p{
+        text-indent: 40px;
+    }
+</style>
+<style>
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+<style>
+    .highlight-yellow { background-color: rgb(255, 255, 71); }
+    .highlight-red { background-color: rgb(132, 230, 255); }
+    .highlight-green { background-color: rgb(125, 255, 125); }
+    .highlight-popup {
+        display: none;
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        z-index: 1000;
+    }
+    .highlight-popup button {
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC TRẢ LỜI CÂU TƯƠNG TÁC-->
+<style>
+    #textArea {
+        width: 100%;
+        height: 200px;
+    }
+    #saveButton, #clearButton {
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC TRẢ LỜI CÂU TƯƠNG TÁC-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+<style type="text/css">
+    a:hover{
+            text-decoration: none;
+        }
+        a[data-tooltip]{
+            border-bottom: 1px dotted #333;
+            position:relative;
+        }
+        a[data-tooltip]::before{
+            content: attr(data-tooltip);
+            position:absolute;
+            background: #ffafaf;
+            font-size:14px;
+            color: black;
+            text-align: justify;
+            padding: 3px 9px;
+            border-radius: 6px;
+            width: 250px;
+            left: -800%;
+            right: -800%;
+            bottom: 100%;
+            display: none;
+        }
+    a[data-tooltip]:hover::before{
+        display: block;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+
+
+<link rel="stylesheet" href="cssnoidung.css">
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+    <style>
+        .my-gallery img:hover {
+            transform: scale(1.05);
+        }
+        .my-gallery img {
+            /* width: 200px; */
+            height: auto;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+</head>
+
+<body id="text" >
+    <!--DƯỚI ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+    <div class="thanhphai">
+        <a target="_self" href="/File htmlnoidung/chuong16phan2.html"><button id="nut1"><i class="bi bi-arrow-right-circle-fill"></i></button></a>
+    </div>
+    <div class="thanhtrai">
+        <a target="_self" href="/File htmlnoidung/chuong15phan2.html"><button id="nut2"><i class="bi bi-arrow-left-circle-fill"></i></button></a>
+    </div>
+    <!--TRÊN ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+    <div class="highlight-popup" id="highlight-popup">
+        <!-- <p align="center" id="takenote">Ghi chú</p> -->
+        <button onclick="highlightText('yellow')" id="notevang"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('red')" id="notedo"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('green')" id="notexanh"><i class="bi bi-square-fill"></i></button>
+        <button onclick="removeHighlight()" id="xoanote"><i class="bi bi-eraser-fill"></i></i></button>
+    </div>
+<!--TRÊN ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+
+
+
+<!--PHẦN BẮT ĐẦU NỘI DUNG CHÍNH-->
+
+    <div align="center" style="margin-top: 20px;"><img src="/Fileanhnoidung/bannerchuong16.png"></div>
+    <h1 align="center">
+        Chương 16 <br/> Vincent van Gogh, cuộc đời một nghệ sĩ
+    </h1>
+   
+    <h2>
+        1. Hành trình đi với lý tưởng của đời mình
+    </h2>
+    <p>
+        Đến năm 27 tuổi, Vincent van Gogh mới bắt đầu vẽ. Ông đi tìm lý tưởng của đời mình, ban đầu định là sẽ nối gót cha gia nhập mục sư đoàn. Với tư cách là mục sư không chuyên, ông thường giảng đạo cho người nghèo, nhất là cộng đồng những người thợ mỏ ở Bỉ. Ông luôn cảm thấy sứ mệnh của mình là phụng sự, đặc biệt là những người sống trong cảnh bần cùng. Khi 27 tuổi, ông bắt đầu ý thức rõ ràng về cách mình có thể phụng sự. Ông đã chứng nghiệm một “mặc khải” với nghệ thuật, như cách ông gọi nó. Và với rất ít kiến thức được đào tạo bài bản, ông bắt đầu một cuộc tìm kiếm cấp bách hòng khai sáng những kẻ bị vùi dập bởi cuộc mưu sinh hằng ngày. Sứ mệnh của Vincent chính là giúp chúng ta nhìn xa hơn guồng quay tẻ nhạt mỗi ngày và trải nghiệm vẻ đẹp của phép màu cuộc sống.
+    </p>
+    <p>
+        Vincent cảm nhận vẻ đẹp một cách sâu sắc. Và niềm đam mê của ông chính là vẽ nó ra và xem tác phẩm của mình như cánh cửa dẫn đến những trải nghiệm mê ly của ông, có thể còn tác động đến trải nghiệm của người xem nữa. Ông chỉ sống được thêm mười năm trước khi tự kết liễu cuộc đời mình ở tuổi 37. Nhưng trong mười năm đó, ông đã cho ra đời hơn 800 bức tranh và bức vẽ, minh chứng cho sự sâu sắc, khả năng tự chủ và tính nhạy cảm của ông. Cuộc đời của Vincent van Gogh cũng có thể được đánh giá như cách ông miêu tả những bức tranh của mình: “Thật hơn cả sự thật”.
+    </p>
+    <p>
+        Vincent coi tình người là điều vô cùng quan trọng trong cuộc sống. Ông tập trung những cảm xúc này trong thứ ánh sáng ấm áp của bức tranh đầu tay, Những người ăn khoai tây (1885). Trong một căn phòng chật chội, tối tăm và ẩm mốc – hơi giống một hầm chứa thức ăn – bốn người lớn và một đứa trẻ đang quây quần bên bàn ăn. Trên đó là một cái đĩa chứa những miếng khoai tây bốc khói và những tách cà phê nóng hồi. Gia đình này đang quây quần để chia sẻ với nhau bữa ăn đạm bạc trong không gian ấm cúng của căn nhà đơn sơ. Cùng với chiếc đèn dấu được thắp sáng phía trên, những đôi tay và gương mặt xương xẩu, dãi dầu mưa gió hé lộ về cuộc sống của họ. Có phải người họa sĩ Hà Lan này đang ám chỉ sự hiện diện của bậc Thần thánh trong nguồn sáng phía trên kia, thể hiện chính xác cách dùng hình tượng để lột tả ý nghĩa như trong bức Đám cưới Arnolfini của Van Eyck? Dường như Vincent đã vẽ bức tranh này bằng bụi, bằng màu và chất của đất, của sự khốn khó của gia đình kia. Đây là một bức chân dung chân thật của một gia đình có thật, nhà deGroot, một gia đình kiểm sống bằng công việc tay chân và đồng áng. Và ở bàn ăn, chỉ còn vừa đủ chỗ cho bạn ngôi vào và cẩm nữa lên cùng họ.
+    </p>
+        
+
+<!--DƯỚI ĐÂY LÀ PHẦN ĐIỀN HÌNH ẢNH-->
+        <div class="my-gallery">
+            <figure align="center">
+                <a href="/Fileanhnoidung/d15.jpg" data-size="1000x700">
+                    <img src="/Fileanhnoidung/d15.jpg" alt="Image 1" width="600">
+                </a>
+            </figure>
+        </div>
+        <p id="chuthich" align="center">Những người ăn khoai (The Potato Eaters), Vincent van Gogh, 1885, Bảo tàng Van Gogh, Amsterdam</p>
+<!--TRÊN ĐÂY LÀ PHẦN ĐIỀN HÌNH ẢNH-->
+
+
+
+        <p>
+            Trong bức Tự họa bên giá vẽ (1888), Van Gogh vẽ mình với công cụ sáng tạo của ngành này. Trong bố cục, ông đứng trước giá vẽ của mình, mặc chiếc áo khoác xanh biển kiểu thợ dệt của Bỉ mà ông ưa thích, tay cầm cọ và bảng pha màu. Ông ấy là một nghệ sĩ! Đây là tác phẩm của ông! Lúc này ông đã rời Hà Lan và đến Paris, sống giữa các họa sĩ Ấn tượng đang hớn hở. Và bảng màu của Vincent đã được lau sạch, thay những sắc màu của bùn lầy và đất trồng khoai tây bằng những vệt màu bổ túc tươi sáng như cam/xanh dương và đỏ/xanh lá. Đúng vậy, như chính người họa sĩ đã thốt lên, “màu sắc trong một bức tranh cũng giống như lòng nhiệt thành trong cuộc sống” vậy. Dù vẫn vay mượn di sản của phong cách Baroque Hà Lan trong lối vẽ, những cách bộc lộ bản thân một cách thẳng thắn với chúng ta cũng như cách vẽ sơn trên mặt toan thì lại theo phong cách vẽ đắp của Rembrandt. Ở đây, bằng một phương thức phi thường, Vincent đã tuyên bố mình là một họa sĩ đang làm việc, rất nghiêm túc và tự chủ. Và tấm toan đang chờ đợi ông.
+        </p>
+        
+
+        <div class="my-gallery">
+            <figure align="center">
+                <a href="/Fileanhnoidung/d16.jpg" data-size="700x1000">
+                    <img src="/Fileanhnoidung/d16.jpg" alt="Image 1" width="300">
+                </a>
+            </figure>
+        </div>
+        <p id="chuthich" align="center">Tự họa bên giá vẽ (Self-Portrait by Easel) Vincent Van Gogh, 1888, Bảo tàng Van Gogh, Amsterdam</p>
+
+        <p>
+            Càng ngày, Vincent càng bị mê hoặc bởi rượu absinthe. Sự lệ thuộc tài chính hoàn toàn vào người em trai Theo, cộng với điều mà ngày nay hầu hết mọi người đồng tình là sự xuất hiện thi thoảng của những cơn động kinh, đã khiến ông lún sâu hơn vào cơn nghiện rượu. Trong bức tranh Quán ăn đêm (1888), Vincent ngụp lặn trong một cái lò gây ảo giác của "... một nơi mà con người ta có thể hủy hoại bản thân, hóa điên, hay phạm tội”. Những vị khách trong khung cảnh biểu hiện của Van Gogh – một quán rượu có thật, nơi ông đã đến chè chén suốt ba đêm liền – đang gục xuống bàn, mặt bàn được được phủ lớp sơn lem luốc màu xanh nõn chuối. Những chiếc đèn trần đang nhấp nháy và nền nhà như muốn đổ nhào. Không khí thì chán ngắt và vô vị. Ai có thể phấn chấn trong không khí kiểu này được
+        </p>
+        <div class="my-gallery">
+            <figure align="center">
+                <a href="/Fileanhnoidung/d17.jpg" data-size="1000x700">
+                    <img src="/Fileanhnoidung/d17.jpg" alt="Image 1" width="500">
+                </a>
+            </figure>
+        </div>
+        <p id="chuthich" align="center">Quán ăn đêm (Night Café), Vincent Van Gogh, 1888, Phòng trưng bày Nghệ thuật Đại học Yale, New Haven, Connecticut</p>
+        <p>
+            Mùa hè năm 1890, Van Gogh đã vẽ khung cảnh của những cây lúa mì vàng rực đang dập dìu trước gió bão giữa bầu trời xanh thẫm. Những con quạ đang bay lượn trên cao, nhưng không thể biết được chúng đang bay về phía ta hay bay ra xa. Và cơn bão cũng gây tranh cãi hệt như vậy, không biết là nó đang đến hay đang đi? Vincent đã bố trí ba con đường, hai ở hai bên cánh đồng và một ở ngay giữa bức tranh. Bạn và tôi đang đứng ở chỗ ba con đường giao nhau. Đây là bức tranh vẽ một ngã ba. Đối với tác giả, nó cũng chính là ngã ba cuối cùng của ông. Bầy quạ trên cánh đồng lúa mì là bức tranh cuối cùng của Van Gogh. Vài ngày sau khi hoàn thành nó, ông đã đi ra cánh đồng lúa mì, bắn vào bụng mình, và chết một tuần sau đó.
+        </p>
+        <div class="my-gallery">
+            <figure align="center">
+                <a href="/Fileanhnoidung/d18.jpg" data-size="1000x700">
+                    <img src="/Fileanhnoidung/d18.jpg" alt="Image 1" width="500">
+                </a>
+            </figure>
+        </div>
+        <p id="chuthich" align="center">Bầy quạ trên cánh đồng lúa mì (Wheatfield with Crows), Vincent van Gogh, 1890, Bảo tàng Van Gogh, Amsterdam</p>
+        <p>
+            Vincent viết: “Tình yêu thiên nhiên chính là cách để hiểu nghệ thuật”. Trong bức tranh cuối cùng của mình, ông vẽ một cánh đồng lúa mì màu mỡ, tốt tươi bên dưới những luồng gió thất thường của cơn dòng dữ dội. Mặt toan của ông tràn ngập những màu sắc mang ý nghĩa tượng trưng đối với cá nhân ông, xanh dương và vàng, hai màu của tình yêu. Và rồi những con đường kia dẫn đến...
+        </p>
+        <p>
+            Với tư cách là một mục sư của nghệ thuật, Vincent van Gogh đã để lại cho chúng ta bản tuyên ngôn cuối cùng của ông về tình yêu. Phải, cuộc sống có thể làm ta bầm dập. Những cơn bão, từ ngoài vào hay từ trong ra, có thể khiến chúng ta bỏ chạy để tìm kiếm sự che chở. Đôi lúc, những tiếng nói ầm ĩ của tâm trí ta, của xã hội, truyền thống, gia đình, và bạn bè sẽ làm gián đoạn sự bình yên trong ta giống như đàn quạ đang rít lên vậy. Nhưng lúc nào cũng có một con đường dẫn đến việc nhớ lại bản thể của chúng ta, con đường giúp ta nghe được tiếng nói trầm lắng bên trong. Không cần biết chúng ta đang đi đến ngã ba nào, vào những thời điểm khác nhau trong đời, luôn có vô vàn những phương thức để ta bừng tỉnh và trở nên thông suốt, Ta có thể mở một quyển sách, nhấc điện thoại lên, mở máy vi tính, hay... đi thăm một bảo tàng nghệ thuật.
+        </p>
+        <p>
+            Vincent van Gogh đã cống hiến cả đời mình cho một trong những con đường thông thái và bền vững nhất, con đường có thể chỉ dẫn tất cả chúng ta cách hiểu sâu sắc hơn về chính mình và về người khác. Nghệ thuật có thể giúp ta nhìn thấy sự mầu nhiệm của kiếp người, không phải bằng cách đưa ra những câu trả lời mà chủ yếu là chỉ ra những câu hỏi cơ bản của chúng ta. Tại những ngã ba liên tục xuất hiện trong đời, mối quan hệ thân thiết liên tục với nghệ thuật có thể nhắc chúng ta cách trở thành người tư vẫn khôn ngoan cho chính mình. Trên bức tường nhà bạn hay trong viện bảo tàng, chỉ có bạn và nghệ thuật. Đối diện. Đang sống chậm lại và tập trung vào cuộc sống của bạn. Và dạng nhìn và khác ghi thật sâu mọi thứ về ý nghĩa của việc làm người.
+        </p>
+
+
+        <p><b>Áp dụng ngay</b></p>
+        <p>
+            Chúng ta nhận ra phong cách vẽ của Vincent van Gogh vì nhiều lý do; một trong những nguyên nhân chính là cách dùng rộng rãi những màu nguyên bố túc. Trong bức tranh Bảy qua trên cánh đồng lúa mì, bảng màu sặc sỡ của ông chủ yếu bao gồm các màu bổ túc xanh dương/vàng và đỏ/xanh lá. Những cặp màu bổ túc nào quyến rũ bạn?
+        </p>
+        <p align="center"><b>Hãy chú ý những màu bổ túc trong cuộc sống hằng ngày.</b></p>
+
+
+    
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+    <div id="backtop1" class="vecuoitrang" >
+        <i onclick="scrollToBottom()" class="bi bi-arrow-down-square-fill"></i>
+    </div>
+    <div id="backtop" class="vedautrang">
+        <i onclick="scrollToTop()" class="bi bi-arrow-up-square-fill"></i>
+    </div>
+<!--TRÊN ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+
+
+
+
+<!-- DƯỚI ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+    <!-- PhotoSwipe core JS files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+    <!-- PhotoSwipe template -->
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <div class="pswp__counter"></div>
+                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                    <button class="pswp__button pswp__button--share" title="Share"></button>
+                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div>
+                <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+                <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- TRÊN ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+
+
+</body>
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+<script>
+    function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+function scrollToBottom() {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+    });
+}
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+    loadHighlights();
+
+    document.addEventListener('mouseup', function(e) {
+        const selection = window.getSelection();
+        if (!selection.rangeCount || selection.isCollapsed) {
+            hidePopup();
+            return;
+        }
+
+        const range = selection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+        showPopup(rect.left + window.scrollX, rect.bottom + window.scrollY);
+    });
+
+    document.addEventListener('mousedown', function(e) {
+        const popup = document.getElementById('highlight-popup');
+        if (!popup.contains(e.target)) {
+            hidePopup();
+        }
+    });
+});
+
+function showPopup(x, y) {
+    const popup = document.getElementById('highlight-popup');
+    popup.style.left = x + 'px';
+    popup.style.top = y + 'px';
+    popup.style.display = 'block';
+}
+
+function hidePopup() {
+    const popup = document.getElementById('highlight-popup');
+    popup.style.display = 'none';
+}
+
+function highlightText(color) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    if (range.collapsed) return;
+
+    const span = document.createElement('span');
+    span.className = `highlight highlight-${color}`;
+    range.surroundContents(span);
+
+    saveHighlights();
+    hidePopup();
+}
+
+function removeHighlight() {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    const parentElement = range.commonAncestorContainer.parentElement;
+
+    if (parentElement.classList.contains('highlight')) {
+        const parent = parentElement.parentNode;
+        while (parentElement.firstChild) {
+            parent.insertBefore(parentElement.firstChild, parentElement);
+        }
+        parent.removeChild(parentElement);
+    }
+
+    saveHighlights();
+    hidePopup();
+}
+
+// Hàm lưu các highlight vào local storage
+function saveHighlights() {
+    let highlights = document.querySelectorAll('.highlight-yellow, .highlight-green, .highlight-red');
+    let highlightData = [];
+
+    highlights.forEach((highlight) => {
+        highlightData.push({
+            text: highlight.textContent,
+            class: highlight.className
+        });
+    });
+
+    localStorage.setItem('highlights', JSON.stringify(highlightData));
+}
+// Hàm tải các highlight từ local storage
+function loadHighlights() {
+    let highlightData = JSON.parse(localStorage.getItem('highlights') || '[]');
+    let bodyHtml = document.body.innerHTML;
+
+    highlightData.forEach((highlight) => {
+        let tempDiv = document.createElement('div');
+        tempDiv.textContent = highlight.text;
+        let highlightHtml = `<span class="${highlight.class}">${tempDiv.innerHTML}</span>`;
+        bodyHtml = bodyHtml.replace(highlight.text, highlightHtml);
+    });
+    document.body.innerHTML = bodyHtml;
+}
+
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+
+
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC CỦA CÂU HỎI TƯƠNG TÁC-->
+<!-- <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const textArea = document.getElementById('textArea');
+    const saveButton = document.getElementById('saveButton');
+    const clearButton = document.getElementById('clearButton');
+
+    // Load the saved text from Local Storage when the page loads
+    const savedText = localStorage.getItem('textAreaContent');
+    if (savedText) {
+        textArea.value = savedText;
+    }
+
+    // Save the text to Local Storage when the "Save" button is clicked
+    saveButton.addEventListener('click', function() {
+        localStorage.setItem('textAreaContent', textArea.value);
+        alert('Bạn muốn lưu ghi chép của mình?');
+    });
+
+    // Clear the text from Local Storage and the text area when the "Clear" button is clicked
+    clearButton.addEventListener('click', function() {
+        localStorage.removeItem('textAreaContent');
+        textArea.value = '';
+        alert('Bạn muốn xóa ghi chép?');
+    });
+});
+
+</script> -->
+<script>
+    // Function to save data to local storage
+    function saveData(id) {
+        const data = document.getElementById(id).value;
+        localStorage.setItem(id, data);
+        alert('Câu trả lời của bạn đã được lưu!');
+    }
+
+    // Function to load data from local storage
+    function loadData() {
+        const writingAreas = document.querySelectorAll('.writing-area');
+        writingAreas.forEach(area => {
+            const savedData = localStorage.getItem(area.id);
+            if (savedData) {
+                area.value = savedData;
+            }
+        });
+    }
+
+    // Load data when the page loads
+    window.onload = loadData;
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC CỦA CÂU HỎI TƯƠNG TÁC-->
+
+
+
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+<script>
+    // Initialize PhotoSwipe
+    document.addEventListener('DOMContentLoaded', function() {
+        var initPhotoSwipeFromDOM = function(gallerySelector) {
+            var parseThumbnailElements = function(el) {
+                var thumbElements = el.childNodes,
+                    numNodes = thumbElements.length,
+                    items = [],
+                    figureEl,
+                    linkEl,
+                    size,
+                    item;
+
+                for (var i = 0; i < numNodes; i++) {
+                    figureEl = thumbElements[i];
+
+                    if (figureEl.nodeType !== 1) {
+                        continue;
+                    }
+
+                    linkEl = figureEl.children[0];
+                    size = linkEl.getAttribute('data-size').split('x');
+
+                    item = {
+                        src: linkEl.getAttribute('href'),
+                        w: parseInt(size[0], 10),
+                        h: parseInt(size[1], 10)
+                    };
+
+                    if (figureEl.children.length > 1) {
+                        item.title = figureEl.children[1].innerHTML;
+                    }
+
+                    if (linkEl.children.length > 0) {
+                        item.msrc = linkEl.children[0].getAttribute('src');
+                    }
+
+                    item.el = figureEl;
+                    items.push(item);
+                }
+
+                return items;
+            };
+
+            var closest = function closest(el, fn) {
+                return el && (fn(el) ? el : closest(el.parentNode, fn));
+            };
+
+            var onThumbnailsClick = function(e) {
+                e = e || window.event;
+                e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+                var eTarget = e.target || e.srcElement;
+
+                var clickedListItem = closest(eTarget, function(el) {
+                    return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+                });
+
+                if (!clickedListItem) {
+                    return;
+                }
+
+                var clickedGallery = clickedListItem.parentNode,
+                    childNodes = clickedListItem.parentNode.childNodes,
+                    numChildNodes = childNodes.length,
+                    nodeIndex = 0,
+                    index;
+
+                for (var i = 0; i < numChildNodes; i++) {
+                    if (childNodes[i].nodeType !== 1) {
+                        continue;
+                    }
+
+                    if (childNodes[i] === clickedListItem) {
+                        index = nodeIndex;
+                        break;
+                    }
+                    nodeIndex++;
+                }
+
+                if (index >= 0) {
+                    openPhotoSwipe(index, clickedGallery);
+                }
+                return false;
+            };
+
+            var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+                var pswpElement = document.querySelectorAll('.pswp')[0],
+                    gallery,
+                    options,
+                    items;
+
+                items = parseThumbnailElements(galleryElement);
+
+                options = {
+                    galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+                    getThumbBoundsFn: function(index) {
+                        var thumbnail = items[index].el.getElementsByTagName('img')[0],
+                            pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                            rect = thumbnail.getBoundingClientRect();
+
+                        return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+                    }
+                };
+
+                if (fromURL) {
+                    if (options.galleryPIDs) {
+                        for (var j = 0; j < items.length; j++) {
+                            if (items[j].pid == index) {
+                                options.index = j;
+                                break;
+                            }
+                        }
+                    } else {
+                        options.index = parseInt(index, 10) - 1;
+                    }
+                } else {
+                    options.index = parseInt(index, 10);
+                }
+
+                if (isNaN(options.index)) {
+                    return;
+                }
+
+                if (disableAnimation) {
+                    options.showAnimationDuration = 0;
+                }
+
+                gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+                gallery.init();
+            };
+
+            var galleryElements = document.querySelectorAll(gallerySelector);
+
+            for (var i = 0, l = galleryElements.length; i < l; i++) {
+                galleryElements[i].setAttribute('data-pswp-uid', i + 1);
+                galleryElements[i].onclick = onThumbnailsClick;
+            }
+        };
+
+        initPhotoSwipeFromDOM('.my-gallery');
+    });
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+
+
+
+</html>

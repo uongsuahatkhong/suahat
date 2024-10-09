@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 14 phần 1</title>
+    <!--DƯỚI ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+<style type="text/css">
+    body{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 21px;
+        width: 960px;
+        margin: 0 auto;
+        text-align: justify;
+        line-height: 1.5;
+    }
+    p{
+        text-indent: 40px;
+    }
+</style>
+<style>
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+<style>
+    .highlight-yellow { background-color: rgb(255, 255, 71); }
+    .highlight-red { background-color: rgb(132, 230, 255); }
+    .highlight-green { background-color: rgb(125, 255, 125); }
+    .highlight-popup {
+        display: none;
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        z-index: 1000;
+    }
+    .highlight-popup button {
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC TRẢ LỜI CÂU TƯƠNG TÁC-->
+<style>
+    #textArea {
+        width: 100%;
+        height: 200px;
+    }
+    #saveButton, #clearButton {
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC TRẢ LỜI CÂU TƯƠNG TÁC-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+<style type="text/css">
+    a:hover{
+            text-decoration: none;
+        }
+        a[data-tooltip]{
+            border-bottom: 1px dotted #333;
+            position:relative;
+        }
+        a[data-tooltip]::before{
+            content: attr(data-tooltip);
+            position:absolute;
+            background: #ffafaf;
+            font-size:14px;
+            color: black;
+            text-align: justify;
+            padding: 3px 9px;
+            border-radius: 6px;
+            width: 250px;
+            left: -800%;
+            right: -800%;
+            bottom: 100%;
+            display: none;
+        }
+    a[data-tooltip]:hover::before{
+        display: block;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+
+
+<link rel="stylesheet" href="cssnoidung.css">
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+    <style>
+        .my-gallery img:hover {
+            transform: scale(1.05);
+        }
+        .my-gallery img {
+            /* width: 200px; */
+            height: auto;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+</head>
+
+<body id="text" >
+    <!--DƯỚI ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+    <div class="thanhphai">
+        <a target="_self" href="/File htmlnoidung/chuong14phan2.html"><button id="nut1"><i class="bi bi-arrow-right-circle-fill"></i></button></a>
+    </div>
+    <div class="thanhtrai">
+        <a target="_self" href="/File htmlnoidung/chuong13phan2.html"><button id="nut2"><i class="bi bi-arrow-left-circle-fill"></i></button></a>
+    </div>
+    <!--TRÊN ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+    <div class="highlight-popup" id="highlight-popup">
+        <!-- <p align="center" id="takenote">Ghi chú</p> -->
+        <button onclick="highlightText('yellow')" id="notevang"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('red')" id="notedo"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('green')" id="notexanh"><i class="bi bi-square-fill"></i></button>
+        <button onclick="removeHighlight()" id="xoanote"><i class="bi bi-eraser-fill"></i></i></button>
+    </div>
+<!--TRÊN ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+
+
+
+<!--PHẦN BẮT ĐẦU NỘI DUNG CHÍNH-->
+
+    <div align="center" style="margin-top: 20px;"><img src="/Fileanhnoidung/bannerchuong14.png"></div>
+    <h1 align="center">
+        Chương 14 <br/> Ánh sáng thoáng qua của Chủ nghĩa Ấn tượng
+    </h1>
+    <p align="center" style="font-size: 30px;">(Thập niên 1970)</p>
+    <h2>
+        1. Lưu giữ lại khoảnh khắc ngắn ngủi
+    </h2>
+    <p>
+        Vào những năm 1970, kỹ thuật nhiếp ảnh đã phát triển ổn định. Trong nháy mắt, cánh cửa nhìn ra thế giới (với nghĩa đen) của chúng ta có thể được chụp lại một cách chi tiết từ tất cả mọi chiêu. Tuy nhiên, một nhóm các nghệ sĩ, tự gọi mình là Hội Nghệ sĩ, họa sĩ, điêu khắc gia và nhà chạm trổ vô danh lại cho rằng những gì bạn và tôi thực sự nhìn thấy trong mỗi khoảnh khắc đều trái ngược hoàn toàn với những gì máy ảnh chụp lại. Và họ bắt đầu tìm hiểu về điều này
+    </p>
+    <p>
+        Năm 1874, những nghệ sĩ này mở cuộc triển lãm nhóm đầu tiên. Họ có tính chống đối vòng kim kẹp của Viện hàn lâm, lúc này vẫn còn rất mạnh và phổ biến. Trong khi nghệ thuật hàn lâm cố gắng phấn đấu vì sự vĩnh hằng trong nghệ thuật, những họa sĩ này lại liều lĩnh vẽ những thời điểm. Làm thế nào để vẽ lại tất cả trong một khoảnh khác ngân ngủ? Nhận thức của chúng ta, giây phút bừng tỉnh của chúng ta nằm trong màn trình diễn ngắn ngủi của ánh sáng trên bề mặt sự vật. Và cảm nhận tức thời đó được xác định bởi màu sắc.
+    </p>
+    <p>
+        Các nhà phê bình và công chúng xả và những con người có tư tưởng táo bạo này, cho rằng tác phẩm của họ còn dang dở, chỉ đơn thuần là những ký họa. Xét cho cùng, bạn phải vẽ thật nhanh nếu muốn miêu tả một khoảnh khắc. Cho nên, nét cọ của họ rất hối hả và đa chiều. Bay màu của họ đẩy những màu mạnh và chói gắt (rất không hàn lâm), và khối của họ thì khá cứng (cực kỳ không hàn lâm). Một nhà phê bình đã lấy tên một bức tranh của Claude Monet để chỉ trích toàn bộ các triển lãm nhóm. Đó là tác phẩm Ấn tượng: Buổi bình minh (1872), Chi nghĩa Ấn tượng đã ra đời từ đó.
+    </p>
+    <p>
+        Claude Monet đã thức tỉnh. Đôi mắt ông mở to và nhạy cảm với sự thay đổi. Ông ủng hộ việc vẽ ngoài trời (plein-air) nhằm ghi lại sự thay đổi không ngừng của không khí. Và với những thành tựu kỹ thuật đương thời, việc có thể mua màu vẽ đựng trong tuýp khiến việc về ngoài trời trở nên vô cùng dễ dàng.
+    </p>
+    <p>
+        Monet có khuynh hướng vẽ những cảm nhận thị giác thoáng qua Ông không hề thích thú với việc mô phỏng lại một phong cảnh tĩnh Trải nghiệm của ông linh hoạt hơn. Ông nuôi dưỡng một “con mắt ngây thơ”. Cũng giống như khi bạn bị cảm nặng và rồi có một khoảnh khắc bạn cảm nhận được mình đang khỏi dần, bạn biết cảm giác đó phải không? Mắt bạn thấy rõ những điều hiện ra phía trước, giống như một tấm màn đã được vén lên. Monet tìm cách vẽ lại khoảnh khắc đó.
+    </p>
+        
+
+<!--DƯỚI ĐÂY LÀ PHẦN ĐIỀN HÌNH ẢNH-->
+        <div class="my-gallery">
+            <figure align="center">
+                <a href="/Fileanhnoidung/d8.jpg" data-size="1000x700">
+                    <img src="/Fileanhnoidung/d8.jpg" alt="Image 1" width="600">
+                </a>
+            </figure>
+            
+        </div>
+        <p id="chuthich" align="center">Ấn tượng: Buổi bình minh (Impression: Sunrise), Claude Monet, 1872, Bảo tàng Musee Marmottan, Paris</p>
+<!--TRÊN ĐÂY LÀ PHẦN ĐIỀN HÌNH ẢNH-->
+
+        <p>
+            Một cách mà Monet dùng để luyện tập sự tập trung cao độ của tri giác là vẽ đi vẽ lại một đề tài vào những thời điểm khác nhau trong ngày, nhờ đó ghi lại được sự thay đổi của ánh sáng và thời tiết. Một loạt những bức vẽ về đống rơm hay nhà thờ của ông cho thấy những bề mặt mà mắt ta thường xác định thông qua màu sắc của chúng, nay vỡ vụn thành những nhát cọ dồn dập.
+        </p>
+        <p>
+            Hãy ngước lên và cảm nhận ánh sáng bộc lộ màu sắc. Đó có phải là một đống rơm không? Hãy nhìn lên một lần nữa và màu sắc đã thay đổi, đống rơm giờ đây đã sẫm màu hơn. Ngay cả những cái bóng, bóng của chúng ta, cũng do màu sắc tạo nên.
+        </p>
+        <p>
+            Mặc dù các họa sĩ Ấn tượng hướng sự chú ý của họ vào màn trình diễn thoáng qua của ánh sáng trên sự vật, họ vẫn phải chọn ra trọng tâm. Và đa số đều chọn những chủ đề dễ được chấp nhận như cắm trại, chèo thuyền, dạo chơi qua cánh đồng hoa, và khiêu vũ.
+        </p>
+
+        <div class="my-gallery">
+            <figure align="center">
+                <a href="/Fileanhnoidung/d9.jpg" data-size="1000x700">
+                    <img src="/Fileanhnoidung/d9.jpg" alt="Image 1" width="700">
+                </a>
+            </figure>
+        </div>
+        <p id="chuthich" align="center">Vũ hội ở cối xay gió Bánh mì (Moulin de la Galette), Pierre-Auguste Renoir, 1876, Bảo tàng Musee d’Orsay, Paris</p>
+
+        <p>
+            Cụ thể là Pierre-Auguste Renoir, họa sĩ tạo dựng được sự nghiệp thành công nhờ vẽ những khung cảnh yên ả lúc nhàn rỗi của giới trung lưu. Bức tranh Vũ hội ở Moulin de la Galette (1876) của ông cho chúng ta một bức ảnh chụp nhanh về đời sống của những người ưa giao du kết bạn đương thời. Ở Paris, những cối xay gió cũ như thế này thường được biến thành những sàn khiêu vũ. Vào những buổi chiều Chủ nhật, vũ hội được tổ chức và giới trung lưu ở khu vực lân cận tụ tập ngoài trời trong không khí tưng bừng. Renoir đã vẽ lại khung cảnh ấy, chộp lấy những cuộc truyện trò tắm trong những đốm sáng nhảy nhót. Sự náo nhiệt thoải mái này hết sức tự nhiên và có sức lan tỏa. Những người phụ nữ xinh đẹp, những người đàn ông đang mỉm cười. Và bảng màu sống động theo trường phái Ấn tượng của Renoir thì làm say lòng người.
+        </p>
+        <p>
+            Tuy nhiên, không phải tất cả các quán ăn trong thời kỳ nghệ thuật Ấn tượng đều trên trập ánh sáng và niềm vui, Trong bức Người uống rượu absinthe (187%) của Edgar Degas, chúng ta được chứng kiến một hoạt động giải khuây khác của dân Paris. Trong bối cảnh xã hội này, một người đàn ông và một phụ nữ ngồi cùng một bàn trong quán rượu, với thức uống để trước mặt, nhưng lại xa cách nhau. Người đàn ông tỉnh táo, tay đặt trên bàn và ngồi hướng về phía trước. Người phụ nữ thì ngược lại, bị bỏ quên ngoài rìa của cái bản chung, có ngôi rủ ra với đòi mặt làm dìm. Tây có khuất dưới gầm bàn, như thế chúng không họ tồn tại. Cô nhìn lơ dâng về phía trước. Cô đang uống thứ rượu Absinthe màu vàng chanh nổi tiếng, loại rượu được giới họa sĩ tiến phong va chuộng. Nói cay dùng trong bức tranh có thể làm ta say mê mà cũng có sức tàn phá ghê gớm, Cuộc sống hiện đại đấu chỉ có những buổi dã ngoại và đua ngựa như bề ngoài. Và nhân dây, Degas cũng xếp chúng ta ngồi vào chiếc bàn đối diện cô gái kia. Vậy thú vui của bạn là gì?
+        </p>
+        <div class="my-gallery">
+            <figure align="center">
+                <a href="/Fileanhnoidung/d10.jpg" data-size="1000x700">
+                    <img src="/Fileanhnoidung/d10.jpg" alt="Image 1" width="500">
+                </a>
+            </figure>
+        </div>
+        <p id="chuthich" align="center">Những người uống rượu absinthe (Absinthe Drinker), Edgar Degas, 1876, Bảo tàng Musee d’Orsay, Paris</p>
+        <div class="my-gallery">
+            <figure align="center">
+                <a href="/Fileanhnoidung/d10(1).png" data-size="1000x700">
+                    <img src="/Fileanhnoidung/d10(1).png" alt="Image 1" width="700">
+                </a>
+            </figure>
+        </div>
+        <p><b>Áp dụng ngay</b></p>
+        <p>
+            “Đôi mắt ngây thơ” của Monet có thể mang đến sự hiếu kỳ tươi mới cho mỗi ngày, đúng hơn là cho cuộc sống của chúng ta. Để luyện tập thêm về cách tập trung, hãy lưu tâm đến những vật dụng bạn cầm trên tay mỗi ngày mà trước đây bạn chưa từng thực sự nhìn kỹ. Điện thoại di động của bạn, tách cà phê, hay tay của người bạn yêu? Lần tới, khi bạn cầm một thứ gì, hãy thật sự nhìn vào nó. Hãy tập trung suy nghĩ về nó. Hãy chú ý đến màu sắc, hình dáng, dường nét, và kết cấu của nó. Hãy cảm nhận thứ bạn đang cầm trên tay. Sau đó, nhìn vào nó một lần nữa và quan sát sự thay đổi của nó khi ánh sáng thay đổi. Mỗi khoảnh khắc đều mới mẻ.
+        </p>
+        <p align="center"><b>Hãy chú ý những thứ bạn cầm trong tay.</b></p>
+    
+
+
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+    <div id="backtop1" class="vecuoitrang" >
+        <i onclick="scrollToBottom()" class="bi bi-arrow-down-square-fill"></i>
+    </div>
+    <div id="backtop" class="vedautrang">
+        <i onclick="scrollToTop()" class="bi bi-arrow-up-square-fill"></i>
+    </div>
+<!--TRÊN ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+
+
+
+
+<!-- DƯỚI ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+    <!-- PhotoSwipe core JS files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+    <!-- PhotoSwipe template -->
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <div class="pswp__counter"></div>
+                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                    <button class="pswp__button pswp__button--share" title="Share"></button>
+                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div>
+                <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+                <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- TRÊN ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+
+
+</body>
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+<script>
+    function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+function scrollToBottom() {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+    });
+}
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+    loadHighlights();
+
+    document.addEventListener('mouseup', function(e) {
+        const selection = window.getSelection();
+        if (!selection.rangeCount || selection.isCollapsed) {
+            hidePopup();
+            return;
+        }
+
+        const range = selection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+        showPopup(rect.left + window.scrollX, rect.bottom + window.scrollY);
+    });
+
+    document.addEventListener('mousedown', function(e) {
+        const popup = document.getElementById('highlight-popup');
+        if (!popup.contains(e.target)) {
+            hidePopup();
+        }
+    });
+});
+
+function showPopup(x, y) {
+    const popup = document.getElementById('highlight-popup');
+    popup.style.left = x + 'px';
+    popup.style.top = y + 'px';
+    popup.style.display = 'block';
+}
+
+function hidePopup() {
+    const popup = document.getElementById('highlight-popup');
+    popup.style.display = 'none';
+}
+
+function highlightText(color) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    if (range.collapsed) return;
+
+    const span = document.createElement('span');
+    span.className = `highlight highlight-${color}`;
+    range.surroundContents(span);
+
+    saveHighlights();
+    hidePopup();
+}
+
+function removeHighlight() {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    const parentElement = range.commonAncestorContainer.parentElement;
+
+    if (parentElement.classList.contains('highlight')) {
+        const parent = parentElement.parentNode;
+        while (parentElement.firstChild) {
+            parent.insertBefore(parentElement.firstChild, parentElement);
+        }
+        parent.removeChild(parentElement);
+    }
+
+    saveHighlights();
+    hidePopup();
+}
+
+// Hàm lưu các highlight vào local storage
+function saveHighlights() {
+    let highlights = document.querySelectorAll('.highlight-yellow, .highlight-green, .highlight-red');
+    let highlightData = [];
+
+    highlights.forEach((highlight) => {
+        highlightData.push({
+            text: highlight.textContent,
+            class: highlight.className
+        });
+    });
+
+    localStorage.setItem('highlights', JSON.stringify(highlightData));
+}
+// Hàm tải các highlight từ local storage
+function loadHighlights() {
+    let highlightData = JSON.parse(localStorage.getItem('highlights') || '[]');
+    let bodyHtml = document.body.innerHTML;
+
+    highlightData.forEach((highlight) => {
+        let tempDiv = document.createElement('div');
+        tempDiv.textContent = highlight.text;
+        let highlightHtml = `<span class="${highlight.class}">${tempDiv.innerHTML}</span>`;
+        bodyHtml = bodyHtml.replace(highlight.text, highlightHtml);
+    });
+    document.body.innerHTML = bodyHtml;
+}
+
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+
+
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC CỦA CÂU HỎI TƯƠNG TÁC-->
+<!-- <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const textArea = document.getElementById('textArea');
+    const saveButton = document.getElementById('saveButton');
+    const clearButton = document.getElementById('clearButton');
+
+    // Load the saved text from Local Storage when the page loads
+    const savedText = localStorage.getItem('textAreaContent');
+    if (savedText) {
+        textArea.value = savedText;
+    }
+
+    // Save the text to Local Storage when the "Save" button is clicked
+    saveButton.addEventListener('click', function() {
+        localStorage.setItem('textAreaContent', textArea.value);
+        alert('Bạn muốn lưu ghi chép của mình?');
+    });
+
+    // Clear the text from Local Storage and the text area when the "Clear" button is clicked
+    clearButton.addEventListener('click', function() {
+        localStorage.removeItem('textAreaContent');
+        textArea.value = '';
+        alert('Bạn muốn xóa ghi chép?');
+    });
+});
+
+</script> -->
+<script>
+    // Function to save data to local storage
+    function saveData(id) {
+        const data = document.getElementById(id).value;
+        localStorage.setItem(id, data);
+        alert('Câu trả lời của bạn đã được lưu!');
+    }
+
+    // Function to load data from local storage
+    function loadData() {
+        const writingAreas = document.querySelectorAll('.writing-area');
+        writingAreas.forEach(area => {
+            const savedData = localStorage.getItem(area.id);
+            if (savedData) {
+                area.value = savedData;
+            }
+        });
+    }
+
+    // Load data when the page loads
+    window.onload = loadData;
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC CỦA CÂU HỎI TƯƠNG TÁC-->
+
+
+
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+<script>
+    // Initialize PhotoSwipe
+    document.addEventListener('DOMContentLoaded', function() {
+        var initPhotoSwipeFromDOM = function(gallerySelector) {
+            var parseThumbnailElements = function(el) {
+                var thumbElements = el.childNodes,
+                    numNodes = thumbElements.length,
+                    items = [],
+                    figureEl,
+                    linkEl,
+                    size,
+                    item;
+
+                for (var i = 0; i < numNodes; i++) {
+                    figureEl = thumbElements[i];
+
+                    if (figureEl.nodeType !== 1) {
+                        continue;
+                    }
+
+                    linkEl = figureEl.children[0];
+                    size = linkEl.getAttribute('data-size').split('x');
+
+                    item = {
+                        src: linkEl.getAttribute('href'),
+                        w: parseInt(size[0], 10),
+                        h: parseInt(size[1], 10)
+                    };
+
+                    if (figureEl.children.length > 1) {
+                        item.title = figureEl.children[1].innerHTML;
+                    }
+
+                    if (linkEl.children.length > 0) {
+                        item.msrc = linkEl.children[0].getAttribute('src');
+                    }
+
+                    item.el = figureEl;
+                    items.push(item);
+                }
+
+                return items;
+            };
+
+            var closest = function closest(el, fn) {
+                return el && (fn(el) ? el : closest(el.parentNode, fn));
+            };
+
+            var onThumbnailsClick = function(e) {
+                e = e || window.event;
+                e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+                var eTarget = e.target || e.srcElement;
+
+                var clickedListItem = closest(eTarget, function(el) {
+                    return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+                });
+
+                if (!clickedListItem) {
+                    return;
+                }
+
+                var clickedGallery = clickedListItem.parentNode,
+                    childNodes = clickedListItem.parentNode.childNodes,
+                    numChildNodes = childNodes.length,
+                    nodeIndex = 0,
+                    index;
+
+                for (var i = 0; i < numChildNodes; i++) {
+                    if (childNodes[i].nodeType !== 1) {
+                        continue;
+                    }
+
+                    if (childNodes[i] === clickedListItem) {
+                        index = nodeIndex;
+                        break;
+                    }
+                    nodeIndex++;
+                }
+
+                if (index >= 0) {
+                    openPhotoSwipe(index, clickedGallery);
+                }
+                return false;
+            };
+
+            var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+                var pswpElement = document.querySelectorAll('.pswp')[0],
+                    gallery,
+                    options,
+                    items;
+
+                items = parseThumbnailElements(galleryElement);
+
+                options = {
+                    galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+                    getThumbBoundsFn: function(index) {
+                        var thumbnail = items[index].el.getElementsByTagName('img')[0],
+                            pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                            rect = thumbnail.getBoundingClientRect();
+
+                        return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+                    }
+                };
+
+                if (fromURL) {
+                    if (options.galleryPIDs) {
+                        for (var j = 0; j < items.length; j++) {
+                            if (items[j].pid == index) {
+                                options.index = j;
+                                break;
+                            }
+                        }
+                    } else {
+                        options.index = parseInt(index, 10) - 1;
+                    }
+                } else {
+                    options.index = parseInt(index, 10);
+                }
+
+                if (isNaN(options.index)) {
+                    return;
+                }
+
+                if (disableAnimation) {
+                    options.showAnimationDuration = 0;
+                }
+
+                gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+                gallery.init();
+            };
+
+            var galleryElements = document.querySelectorAll(gallerySelector);
+
+            for (var i = 0, l = galleryElements.length; i < l; i++) {
+                galleryElements[i].setAttribute('data-pswp-uid', i + 1);
+                galleryElements[i].onclick = onThumbnailsClick;
+            }
+        };
+
+        initPhotoSwipeFromDOM('.my-gallery');
+    });
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+
+
+
+</html>
