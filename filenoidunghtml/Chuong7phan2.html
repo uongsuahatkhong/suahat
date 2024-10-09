@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 7 Phần 2</title>
+    <!--DƯỚI ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+<style type="text/css">
+    body{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 21px;
+        width: 960px;
+        margin: 0 auto;
+        text-align: justify;
+        line-height: 1.5;
+    }
+    p{
+        text-indent: 40px;
+    }
+</style>
+<style>
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+<style>
+    .highlight-yellow { background-color: rgb(255, 255, 71); }
+    .highlight-red { background-color: rgb(132, 230, 255); }
+    .highlight-green { background-color: rgb(125, 255, 125); }
+    .highlight-popup {
+        display: none;
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        z-index: 1000;
+    }
+    .highlight-popup button {
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+<style type="text/css">
+    a:hover{
+            text-decoration: none;
+        }
+        a[data-tooltip]{
+            border-bottom: 1px dotted #333;
+            position:relative;
+        }
+        a[data-tooltip]::before{
+            content: attr(data-tooltip);
+            position:absolute;
+            background: #ffafaf;
+            font-size:14px;
+            color: black;
+            text-align: justify;
+            padding: 3px 9px;
+            border-radius: 6px;
+            width: 250px;
+            left: -800%;
+            right: -800%;
+            bottom: 100%;
+            display: none;
+        }
+    a[data-tooltip]:hover::before{
+        display: block;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+
+
+<link rel="stylesheet" href="cssnoidung.css">
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+    <style>
+        .my-gallery img:hover {
+            transform: scale(1.05);
+        }
+        .my-gallery img {
+            /* width: 200px; */
+            height: auto;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+</head>
+
+<body id="text" >
+    <!--DƯỚI ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+    <div class="thanhphai">
+        <a target="_self" href="Chuong7phan3.html"><button id="nut1"><i class="bi bi-arrow-right-circle-fill"></i></button></a>
+    </div>
+    <div class="thanhtrai">
+        <a target="_self" href="Chuong7phan1.html"><button id="nut2"><i class="bi bi-arrow-left-circle-fill"></i></button></a>
+    </div>
+    <!--TRÊN ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+    <div class="highlight-popup" id="highlight-popup">
+        <!-- <p align="center" id="takenote">Ghi chú</p> -->
+        <button onclick="highlightText('yellow')" id="notevang"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('red')" id="notedo"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('green')" id="notexanh"><i class="bi bi-square-fill"></i></button>
+        <button onclick="removeHighlight()" id="xoanote"><i class="bi bi-eraser-fill"></i></i></button>
+    </div>
+<!--TRÊN ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+<div id="backtop1" class="vecuoitrang" >
+    <i onclick="scrollToBottom()" class="bi bi-arrow-down-square-fill"></i>
+</div>
+<div id="backtop" class="vedautrang">
+    <i onclick="scrollToTop()" class="bi bi-arrow-up-square-fill"></i>
+</div>
+<!--TRÊN ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+
+<!-- DƯỚI ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+<!-- PhotoSwipe core JS files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<!-- PhotoSwipe template -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TRÊN ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+</body>
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+<script>
+function scrollToTop() {
+window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+});
+}
+
+function scrollToBottom() {
+window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: 'smooth'
+});
+}
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+loadHighlights();
+
+document.addEventListener('mouseup', function(e) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount || selection.isCollapsed) {
+        hidePopup();
+        return;
+    }
+
+    const range = selection.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+    showPopup(rect.left + window.scrollX, rect.bottom + window.scrollY);
+});
+
+document.addEventListener('mousedown', function(e) {
+    const popup = document.getElementById('highlight-popup');
+    if (!popup.contains(e.target)) {
+        hidePopup();
+    }
+});
+});
+
+function showPopup(x, y) {
+const popup = document.getElementById('highlight-popup');
+popup.style.left = x + 'px';
+popup.style.top = y + 'px';
+popup.style.display = 'block';
+}
+
+function hidePopup() {
+const popup = document.getElementById('highlight-popup');
+popup.style.display = 'none';
+}
+
+function highlightText(color) {
+const selection = window.getSelection();
+if (!selection.rangeCount) return;
+
+const range = selection.getRangeAt(0);
+if (range.collapsed) return;
+
+const span = document.createElement('span');
+span.className = `highlight highlight-${color}`;
+range.surroundContents(span);
+
+saveHighlights();
+hidePopup();
+}
+
+function removeHighlight() {
+const selection = window.getSelection();
+if (!selection.rangeCount) return;
+
+const range = selection.getRangeAt(0);
+const parentElement = range.commonAncestorContainer.parentElement;
+
+if (parentElement.classList.contains('highlight')) {
+    const parent = parentElement.parentNode;
+    while (parentElement.firstChild) {
+        parent.insertBefore(parentElement.firstChild, parentElement);
+    }
+    parent.removeChild(parentElement);
+}
+
+saveHighlights();
+hidePopup();
+}
+
+// Hàm lưu các highlight vào local storage
+function saveHighlights() {
+let highlights = document.querySelectorAll('.highlight-yellow, .highlight-green, .highlight-red');
+let highlightData = [];
+
+highlights.forEach((highlight) => {
+    highlightData.push({
+        text: highlight.textContent,
+        class: highlight.className
+    });
+});
+
+localStorage.setItem('highlights', JSON.stringify(highlightData));
+}
+// Hàm tải các highlight từ local storage
+function loadHighlights() {
+let highlightData = JSON.parse(localStorage.getItem('highlights') || '[]');
+let bodyHtml = document.body.innerHTML;
+
+highlightData.forEach((highlight) => {
+    let tempDiv = document.createElement('div');
+    tempDiv.textContent = highlight.text;
+    let highlightHtml = `<span class="${highlight.class}">${tempDiv.innerHTML}</span>`;
+    bodyHtml = bodyHtml.replace(highlight.text, highlightHtml);
+});
+document.body.innerHTML = bodyHtml;
+}
+
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+<script>
+    // Initialize PhotoSwipe
+    document.addEventListener('DOMContentLoaded', function() {
+        var initPhotoSwipeFromDOM = function(gallerySelector) {
+            var parseThumbnailElements = function(el) {
+                var thumbElements = el.childNodes,
+                    numNodes = thumbElements.length,
+                    items = [],
+                    figureEl,
+                    linkEl,
+                    size,
+                    item;
+
+                for (var i = 0; i < numNodes; i++) {
+                    figureEl = thumbElements[i];
+
+                    if (figureEl.nodeType !== 1) {
+                        continue;
+                    }
+
+                    linkEl = figureEl.children[0];
+                    size = linkEl.getAttribute('data-size').split('x');
+
+                    item = {
+                        src: linkEl.getAttribute('href'),
+                        w: parseInt(size[0], 10),
+                        h: parseInt(size[1], 10)
+                    };
+
+                    if (figureEl.children.length > 1) {
+                        item.title = figureEl.children[1].innerHTML;
+                    }
+
+                    if (linkEl.children.length > 0) {
+                        item.msrc = linkEl.children[0].getAttribute('src');
+                    }
+
+                    item.el = figureEl;
+                    items.push(item);
+                }
+
+                return items;
+            };
+
+            var closest = function closest(el, fn) {
+                return el && (fn(el) ? el : closest(el.parentNode, fn));
+            };
+
+            var onThumbnailsClick = function(e) {
+                e = e || window.event;
+                e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+                var eTarget = e.target || e.srcElement;
+
+                var clickedListItem = closest(eTarget, function(el) {
+                    return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+                });
+
+                if (!clickedListItem) {
+                    return;
+                }
+
+                var clickedGallery = clickedListItem.parentNode,
+                    childNodes = clickedListItem.parentNode.childNodes,
+                    numChildNodes = childNodes.length,
+                    nodeIndex = 0,
+                    index;
+
+                for (var i = 0; i < numChildNodes; i++) {
+                    if (childNodes[i].nodeType !== 1) {
+                        continue;
+                    }
+
+                    if (childNodes[i] === clickedListItem) {
+                        index = nodeIndex;
+                        break;
+                    }
+                    nodeIndex++;
+                }
+
+                if (index >= 0) {
+                    openPhotoSwipe(index, clickedGallery);
+                }
+                return false;
+            };
+
+            var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+                var pswpElement = document.querySelectorAll('.pswp')[0],
+                    gallery,
+                    options,
+                    items;
+
+                items = parseThumbnailElements(galleryElement);
+
+                options = {
+                    galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+                    getThumbBoundsFn: function(index) {
+                        var thumbnail = items[index].el.getElementsByTagName('img')[0],
+                            pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                            rect = thumbnail.getBoundingClientRect();
+
+                        return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+                    }
+                };
+
+                if (fromURL) {
+                    if (options.galleryPIDs) {
+                        for (var j = 0; j < items.length; j++) {
+                            if (items[j].pid == index) {
+                                options.index = j;
+                                break;
+                            }
+                        }
+                    } else {
+                        options.index = parseInt(index, 10) - 1;
+                    }
+                } else {
+                    options.index = parseInt(index, 10);
+                }
+
+                if (isNaN(options.index)) {
+                    return;
+                }
+
+                if (disableAnimation) {
+                    options.showAnimationDuration = 0;
+                }
+
+                gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+                gallery.init();
+            };
+
+            var galleryElements = document.querySelectorAll(gallerySelector);
+
+            for (var i = 0, l = galleryElements.length; i < l; i++) {
+                galleryElements[i].setAttribute('data-pswp-uid', i + 1);
+                galleryElements[i].onclick = onThumbnailsClick;
+            }
+        };
+
+        initPhotoSwipeFromDOM('.my-gallery');
+    });
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+
+<!--PHẦN BẮT ĐẦU NỘI DUNG CHÍNH-->
+<h2>
+    2. Nghệ thuật Phục hưng Ý
+<br>và Sự hoàn mỹ có tiết chế
+</h2>
+<p>
+    Trong suốt thế kỷ 15, thành Florence đã tái khám phá thế giới Hy Lạp và La Mã Cổ điển. Và sự hồi sinh (hay còn gọi là Phục hưng) của những tư tưởng Cổ điển đã bén rễ. Một lần nữa, những quy tắc về sự cân bằng, tính đối xứng, tỉ lệ, và sự tiết chế lại được đề cao. Tuy nhiên, dù con người đã lấy lại được vai trò là “chuẩn mực cho mọi sự” của mình, nhưng đạo Kitô lúc này đang ở trên đỉnh cao của quyền lực, tiếp tục ảnh hưởng của mình từ thời Trung cổ.
+</p>
+<div class="my-gallery">
+    <figure align="center">
+        <a href="/fileanhhtml/a24.jpg" data-size="400x700">
+            <img src="/fileanhhtml/a24.jpg" alt="Image 2" width="400">
+        </a>
+    </figure>
+</div>
+<p id="chuthich" align="center"><i>Chúa ba ngôi (The Holy Trinity)</i>, Masaccio, 1428, Giáo đường Santa Maria Novella, Florence
+    </p>
+<p>
+    Trong lĩnh vực hội họa, họa sĩ Masaccio đã phác thảo phong cách Phục hưng Ý trong các tác phẩm của mình, như bức bích họa <i>Chúa ba ngôi</i> (1428). Giotto hướng sự chú ý trở lại thế giới loài người, còn Masaccio đã mô phỏng thế giới quá hoàn hảo đến nỗi đôi mắt của chúng ta có thể bị đánh lừa (<b>trompe l'oeil</b>) mà tin rằng, ví dụ, một cái cột trong tranh là một cái cột thực sự. <b>Kỹ thuật tô bóng</b> và <b>phối cảnh tuyến tính</b> do Masaccio phát triển đã tạo khối tròn và độ sâu không gian đầy thuyết phục. Vì vậy, hàng thể kỷ sau đó, khán giả phương Tây luôn mong đợi những bức tranh sẽ là “cửa sổ nhìn ra thế giới”. Hệt như khi ta nhìn ra ngoài cửa sổ và trông thấy con người, cây cối, và bầu trời, ta cũng muốn có được cách xử lý về không gian, màu sắc, và ánh sáng thật như vậy trên mặt toan. Một lần nữa, nghệ thuật Phục hưng Ý mô phỏng lại những khung cảnh đó, và luôn làm cho hiện thực trở nên hoàn mỹ hơn.
+</p>
+<p>
+    Trong những tác phẩm của Masaccio, sự biểu lộ cảm xúc của các nhân vật trong tranh của Giotto đã phải nhường bước cho sự tiết chế của phong cách Phục hưng. Theo phong cách Cổ điển, cơ thể hoàn hảo, nét mặt, và thậm chí màu sắc và đường nét đều nằm trong sự kiểm soát bất biến. Trong bức tranh <i>Chúa ba ngôi</i> của mình, Masaccio đặt những nhân vật vào một ô mái vòm kiểu La Mã Cổ điển, và sắp xếp họ ở hai bên. Trong bố cục cân bằng hoàn hảo này - hiếm gặp trong đời thực - Đức Chúa Cha đứng một cách vững chãi trên đỉnh của một nhóm người hình tam giác, đỡ lấy Chúa Giê su bị đóng đinh bên dưới. Tất cả những nhân vật trong tranh đều đứng bình tĩnh, vững chãi trên nền nhà, và dáng vẻ rất kiềm chế. Đối với Giáo hội Ý thời Phục hưng, hình dạng ổn định và hài hòa mang lại thông điệp về sự vĩnh cửu.
+</p>
+<p>
+    <b>Kỹ thuật tạo không gian: Phối cảnh Tuyến tính (Linear Perspective)</b>
+</p>
+<p>
+    Thời kỳ phục hưng Ý là giai đoạn mà cả nghệ thuật lẫn các ngành khoa học đều có những phát triển vượt bậc. Và hai lĩnh vực này thường liên kết với nhau, như trong cách sắp đặt không gian có tính toán được gọi là phối cảnh tuyến tính. Vượt ra khỏi kỹ thuật che lấp để tạo ra một ảo giác về chiều sâu không gian đầy thuyết phục, những đường song song (trực giao) được vẽ hội tụ về một hay nhiều điểm tụ nằm trên một đường tầm mắt thật hoặc ảo. Hãy nghĩ tới đường ray xe lửa và bạn sẽ hiểu ra vấn đề.
+</p>
+<p>
+    Những đường trực giao là một phương pháp hữu hiệu để thuyết phục chúng ta bước vào trong tranh và bước xuống con đường phía trước. Và rồi không cần nhọc công, tấm toan phẳng có thể biến thành khung cửa sổ mà ta có thể nhìn qua đó. Một lần nữa, hãy nhìn vào bức <i>Chúa ba ngôi</i> của Masaccio, ở giữa bậc thềm trên cùng, ngay dưới thập tự giá chính là điểm hội tụ (thường được hiểu là tầm mắt của người xem). Hãy dùng một cây bút, đặt một đầu vào điểm độ và kẻ ra những đường trực giao về phía vòm trần. Ô mái vòm kéo dài một cách thuyết phục đến bức tường chính là nhờ sự hội tụ của các đường song song này.
+</p>
+<p>
+    <b>Kỹ thuật tô bóng (Chiaroscuro)</b>
+</p>
+<p>
+    Trong tiếng Ý, <i>chiaro</i> có nghĩa là sáng, <i>oscuro</i> có nghĩa là tối. Thuật ngữ nghe rất vui tai này là một khái niệm cơ bản trong việc hiểu về nghệ thuật phương Tây... và đó là một khái niệm cơ bản hết sức “tròn trịa”.
+</p>
+<p>
+    Theo nghĩa rộng thì <i>chiaroscuro</i> nói về cách sáng/ tối được phân bố trong toàn bộ bức tranh hay tác phẩm điêu khắc. Nhưng theo nghĩa hẹp hơn thì thuật ngữ thẳng thừng trên tờ giấy phẳng này diễn tả cách người nghệ sĩ từ từ chuyển đổi qua lại giữa sáng và tối (gọi là tạo khối) nhằm tạo ra một cảm giác về sự tròn trịa. Sự chuyển đổi này càng tinh tế chừng nào thì hình ảnh càng sống động chừng ấy, như thể bạn có thể chộp nắm được nó vậy. Bẹt giờ đây đã chuyển thành ba chiều. Như vậy, bằng kỹ thuật tô bóng, lớp sơn bẹt trên mặt toan bẹt có thể tạo ra một cảm giác về không gian tròn trịa.
+</p>
+<div class="my-gallery">
+    <figure align="center">
+        <a href="/fileanhhtml/a25.jpg" data-size="1000x700">
+            <img src="/fileanhhtml/a25.jpg" alt="Image 2" width="700">
+        </a>
+    </figure>
+</div>
+<p id="chuthich" align="center"><i>Sự ra đời của Thần Vệ Nữ (Birth of Venus)</i>, Botticelli, khoảng 1486, Phòng trưng bày Uffizi, Florence</p>
+<p>
+    Trong bức tranh <i>Sự ra đời của thần Vệ Nữ</i> (khoảng năm 1486) của Botticelli, ta thấy vị thần tình yêu được thổi nhẹ vào bờ trên vỏ sò khổng lồ của nàng (các sinh viên thường chế là “Vệ Nữ tái chanh”<sup><a href="#" data-tooltip="Nguyên văn “Venus on the Half Shell”, ý nói món sò ăn sống trong nhà hàng hải sản được tách vỏ, chỉ còn một mảnh vỏ (BTV).">[1]</a></sup>).
+</p>
+<div class="my-gallery">
+    <figure align="center">
+        <a href="/fileanhhtml/a3(bs).png" data-size="1000x800">
+            <img src="/fileanhhtml/a3(bs).png" alt="Image 2" width="700">
+        </a>
+    </figure>
+</div>
+<p>
+    Nhân vật nữ khỏa thân theo phong cách Phục hưng Ý dùng suối tóc dài vàng óng che chở kín trong khi Nữ thần Mùa xuân vội vàng khoác lên người nàng tấm vải có đường ranh sắc nét. Mặc dù vào thời gian đó cách xử lý không gian hiện thực của Masaccio đang thống trị bối cảnh nghệ thuật thành Florence, phong cách bẹt hơn và tuyến tính hơn của Botticelli vẫn được một số người đánh giá cao. Những đợt sóng bạc đầu hình chữ V hoàn hảo và những thân cây thẳng đứng khiến họ say mê. Và nàng Vệ Nữ yêu kiều, gần như đang trượt khỏi vỏ sò nông của mình, tiếp tục mê hoặc chúng ta cho đến tận ngày hôm nay.
+</p>

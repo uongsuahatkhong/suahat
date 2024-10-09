@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 3 Phần 1</title>
+    <!--DƯỚI ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+<style type="text/css">
+    body{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 21px;
+        max-width: 960px;
+        margin: 0 auto;
+        text-align: justify;
+        line-height: 1.5;
+    }
+    p{
+        text-indent: 40px;
+    }
+
+    #footer{
+        margin: 0 auto;
+        background-color: #ff7272;
+        /* width: 70%; */
+        height: 50px;
+        justify-content: space-between;
+        position: fixed;
+        top:85%;
+        margin: 0;
+        display: none;;
+    }
+    #nut4 i{
+        font-size: 25px;
+    }
+    #nut4{
+        padding: 10px;
+        border:none;
+    background:none;
+    color:#fff8cf;
+    cursor: posinter;
+    }
+
+    #nut5 i{
+        font-size: 25px;
+    }
+    #nut5{
+        padding: 10px;
+        border:none;
+    background:none;
+    color:#fff8cf;
+    cursor: pointer;
+    }
+    @media screen and (max-width: 768px) {
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        #anhchuonglon{
+           flex-basis: 300px;
+        }
+        .my-gallery{
+            width: 100%;
+        }
+        img{
+            width:100%;
+        }
+        video{
+            width: 100%;
+        }
+        .slides{
+            width: 200px;
+        }
+        .container1{
+            width: 100%;
+        }
+        .image{
+            width: 10%;
+        }
+        #backtop1{
+            display: none;
+        }
+        #backtop{
+            display: none;
+        }
+        .thanhtrai{
+            display:none;
+        }
+        .thanhphai{
+            display:none;
+        }
+        #footer{
+            margin: 0px auto;
+            width: 100%;
+            display: block;
+            margin-bottom: 10%;
+        }
+        .benphai{
+            position: absolute;
+            left: 85%;
+            bottom: 5%;
+        }
+    
+    }
+</style>
+<link rel="stylesheet" href="/filenoidunghtml/cssforslideanh.css">
+<link rel="stylesheet" href="/filenoidunghtml/csschokoto.css">
+<style>
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+</style>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+<style>
+    .highlight-yellow { background-color: rgb(255, 255, 71); }
+    .highlight-red { background-color: rgb(132, 230, 255); }
+    .highlight-green { background-color: rgb(125, 255, 125); }
+    .highlight-popup {
+        display: none;
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        z-index: 1000;
+    }
+    .highlight-popup button {
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+<style type="text/css">
+    a:hover{
+            text-decoration: none;
+        }
+        a[data-tooltip]{
+            border-bottom: 1px dotted #333;
+            position:relative;
+        }
+        a[data-tooltip]::before{
+            content: attr(data-tooltip);
+            position:absolute;
+            background: #ffafaf;
+            font-size:14px;
+            color: black;
+            text-align: justify;
+            padding: 3px 9px;
+            border-radius: 6px;
+            width: 250px;
+            left: -800%;
+            right: -800%;
+            bottom: 100%;
+            display: none;
+        }
+    a[data-tooltip]:hover::before{
+        display: block;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+
+
+<link rel="stylesheet" href="cssnoidung.css">
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+    <style>
+        .my-gallery img:hover {
+            transform: scale(1.05);
+        }
+        .my-gallery img {
+            /* width: 200px; */
+            height: auto;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+</head>
+
+<body id="text" >
+
+
+
+
+    <div id="footer">
+        <div class="bentrai">
+            <a target="_self" href="Chuong2phan3.html"><button id="nut4"><i class="bi bi-arrow-left-circle-fill"></i></button></a>
+        </div>
+        <div class="benphai">
+            <a target="_self" href="Chuong3phan2.html"><button id="nut5"><i class="bi bi-arrow-right-circle-fill"></i></button></a>
+        </div>
+    </div>
+
+
+
+    <!--DƯỚI ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+    <div class="thanhphai">
+        <a target="_self" href="Chuong3phan2.html"><button id="nut1"><i class="bi bi-arrow-right-circle-fill"></i></button></a>
+    </div>
+    <div class="thanhtrai">
+        <a target="_self" href="Chuong2phan3.html"><button id="nut2"><i class="bi bi-arrow-left-circle-fill"></i></button></a>
+    </div>
+    <!--TRÊN ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+    <div class="highlight-popup" id="highlight-popup">
+        <!-- <p align="center" id="takenote">Ghi chú</p> -->
+        <button onclick="highlightText('yellow')" id="notevang"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('red')" id="notedo"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('green')" id="notexanh"><i class="bi bi-square-fill"></i></button>
+        <button onclick="removeHighlight()" id="xoanote"><i class="bi bi-eraser-fill"></i></i></button>
+    </div>
+<!--TRÊN ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+<div id="backtop1" class="vecuoitrang" >
+    <i onclick="scrollToBottom()" class="bi bi-arrow-down-square-fill"></i>
+</div>
+<div id="backtop" class="vedautrang">
+    <i onclick="scrollToTop()" class="bi bi-arrow-up-square-fill"></i>
+</div>
+<!--TRÊN ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+
+<!-- DƯỚI ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+<!-- PhotoSwipe core JS files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<!-- PhotoSwipe template -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TRÊN ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+</body>
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+<script>
+function scrollToTop() {
+window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+});
+}
+
+function scrollToBottom() {
+window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: 'smooth'
+});
+}
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+loadHighlights();
+
+document.addEventListener('mouseup', function(e) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount || selection.isCollapsed) {
+        hidePopup();
+        return;
+    }
+
+    const range = selection.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+    showPopup(rect.left + window.scrollX, rect.bottom + window.scrollY);
+});
+
+document.addEventListener('mousedown', function(e) {
+    const popup = document.getElementById('highlight-popup');
+    if (!popup.contains(e.target)) {
+        hidePopup();
+    }
+});
+});
+
+function showPopup(x, y) {
+const popup = document.getElementById('highlight-popup');
+popup.style.left = x + 'px';
+popup.style.top = y + 'px';
+popup.style.display = 'block';
+}
+
+function hidePopup() {
+const popup = document.getElementById('highlight-popup');
+popup.style.display = 'none';
+}
+
+function highlightText(color) {
+const selection = window.getSelection();
+if (!selection.rangeCount) return;
+
+const range = selection.getRangeAt(0);
+if (range.collapsed) return;
+
+const span = document.createElement('span');
+span.className = `highlight highlight-${color}`;
+range.surroundContents(span);
+
+saveHighlights();
+hidePopup();
+}
+
+function removeHighlight() {
+const selection = window.getSelection();
+if (!selection.rangeCount) return;
+
+const range = selection.getRangeAt(0);
+const parentElement = range.commonAncestorContainer.parentElement;
+
+if (parentElement.classList.contains('highlight')) {
+    const parent = parentElement.parentNode;
+    while (parentElement.firstChild) {
+        parent.insertBefore(parentElement.firstChild, parentElement);
+    }
+    parent.removeChild(parentElement);
+}
+
+saveHighlights();
+hidePopup();
+}
+
+// Hàm lưu các highlight vào local storage
+function saveHighlights() {
+let highlights = document.querySelectorAll('.highlight-yellow, .highlight-green, .highlight-red');
+let highlightData = [];
+
+highlights.forEach((highlight) => {
+    highlightData.push({
+        text: highlight.textContent,
+        class: highlight.className
+    });
+});
+
+localStorage.setItem('highlights', JSON.stringify(highlightData));
+}
+// Hàm tải các highlight từ local storage
+function loadHighlights() {
+let highlightData = JSON.parse(localStorage.getItem('highlights') || '[]');
+let bodyHtml = document.body.innerHTML;
+
+highlightData.forEach((highlight) => {
+    let tempDiv = document.createElement('div');
+    tempDiv.textContent = highlight.text;
+    let highlightHtml = `<span class="${highlight.class}">${tempDiv.innerHTML}</span>`;
+    bodyHtml = bodyHtml.replace(highlight.text, highlightHtml);
+});
+document.body.innerHTML = bodyHtml;
+}
+
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+<script>
+    // Initialize PhotoSwipe
+    document.addEventListener('DOMContentLoaded', function() {
+        var initPhotoSwipeFromDOM = function(gallerySelector) {
+            var parseThumbnailElements = function(el) {
+                var thumbElements = el.childNodes,
+                    numNodes = thumbElements.length,
+                    items = [],
+                    figureEl,
+                    linkEl,
+                    size,
+                    item;
+
+                for (var i = 0; i < numNodes; i++) {
+                    figureEl = thumbElements[i];
+
+                    if (figureEl.nodeType !== 1) {
+                        continue;
+                    }
+
+                    linkEl = figureEl.children[0];
+                    size = linkEl.getAttribute('data-size').split('x');
+
+                    item = {
+                        src: linkEl.getAttribute('href'),
+                        w: parseInt(size[0], 10),
+                        h: parseInt(size[1], 10)
+                    };
+
+                    if (figureEl.children.length > 1) {
+                        item.title = figureEl.children[1].innerHTML;
+                    }
+
+                    if (linkEl.children.length > 0) {
+                        item.msrc = linkEl.children[0].getAttribute('src');
+                    }
+
+                    item.el = figureEl;
+                    items.push(item);
+                }
+
+                return items;
+            };
+
+            var closest = function closest(el, fn) {
+                return el && (fn(el) ? el : closest(el.parentNode, fn));
+            };
+
+            var onThumbnailsClick = function(e) {
+                e = e || window.event;
+                e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+                var eTarget = e.target || e.srcElement;
+
+                var clickedListItem = closest(eTarget, function(el) {
+                    return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+                });
+
+                if (!clickedListItem) {
+                    return;
+                }
+
+                var clickedGallery = clickedListItem.parentNode,
+                    childNodes = clickedListItem.parentNode.childNodes,
+                    numChildNodes = childNodes.length,
+                    nodeIndex = 0,
+                    index;
+
+                for (var i = 0; i < numChildNodes; i++) {
+                    if (childNodes[i].nodeType !== 1) {
+                        continue;
+                    }
+
+                    if (childNodes[i] === clickedListItem) {
+                        index = nodeIndex;
+                        break;
+                    }
+                    nodeIndex++;
+                }
+
+                if (index >= 0) {
+                    openPhotoSwipe(index, clickedGallery);
+                }
+                return false;
+            };
+
+            var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+                var pswpElement = document.querySelectorAll('.pswp')[0],
+                    gallery,
+                    options,
+                    items;
+
+                items = parseThumbnailElements(galleryElement);
+
+                options = {
+                    galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+                    getThumbBoundsFn: function(index) {
+                        var thumbnail = items[index].el.getElementsByTagName('img')[0],
+                            pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                            rect = thumbnail.getBoundingClientRect();
+
+                        return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+                    }
+                };
+
+                if (fromURL) {
+                    if (options.galleryPIDs) {
+                        for (var j = 0; j < items.length; j++) {
+                            if (items[j].pid == index) {
+                                options.index = j;
+                                break;
+                            }
+                        }
+                    } else {
+                        options.index = parseInt(index, 10) - 1;
+                    }
+                } else {
+                    options.index = parseInt(index, 10);
+                }
+
+                if (isNaN(options.index)) {
+                    return;
+                }
+
+                if (disableAnimation) {
+                    options.showAnimationDuration = 0;
+                }
+
+                gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+                gallery.init();
+            };
+
+            var galleryElements = document.querySelectorAll(gallerySelector);
+
+            for (var i = 0, l = galleryElements.length; i < l; i++) {
+                galleryElements[i].setAttribute('data-pswp-uid', i + 1);
+                galleryElements[i].onclick = onThumbnailsClick;
+            }
+        };
+
+        initPhotoSwipeFromDOM('.my-gallery');
+    });
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+
+<!--PHẦN BẮT ĐẦU NỘI DUNG CHÍNH-->
+<div align="center" style="margin-top: 20px;"><img src="/fileanhhtml/Chương 3_ Nghệ thuật Hy Lạp Cổ đại và Sự tự nhận thức.png"></div>
+<h1 align="center">
+    Chương 3 <br/> Nghệ thuật Hy Lạp cổ đại và sự Tự nhận thức 
+</h1>
+<p align="center" style="font-size: 30px;">(Năm 600 - 480 trước Công nguyên) </p>
+<h2>
+    1. Mối quan tâm dành cho chủ đề về con người
+</h2>
+<p>
+    Mặc dù ý tưởng về sự sinh tồn và một kiếp sau sung sướng đã chiếm trọn tâm trí của người nghệ sĩ trong hàng nghìn năm, nhưng các nghệ sĩ Hy Lạp thế kỷ 7 trước Công nguyên đã chú ý đến một chủ đề hoàn toàn mới. Lúc này, nghệ thuật phương Tây bắt đầu làm quen với chủ để yêu thích của mình kể từ đó về sau: Con người!
+</p>
+<div align="center">
+    <video controls="controls" src="/filenoidunghtml/46 (1).mp4" width="500px" heigh="400px"></video>
+</div>
+<div align="center">
+    <video id="contentVideo" controls="controls" controlslist="nodownload" src="/filenoidunghtml/46 (1).mp4" width="500px" heigh="400px"></video>
+</div>
+<script>
+    $(function(){
+        $('#contentVideo').bind('contextmenu',function(){ return false;});
+    });
+</script>
+<p>
+    Bằng con đường giao thương, nghệ thuật Ai Cập đã ảnh hưởng mạnh mẽ lên phong cách của các tác phẩm Hy Lạp đầu tiên. Giống như những tượng <i>Ka</i> của các pharaoh, <i>Kouros</i> là những bức tượng trong tư thế đứng của những chàng trai được lý tưởng hóa, trẻ trung, sung mãn. Chúng được đặt tại lăng mộ của những chiến sĩ trận vong và các đền đài như những vật cúng tế. Tuy nhiên, trong khi những tượng <i>Ka</i> mang chức năng vật chứa vĩnh cửu cho linh hồn của những cá nhân riêng biệt thì tượng <i>Kouros</i> lại không như vậy. Chúng lưu giữ những khởi đầu của rất nhiều ý tưởng phương Tây. Ví dụ, những hình ảnh thanh niên đáng lưu giữ này giờ đã được “giải phóng” khỏi khối đá của nguyên mẫu Ai Cập, và được đẽo như tượng tròn, cho phép ánh sáng soi rọi từng phân của hình khối. Một mục đích mới của nghệ thuật bắt đầu bén rễ: nhìn ngắm đối tượng nghệ thuật, từ đó khuyến khích sự tự phản tỉnh. Ta thấy mình trong mọi người. Những bức tượng <i>Kouros</i> của Hy Lạp Cổ đại bắt đầu soi sáng con người. (Xem: <i>Tượng Người thanh niên</i>, 580 - 590 năm trước Công nguyên).
+</p>
+<div>
+    <div class="container1">
+        <div class="slides">
+            <input type="radio" name="common" id="btn1" checked>
+            <input type="radio" name="common" id="btn2">
+            <input type="radio" name="common" id="btn3" >
+            <input type="radio" name="common" id="btn4" >
+            <input type="radio" name="common" id="btn5">
+            <div class="image first">
+                <img src="/fileanhhtml/Chương 5_ Nghệ thuật_ Đế chế La Mã và Nghệ thuật của Quyền lực.png">
+            </div>
+            <div class="image">
+                <img src="/fileanhhtml/Chương 6_ Thời Trung cổ và Nghệ thuật của Thánh Thần.png">
+            </div>
+            <div class="image">
+                <img src="/fileanhhtml/Chương 7_ Quan điểm của nghệ thuật Phục Hưng.png">
+            </div>
+            <div class="image">
+                <img src="/fileanhhtml/Chương 8_ Màn trình diễn đầy kịch tích của nghệ thuật Baroque.png">
+            </div>
+            <div class="image">
+                <img src="/fileanhhtml/Chương 9_ Phong cách Rococo Pháp phù hoa.png">
+            </div>
+        </div>
+        <div class="navigator">
+            <label for="btn1" class="bar"></label>
+            <label for="btn2" class="bar"></label>
+            <label for="btn3" class="bar"></label>
+            <label for="btn4" class="bar"></label>
+            <label for="btn5" class="bar"></label>
+        </div>
+    </div>
+</div>
+
+    
+<p>
+    Để thực sự nhìn thấy chính mình, ta phải phơi trần tất cả. Những bức tượng <i>Kouros</i> của người Hy Lạp Cổ đại làm đúng hệt như vậy: Anh ta hoàn toàn khỏa thân! Sự ngưỡng mộ đối với hình dáng nam lực sĩ của người Hy Lạp ngay lập tức đã trở thành chủ đề của nghệ thuật và khởi đầu một cuộc tìm kiếm không ngừng nghỉ của ý tưởng về sự hoàn hảo của cơ thể. Những bức tượng điêu khắc này không đơn thuần chỉ là một vài gã khỏa thân bất kỳ. Nghệ thuật bắt đầu thể hiện cái ý tưởng về tiềm năng của người đàn ông thông qua quá trình tự phát triển. Câu hỏi vẫn còn đặt ra ở đây là: Giờ thì anh ta đã được giải phóng khỏi khối đá rồi, vậy anh ta sẽ thể hiện mình như thế nào đây? Nghệ thuật sẽ tiếp tục cho chúng ta thấy!
+</p>
+<p>
+    Vậy còn người “phụ nữ” ở đâu trong tất cả những chuyện này? Thật ra, cô ấy không được biết đến nhiều. Vào thời điểm đó, nghệ thuật ít chú ý đến cô. Trên thực tế, nếu một bức tượng <i>Kore</i> nữ không có đầu, rất có thể bạn sẽ lầm tưởng đó chỉ là một cây cột nào đó. Nhưng rồi phụ nữ sẽ có chỗ trong nghệ thuật. Và khi đó, bạn có thể là người phân xử xem cuối cùng thì việc bị lờ đi như thế có thật sự là tệ không. (Xem: <i>Tượng thiếu nữ mặc áo peplos</i>, năm 530 trước Công nguyên).
+</p>
+
+
+
+
+<div class="quiz-container">
+    <div id="score">Điểm: 0</div>
+    <h2>Kéo thả câu trả lời đúng vào hộp </h2>
+
+    <div class="question">
+        <p>Câu 2: Da vinci đươc cho là đã vẽ Mona Lisa vào năm nào?</p>
+        <div align="center">
+            <div id="paris" class="draggable" draggable="true" ondragstart="drag(event)">1503</div>
+        <div id="berlin" class="draggable" draggable="true" ondragstart="drag(event)">1506</div>
+        <div id="madrid" class="draggable" draggable="true" ondragstart="drag(event)">1510</div>
+        <div id="rome" class="draggable" draggable="true" ondragstart="drag(event)">1501</div>
+        </div>
+        
+    </div>
+
+    <div id="dropzone" class="dropzone" ondragover="allowDrop(event)" ondrop="drop(event)">
+        Thả câu trả lời của bạn vào đây
+    </div>
+
+
+    
+    <!-- <div id="score">Score: 0</div> -->
+</div>
+
+<!-- Popup Overlay -->
+<div class="popup-overlay" id="popupOverlay"></div>
+
+<!-- Popup -->
+<div class="popup" id="popup">
+    <p id="popupMessage"></p>
+    <button onclick="closePopup()">Close</button>
+</div>
+
+
+<p><br></p>
+<p><br></p>
+<script>
+    let Điểm = 0;
+
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+
+    function drag(event) {
+        event.dataTransfer.setData("text", event.target.id);
+    }
+
+    function drop(event) {
+        event.preventDefault();
+        const data = event.dataTransfer.getData("text");
+        const droppedElement = document.getElementById(data);
+
+        // Correct answer is "paris"
+        if (data === "paris") {
+           Điểm++;
+            document.getElementById('popupMessage').innerHTML = "Đúng. Điểm hiện tại của bạn là " + Điểm + ".";
+        } else {
+            document.getElementById('popupMessage').innerHTML = "Sai. Đáp án đúng là 1503.";
+        }
+
+        // Update the score display
+        document.getElementById('score').innerHTML = "Điểm: " + Điểm;
+
+        // Show the popup
+        showPopup();
+
+        // Clear the dropzone after the drop
+        document.getElementById("dropzone").innerHTML = droppedElement.innerHTML;
+    }
+
+    function showPopup() {
+        document.getElementById('popupOverlay').style.display = 'block';
+        document.getElementById('popup').style.display = 'block';
+    }
+
+    function closePopup() {
+        document.getElementById('popupOverlay').style.display = 'none';
+        document.getElementById('popup').style.display = 'none';
+
+        // Reset the dropzone
+        document.getElementById("dropzone").innerHTML = "Thả câu trả lời của bạn vào đây";
+    }
+</script>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 11 phần 3</title>
+    <!--DƯỚI ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+<style type="text/css">
+    body{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 21px;
+        width: 960px;
+        margin: 0 auto;
+        text-align: justify;
+        line-height: 1.5;
+    }
+    p{
+        text-indent: 40px;
+    }
+</style>
+<style>
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+<style>
+    .highlight-yellow { background-color: rgb(255, 255, 71); }
+    .highlight-red { background-color: rgb(132, 230, 255); }
+    .highlight-green { background-color: rgb(125, 255, 125); }
+    .highlight-popup {
+        display: none;
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        z-index: 1000;
+    }
+    .highlight-popup button {
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC TRẢ LỜI CÂU TƯƠNG TÁC-->
+<style>
+    #textArea {
+        width: 100%;
+        height: 200px;
+    }
+    #saveButton, #clearButton {
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC TRẢ LỜI CÂU TƯƠNG TÁC-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+<style type="text/css">
+    a:hover{
+            text-decoration: none;
+        }
+        a[data-tooltip]{
+            border-bottom: 1px dotted #333;
+            position:relative;
+        }
+        a[data-tooltip]::before{
+            content: attr(data-tooltip);
+            position:absolute;
+            background: #ffafaf;
+            font-size:14px;
+            color: black;
+            text-align: justify;
+            padding: 3px 9px;
+            border-radius: 6px;
+            width: 250px;
+            left: -800%;
+            right: -800%;
+            bottom: 100%;
+            display: none;
+        }
+    a[data-tooltip]:hover::before{
+        display: block;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+<link rel="stylesheet" href="cssnoidung.css">
+
+<body id="text" >
+    <!--DƯỚI ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+    <div class="thanhphai">
+        <a target="_self" href="/File htmlnoidung/chuong12phan1.html"><button id="nut1"><i class="bi bi-arrow-right-circle-fill"></i></button></a>
+    </div>
+    <div class="thanhtrai">
+        <a target="_self" href="Chuong11phan2.html"><button id="nut2"><i class="bi bi-arrow-left-circle-fill"></i></button></a>
+    </div>
+    <!--TRÊN ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+    <div class="highlight-popup" id="highlight-popup">
+        <!-- <p align="center" id="takenote">Ghi chú</p> -->
+        <button onclick="highlightText('yellow')" id="notevang"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('red')" id="notedo"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('green')" id="notexanh"><i class="bi bi-square-fill"></i></button>
+        <button onclick="removeHighlight()" id="xoanote"><i class="bi bi-eraser-fill"></i></i></button>
+    </div>
+<!--TRÊN ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+<div id="backtop1" class="vecuoitrang" >
+    <i onclick="scrollToBottom()" class="bi bi-arrow-down-square-fill"></i>
+</div>
+<div id="backtop" class="vedautrang">
+    <i onclick="scrollToTop()" class="bi bi-arrow-up-square-fill"></i>
+</div>
+<!--TRÊN ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG--> 
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+<script>
+    function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+function scrollToBottom() {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+    });
+}
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP--> 
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+    loadHighlights();
+
+    document.addEventListener('mouseup', function(e) {
+        const selection = window.getSelection();
+        if (!selection.rangeCount || selection.isCollapsed) {
+            hidePopup();
+            return;
+        }
+
+        const range = selection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+        showPopup(rect.left + window.scrollX, rect.bottom + window.scrollY);
+    });
+
+    document.addEventListener('mousedown', function(e) {
+        const popup = document.getElementById('highlight-popup');
+        if (!popup.contains(e.target)) {
+            hidePopup();
+        }
+    });
+});
+
+function showPopup(x, y) {
+    const popup = document.getElementById('highlight-popup');
+    popup.style.left = x + 'px';
+    popup.style.top = y + 'px';
+    popup.style.display = 'block';
+}
+
+function hidePopup() {
+    const popup = document.getElementById('highlight-popup');
+    popup.style.display = 'none';
+}
+
+function highlightText(color) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    if (range.collapsed) return;
+
+    const span = document.createElement('span');
+    span.className = `highlight highlight-${color}`;
+    range.surroundContents(span);
+
+    saveHighlights();
+    hidePopup();
+}
+
+function removeHighlight() {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    const parentElement = range.commonAncestorContainer.parentElement;
+
+    if (parentElement.classList.contains('highlight')) {
+        const parent = parentElement.parentNode;
+        while (parentElement.firstChild) {
+            parent.insertBefore(parentElement.firstChild, parentElement);
+        }
+        parent.removeChild(parentElement);
+    }
+
+    saveHighlights();
+    hidePopup();
+}
+
+// Hàm lưu các highlight vào local storage
+function saveHighlights() {
+    let highlights = document.querySelectorAll('.highlight-yellow, .highlight-green, .highlight-red');
+    let highlightData = [];
+
+    highlights.forEach((highlight) => {
+        highlightData.push({
+            text: highlight.textContent,
+            class: highlight.className
+        });
+    });
+
+    localStorage.setItem('highlights', JSON.stringify(highlightData));
+}
+// Hàm tải các highlight từ local storage
+function loadHighlights() {
+    let highlightData = JSON.parse(localStorage.getItem('highlights') || '[]');
+    let bodyHtml = document.body.innerHTML;
+
+    highlightData.forEach((highlight) => {
+        let tempDiv = document.createElement('div');
+        tempDiv.textContent = highlight.text;
+        let highlightHtml = `<span class="${highlight.class}">${tempDiv.innerHTML}</span>`;
+        bodyHtml = bodyHtml.replace(highlight.text, highlightHtml);
+    });
+    document.body.innerHTML = bodyHtml;
+}
+
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+<h2>
+    3. Đặt câu hỏi – Mảng tối trong bạn
+</h2>
+<table border="1" align="center" cellpadding="30" cellspacing="20" width="1000" height="100" style="border-collapse: collapse;">
+    <tr style="text-align: center; background-color: rgb(235, 145, 145)">
+        <th>Thời kỳ nghệ thuật</th>
+        <th>Thời gian</th>
+        <th>Đặc điểm nổi bật</th>
+        <th>Tác phẩm đáng chú ý</th>
+    </tr>
+    <tr>
+        <td rowspan="5">Nghệ thuật Phục Hưng</td>
+        <td rowspan="5">Năm 1300 - 1650</td>
+        <td>Nổi bật cảm xúc con người</td>
+        <td>- <i>Gặp gỡ tại Cổng Vàng (Meeting at the Golden Gate)</i>
+        <br>- <i>Phản bội (Betrayal)</i>
+        <br>- <i>Khóc Chúa Giêsu (Lamentation)</i>
+        </td>
+    </tr>
+    <tr>
+        <td>Chú trọng sự cân bằng, tính đối xứng, tỉ lệ và sự tiết chế</td>
+        <td>- <i>Chúa ba ngôi (The Holy Trinity)</i></td>
+    </tr>
+    <tr>
+        <td>Bố cục tĩnh, không gian và màu sắc trung thực, dáng người  lý tưởng</td>
+        <td>- <i>Mona Lisa</i></td>
+    </tr>
+    <tr>
+        <td>Kết hợp giữa thế giới thần thánh và đời sống thế tục</td>
+        <td>- <i>Đám cưới Arnolfini</i></td>
+    </tr>
+    <tr>
+        <td>Nổi bật về cách pha trộn chất liệu sơn</td>
+        <td>- <i>Chân dung một quý cô (Portrait of a Lady)</i></td>
+    </tr>
+    <tr>
+        <td rowspan="2">Nghệ thuật Baroque</td>
+        <td rowspan="2">1650 - 1750</td>
+        <td>Khuynh hướng bạo lực</td>
+        <td>- <i>Judith chặt đầu Holofernes (Judith and Holofernes)</i>
+        <br>- <i>Thánh Paul nhận mặc khải (Conversion of St.Paul)</i>
+        <br>- <i>Cái chết của một nữ đồng trinh (Death of a Virgin)</i>
+        </td>
+    </tr>
+    <tr>
+        <td>Vẽ chân dung</td>
+        <td>- <i>Tự hoạ như một Thánh Paul (Self-portrait as St. Paul)</i></td>
+    </tr>
+    <tr>
+        <td>Nghệ thuật phù phiếm</td>
+        <td>1700 - 1775</td>
+        <td>Mang màu sắc nhẹ nhàng, sáng sủa</td>
+        <td>- <i>Những sự cố thú vị của buổi chơi đu (Happy Accidents of the Swing)</i></td>
+    </tr>
+    <tr>
+        <td>Nghệ thuật Tân Cổ điển</td>
+        <td>1770 - 1875</td>
+        <td>Không gian được xác định rõ ràng, nhân vật cân đối hoàn hảo</td>
+        <td>- <i>Lời thề của nhà Horatii (Oath of the Horatii)</i></td>
+    </tr>
+    <tr>
+        <td>Nghệ thuật Lãng mạn</td>
+        <td>1770 - 1850</td>
+        <td>Bộc lộ cảm xúc về niềm đam mê, nỗi sợ hãi, sự choáng ngợp và những điều siêu phàm</td>
+        <td>- <i>Nữ thần Tự do dẫn dắt nhân dân (Liberty Leading the People)</i>
+        <br>- <i>Ngày 3 tháng 5 năm 1808 (Tie Third of May, 1808)</i>
+        <br>- <i>Vụ cháy toà nhà Quốc hội (The Burning of the Houses of Parliament)</i>
+        <br>- <i>Chiếc tàu buôn nô lệ (The Slave Ship)</i>
+        <br>- <i>Kẻ lãng du phía trên biển sương mù (Wanderer above the Sea of Fog)</i>
+        <br>- <i>Hoàng hôn (Hai anh em (Sunset (Brothers)))</i>
+        </td>
+    </tr>
+</table>

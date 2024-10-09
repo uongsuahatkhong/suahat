@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 4 Phần 1</title>
+    <!--DƯỚI ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+<style type="text/css">
+    body{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 21px;
+        width: 960px;
+        margin: 0 auto;
+        text-align: justify;
+        line-height: 1.5;
+    }
+    p{
+        text-indent: 40px;
+    }
+</style>
+<style>
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+<style>
+    .highlight-yellow { background-color: rgb(255, 255, 71); }
+    .highlight-red { background-color: rgb(132, 230, 255); }
+    .highlight-green { background-color: rgb(125, 255, 125); }
+    .highlight-popup {
+        display: none;
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        z-index: 1000;
+    }
+    .highlight-popup button {
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+<style type="text/css">
+    a:hover{
+            text-decoration: none;
+        }
+        a[data-tooltip]{
+            border-bottom: 1px dotted #333;
+            position:relative;
+        }
+        a[data-tooltip]::before{
+            content: attr(data-tooltip);
+            position:absolute;
+            background: #ffafaf;
+            font-size:14px;
+            color: black;
+            text-align: justify;
+            padding: 3px 9px;
+            border-radius: 6px;
+            width: 250px;
+            left: -800%;
+            right: -800%;
+            bottom: 100%;
+            display: none;
+        }
+    a[data-tooltip]:hover::before{
+        display: block;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+
+
+<link rel="stylesheet" href="cssnoidung.css">
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+    <style>
+        .my-gallery img:hover {
+            transform: scale(1.05);
+        }
+        .my-gallery img {
+            /* width: 200px; */
+            height: auto;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+</head>
+
+<body id="text" >
+    <!--DƯỚI ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+    <div class="thanhphai">
+        <a target="_self" href="Chuong4phan2.html"><button id="nut1"><i class="bi bi-arrow-right-circle-fill"></i></button></a>
+    </div>
+    <div class="thanhtrai">
+        <a target="_self" href="Chuong3phan3.html"><button id="nut2"><i class="bi bi-arrow-left-circle-fill"></i></button></a>
+    </div>
+    <!--TRÊN ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+    <div class="highlight-popup" id="highlight-popup">
+        <!-- <p align="center" id="takenote">Ghi chú</p> -->
+        <button onclick="highlightText('yellow')" id="notevang"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('red')" id="notedo"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('green')" id="notexanh"><i class="bi bi-square-fill"></i></button>
+        <button onclick="removeHighlight()" id="xoanote"><i class="bi bi-eraser-fill"></i></i></button>
+    </div>
+<!--TRÊN ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+<div id="backtop1" class="vecuoitrang" >
+    <i onclick="scrollToBottom()" class="bi bi-arrow-down-square-fill"></i>
+</div>
+<div id="backtop" class="vedautrang">
+    <i onclick="scrollToTop()" class="bi bi-arrow-up-square-fill"></i>
+</div>
+<!--TRÊN ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+
+<!-- DƯỚI ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+<!-- PhotoSwipe core JS files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<!-- PhotoSwipe template -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TRÊN ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+</body>
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+<script>
+function scrollToTop() {
+window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+});
+}
+
+function scrollToBottom() {
+window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: 'smooth'
+});
+}
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+loadHighlights();
+
+document.addEventListener('mouseup', function(e) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount || selection.isCollapsed) {
+        hidePopup();
+        return;
+    }
+
+    const range = selection.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+    showPopup(rect.left + window.scrollX, rect.bottom + window.scrollY);
+});
+
+document.addEventListener('mousedown', function(e) {
+    const popup = document.getElementById('highlight-popup');
+    if (!popup.contains(e.target)) {
+        hidePopup();
+    }
+});
+});
+
+function showPopup(x, y) {
+const popup = document.getElementById('highlight-popup');
+popup.style.left = x + 'px';
+popup.style.top = y + 'px';
+popup.style.display = 'block';
+}
+
+function hidePopup() {
+const popup = document.getElementById('highlight-popup');
+popup.style.display = 'none';
+}
+
+function highlightText(color) {
+const selection = window.getSelection();
+if (!selection.rangeCount) return;
+
+const range = selection.getRangeAt(0);
+if (range.collapsed) return;
+
+const span = document.createElement('span');
+span.className = `highlight highlight-${color}`;
+range.surroundContents(span);
+
+saveHighlights();
+hidePopup();
+}
+
+function removeHighlight() {
+const selection = window.getSelection();
+if (!selection.rangeCount) return;
+
+const range = selection.getRangeAt(0);
+const parentElement = range.commonAncestorContainer.parentElement;
+
+if (parentElement.classList.contains('highlight')) {
+    const parent = parentElement.parentNode;
+    while (parentElement.firstChild) {
+        parent.insertBefore(parentElement.firstChild, parentElement);
+    }
+    parent.removeChild(parentElement);
+}
+
+saveHighlights();
+hidePopup();
+}
+
+// Hàm lưu các highlight vào local storage
+function saveHighlights() {
+let highlights = document.querySelectorAll('.highlight-yellow, .highlight-green, .highlight-red');
+let highlightData = [];
+
+highlights.forEach((highlight) => {
+    highlightData.push({
+        text: highlight.textContent,
+        class: highlight.className
+    });
+});
+
+localStorage.setItem('highlights', JSON.stringify(highlightData));
+}
+// Hàm tải các highlight từ local storage
+function loadHighlights() {
+let highlightData = JSON.parse(localStorage.getItem('highlights') || '[]');
+let bodyHtml = document.body.innerHTML;
+
+highlightData.forEach((highlight) => {
+    let tempDiv = document.createElement('div');
+    tempDiv.textContent = highlight.text;
+    let highlightHtml = `<span class="${highlight.class}">${tempDiv.innerHTML}</span>`;
+    bodyHtml = bodyHtml.replace(highlight.text, highlightHtml);
+});
+document.body.innerHTML = bodyHtml;
+}
+
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+<script>
+    // Initialize PhotoSwipe
+    document.addEventListener('DOMContentLoaded', function() {
+        var initPhotoSwipeFromDOM = function(gallerySelector) {
+            var parseThumbnailElements = function(el) {
+                var thumbElements = el.childNodes,
+                    numNodes = thumbElements.length,
+                    items = [],
+                    figureEl,
+                    linkEl,
+                    size,
+                    item;
+
+                for (var i = 0; i < numNodes; i++) {
+                    figureEl = thumbElements[i];
+
+                    if (figureEl.nodeType !== 1) {
+                        continue;
+                    }
+
+                    linkEl = figureEl.children[0];
+                    size = linkEl.getAttribute('data-size').split('x');
+
+                    item = {
+                        src: linkEl.getAttribute('href'),
+                        w: parseInt(size[0], 10),
+                        h: parseInt(size[1], 10)
+                    };
+
+                    if (figureEl.children.length > 1) {
+                        item.title = figureEl.children[1].innerHTML;
+                    }
+
+                    if (linkEl.children.length > 0) {
+                        item.msrc = linkEl.children[0].getAttribute('src');
+                    }
+
+                    item.el = figureEl;
+                    items.push(item);
+                }
+
+                return items;
+            };
+
+            var closest = function closest(el, fn) {
+                return el && (fn(el) ? el : closest(el.parentNode, fn));
+            };
+
+            var onThumbnailsClick = function(e) {
+                e = e || window.event;
+                e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+                var eTarget = e.target || e.srcElement;
+
+                var clickedListItem = closest(eTarget, function(el) {
+                    return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+                });
+
+                if (!clickedListItem) {
+                    return;
+                }
+
+                var clickedGallery = clickedListItem.parentNode,
+                    childNodes = clickedListItem.parentNode.childNodes,
+                    numChildNodes = childNodes.length,
+                    nodeIndex = 0,
+                    index;
+
+                for (var i = 0; i < numChildNodes; i++) {
+                    if (childNodes[i].nodeType !== 1) {
+                        continue;
+                    }
+
+                    if (childNodes[i] === clickedListItem) {
+                        index = nodeIndex;
+                        break;
+                    }
+                    nodeIndex++;
+                }
+
+                if (index >= 0) {
+                    openPhotoSwipe(index, clickedGallery);
+                }
+                return false;
+            };
+
+            var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+                var pswpElement = document.querySelectorAll('.pswp')[0],
+                    gallery,
+                    options,
+                    items;
+
+                items = parseThumbnailElements(galleryElement);
+
+                options = {
+                    galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+                    getThumbBoundsFn: function(index) {
+                        var thumbnail = items[index].el.getElementsByTagName('img')[0],
+                            pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                            rect = thumbnail.getBoundingClientRect();
+
+                        return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+                    }
+                };
+
+                if (fromURL) {
+                    if (options.galleryPIDs) {
+                        for (var j = 0; j < items.length; j++) {
+                            if (items[j].pid == index) {
+                                options.index = j;
+                                break;
+                            }
+                        }
+                    } else {
+                        options.index = parseInt(index, 10) - 1;
+                    }
+                } else {
+                    options.index = parseInt(index, 10);
+                }
+
+                if (isNaN(options.index)) {
+                    return;
+                }
+
+                if (disableAnimation) {
+                    options.showAnimationDuration = 0;
+                }
+
+                gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+                gallery.init();
+            };
+
+            var galleryElements = document.querySelectorAll(gallerySelector);
+
+            for (var i = 0, l = galleryElements.length; i < l; i++) {
+                galleryElements[i].setAttribute('data-pswp-uid', i + 1);
+                galleryElements[i].onclick = onThumbnailsClick;
+            }
+        };
+
+        initPhotoSwipeFromDOM('.my-gallery');
+    });
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+
+<!--PHẦN BẮT ĐẦU NỘI DUNG CHÍNH-->
+<div align="center" style="margin-top: 20px;"><img src="/fileanhhtml/Chương 4_ Nghệ thuật Hy Lạp cổ điển và Cái đẹp.png"></div>
+<h1 align="center">
+    Chương 4 <br/> Nghệ thuật Hy Lạp Cổ điển và Cái đẹp 
+</h1>
+<p align="center" style="font-size: 30px;">(Năm 490 - 400 trước Công nguyên) </p>
+<h2>
+    1. Mô phỏng hiện thực lý tưởng
+</h2>
+<p>
+    Đến thế kỷ 5 trước Công nguyên, các nghệ sĩ Hy Lạp đã không còn quan sát người đàn ông một cách đơn thuần mà nghiên cứu anh ta kỹ hơn nữa. Và điều họ phát hiện hầu như chẳng giống gì bức tượng Kouros nhìn thẳng cứng nhắc của ông cha họ trước đây. Khi đứng, chúng ta chuyển trọng lượng cơ thể từ chân này sang chân kia, tạo ra một sự căng cơ uyển chuyển khắp cơ thể. Bằng việc tìm cách thể hiện đường cong chữ S này cũng như tất cả những yếu tố dễ thấy của hình khối người nam đã được lý tưởng hóa, các nghệ sĩ Hy Lạp Cổ điển giờ đây định rõ cho phương Tây điều nghệ thuật sẽ luôn tìm cách đạt được cho đến giữa thế kỷ 19, đó là: mô phỏng hiện thực.
+</p>
+<p>
+    Đối với văn hóa Hy Lạp Cổ điển, quan niệm về cái đẹp được hàm chứa trong câu nói “một trí óc minh mẫn ở trong một cơ thể tráng kiện”. Quan niệm này hồi sinh trong bức tượng <i>Lực sĩ ném đĩa</i> (khoảng 450 năm trước Công nguyên) của Myron. Vận động viên ném đĩa này thoát khỏi tư thế xác sống của thời Cổ đại, kích hoạt hoàn toàn người nam khoa thân cân đối này. Sự cân đối của cơ thể tráng kiện năng động tương xứng với sự bình lặng trên gương mặt anh ta. Dù sắp sửa ném một chiếc đĩa nặng trịch, những cảm xúc được kìm nén cho thấy một trí óc minh mẫn đang tập trung cao độ.
+</p>
+<div class="my-gallery">
+    <figure align="center">
+        <a href="/fileanhhtml/a7.jpg" data-size="400x600">
+            <img src="/fileanhhtml/a7.jpg" alt="Image 2" width="500">
+        </a>
+    </figure>
+</div>
+<p id="chuthich" align="center"><i>Lực sĩ ném đĩa (Discobolus)</i>, Myron, khoảng 450 năm trước Công nguyên, Toà thị chính Palazzo Vecchio, Florence
+    </p>
+<p>
+    <b>Sự cân bằng (Balance)</b>
+</p>
+<p>Sự cân bằng là một từ mà ta có thể cảm nhận từ sâu thẳm bên trong. Chúng ta cố gắng đạt được sự cân bằng và sợ hãi sự mất cân bằng. Vì vậy, sự cân bằng trong một bố cục là cần thiết, nếu không muốn nói là một điều rất cơ bản. Cân bằng kiểu đối xứng, khi phần bên trái là sự phản chiếu của phần bên phải, rất hiếm trong cả nghệ thuật lẫn thiên nhiên. Vị vậy, các nghệ sĩ được giao một nhiệm vụ là kết hợp các yếu tố thành một sự cân bằng bất đối xứng trong tác phẩm của họ. Cũng như đồ nội thất đa dạng về khối nhờ hình dạng, màu sắc, và kết cấu khác nhau, hình khối trong một bức tranh cũng vậy. Nếu một góc trong bức tranh trông có vẻ nặng thì nó nhất định phải được tải ra những nơi khác. Hình khối, màu sắc, hay chất không cần phải được lặp đi lặp lại một cách chính xác, nhưng để tạo cảm giác chắc chắn hay nhẹ nhàng ở một khu vực của bố cục thì cần sự đáp lại ở một khu vực khác<sup><a href="#" data-tooltip="Ở Việt Nam thường được gọi là “chạy màu” hay lặp lại hình, chất (BTV).">[1]</a></sup>. Sự cân bằng trong nghệ thuật là một sự cho và nhận giữa các yếu tố tương quan.</p>
+<p>
+    <b>Sự cân xứng (Proportion)</b>
+</p>
+<p>
+    Sự cân xứng trong một bố cục chủ yếu là mối liên hệ giữa các phần với nhau và với tổng thể. Vợ chồng tôi có một phòng khách nhỏ với một chiếc ghế sofa đôi lớn. Thật ra, chỉ có hai tay ghế là lớn... quá khổ so với toàn bộ chiếc ghế và cả căn phòng. Nhưng chúng tôi rất thích món đồ nội thất này. Và chú mèo của chúng tôi thì cực kỳ mê những tay ghế to lớn đó. Sự cân xứng là một lựa chọn nghệ thuật khác trong bố cục. Nếu nhân vật của bức tranh hay tượng có cánh tay dài tới gối thì đó là do người nghệ sĩ muốn như vậy. Còn nếu chúng ta muốn lý giải nguyên nhân thì tùy.
+</p>
+<div class="my-gallery">
+    <figure align="center">
+        <a href="/fileanhhtml/a8.jpg" data-size="400x600">
+            <img src="/fileanhhtml/a8.jpg" alt="Image 2" width="500">
+        </a>
+    </figure>
+</div>
+<p id="chuthich" align="center"><i>Người mang giáo (Doryphorus)</i>, Polykleitos, khoång 450 - 440 năm trước Công nguyên, Bảo tàng quốc gia, Naples</p>
+<p>
+    Tuy nhiên, đối với người Hy Lạp, vẻ đẹp không được miêu tả một cách hoàn toàn tự nhiên. Dù tin rằng “Đàn ông là chuẩn mực của vạn Tuy nhiên, đối với người Hy Lạp, vẻ đẹp không được miêu tả một cách hoàn toàn tự nhiên. Dù tin rằng “Đàn ông là chuẩn mực của vạn vật”, nhưng những nghệ sĩ như Polykleitos đã làm cho người đàn ông trở nên hoàn hảo nhờ vào chút ít trợ giúp của toán học. Ví dụ như trong quyển sách quy tắc của mình, <i>Chuẩn mực về tỉ lệ</i>, ông cho rằng một hình tượng nam khỏa thân hoàn hảo (như bức tượng <i>Người mang giáo (Doryphorus)</i>, khoảng 450 - 440 năm trước Công nguyên của ông) phải cao tám đầu<sup><a href="#" data-tooltip="Cách đo tỉ lệ trong hình hoạ bằng cách lấy độ dài đầu người làm độ dài cơ sở (BTV).">[2]</a></sup>. Vì vậy, mặc dù nghệ thuật lúc bấy giờ đang nghiên cứu và cố gắng “tả” người đàn ông, thì người ta vẫn bóp hình, chỉnh sửa, và “hoàn hảo hóa” rất nhiều.
+</p>
+<p>
+    Đối với thế giới Hy Lạp Cổ điển, đàn ông có thể là thước đo của mọi vật, nhưng chính phụ nữ mới là những người nâng đỡ các công trình, hoàn toàn theo nghĩa đen. <b>Cột Caryatid</b> là những cây cột chống được tạc hình những người phụ nữ trẻ khỏe đang mang vác khối nặng của công trình. Những chiếc cột Caryatid của mái vòm ở đền Erechtheion, thành cổ Acropolis (Athens) minh họa cho sự duyên dáng và thư thái của các nhân vật mặc váy dài và nhìn thẳng. Họ kiên trì bền bỉ thực hiện công việc nặng nhọc của mình trong tư thế một chân đứng một chân nghỉ.
+</p>
+<div class="my-gallery">
+    <figure align="center">
+        <a href="/fileanhhtml/a9.jpg" data-size="1000x700">
+            <img src="/fileanhhtml/a9.jpg" alt="Image 2" width="600">
+        </a>
+    </figure>
+</div>
+<p id="chuthich" align="center">Mái vòm Caryatid, khoảng 421- 405 trước Công nguyên, đền thờ Erechtheion, thành cổ Acropolis, Athens</p>
+<div class="my-gallery">
+    <figure align="center">
+        <a href="/fileanhhtml/a10.Jpeg" data-size="400x600">
+            <img src="/fileanhhtml/a10.Jpeg" alt="Image 2" width="500">
+        </a>
+    </figure>
+</div>
+<p id="chuthich" align="center"><i>Ba nàng Marilyn (Three Marilyns)</i>, Andy Warhol, 1962, Bảo tàng Andy Warhol, Pittsburgh</p>

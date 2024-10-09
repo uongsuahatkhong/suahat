@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 6 phần 4</title>
+    <!--DƯỚI ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+<style type="text/css">
+    body{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 21px;
+        width: 960px;
+        margin: 0 auto;
+        text-align: justify;
+        line-height: 1.5;
+    }
+    p{
+        text-indent: 40px;
+    }
+</style>
+<style>
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+<style>
+    .highlight-yellow { background-color: rgb(255, 255, 71); }
+    .highlight-red { background-color: rgb(132, 230, 255); }
+    .highlight-green { background-color: rgb(125, 255, 125); }
+    .highlight-popup {
+        display: none;
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        z-index: 1000;
+    }
+    .highlight-popup button {
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC TRẢ LỜI CÂU TƯƠNG TÁC-->
+<style>
+    #textArea {
+        width: 100%;
+        height: 200px;
+    }
+    #saveButton, #clearButton {
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC TRẢ LỜI CÂU TƯƠNG TÁC-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+<style type="text/css">
+    a:hover{
+            text-decoration: none;
+        }
+        a[data-tooltip]{
+            border-bottom: 1px dotted #333;
+            position:relative;
+        }
+        a[data-tooltip]::before{
+            content: attr(data-tooltip);
+            position:absolute;
+            background: #ffafaf;
+            font-size:14px;
+            color: black;
+            text-align: justify;
+            padding: 3px 9px;
+            border-radius: 6px;
+            width: 250px;
+            left: -800%;
+            right: -800%;
+            bottom: 100%;
+            display: none;
+        }
+    a[data-tooltip]:hover::before{
+        display: block;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+<link rel="stylesheet" href="cssnoidung.css">
+
+<body id="text" >
+    <!--DƯỚI ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+    <div class="thanhphai">
+        <a target="_self" href="Chuong7phan1.html"><button id="nut1"><i class="bi bi-arrow-right-circle-fill"></i></button></a>
+    </div>
+    <div class="thanhtrai">
+        <a target="_self" href="Chuong6phan3.html"><button id="nut2"><i class="bi bi-arrow-left-circle-fill"></i></button></a>
+    </div>
+    <!--TRÊN ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+    <div class="highlight-popup" id="highlight-popup">
+        <!-- <p align="center" id="takenote">Ghi chú</p> -->
+        <button onclick="highlightText('yellow')" id="notevang"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('red')" id="notedo"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('green')" id="notexanh"><i class="bi bi-square-fill"></i></button>
+        <button onclick="removeHighlight()" id="xoanote"><i class="bi bi-eraser-fill"></i></i></button>
+    </div>
+<!--TRÊN ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+<div id="backtop1" class="vecuoitrang" >
+    <i onclick="scrollToBottom()" class="bi bi-arrow-down-square-fill"></i>
+</div>
+<div id="backtop" class="vedautrang">
+    <i onclick="scrollToTop()" class="bi bi-arrow-up-square-fill"></i>
+</div>
+<!--TRÊN ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG--> 
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+<script>
+    function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+function scrollToBottom() {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+    });
+}
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP--> 
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+    loadHighlights();
+
+    document.addEventListener('mouseup', function(e) {
+        const selection = window.getSelection();
+        if (!selection.rangeCount || selection.isCollapsed) {
+            hidePopup();
+            return;
+        }
+
+        const range = selection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+        showPopup(rect.left + window.scrollX, rect.bottom + window.scrollY);
+    });
+
+    document.addEventListener('mousedown', function(e) {
+        const popup = document.getElementById('highlight-popup');
+        if (!popup.contains(e.target)) {
+            hidePopup();
+        }
+    });
+});
+
+function showPopup(x, y) {
+    const popup = document.getElementById('highlight-popup');
+    popup.style.left = x + 'px';
+    popup.style.top = y + 'px';
+    popup.style.display = 'block';
+}
+
+function hidePopup() {
+    const popup = document.getElementById('highlight-popup');
+    popup.style.display = 'none';
+}
+
+function highlightText(color) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    if (range.collapsed) return;
+
+    const span = document.createElement('span');
+    span.className = `highlight highlight-${color}`;
+    range.surroundContents(span);
+
+    saveHighlights();
+    hidePopup();
+}
+
+function removeHighlight() {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    const parentElement = range.commonAncestorContainer.parentElement;
+
+    if (parentElement.classList.contains('highlight')) {
+        const parent = parentElement.parentNode;
+        while (parentElement.firstChild) {
+            parent.insertBefore(parentElement.firstChild, parentElement);
+        }
+        parent.removeChild(parentElement);
+    }
+
+    saveHighlights();
+    hidePopup();
+}
+
+// Hàm lưu các highlight vào local storage
+function saveHighlights() {
+    let highlights = document.querySelectorAll('.highlight-yellow, .highlight-green, .highlight-red');
+    let highlightData = [];
+
+    highlights.forEach((highlight) => {
+        highlightData.push({
+            text: highlight.textContent,
+            class: highlight.className
+        });
+    });
+
+    localStorage.setItem('highlights', JSON.stringify(highlightData));
+}
+// Hàm tải các highlight từ local storage
+function loadHighlights() {
+    let highlightData = JSON.parse(localStorage.getItem('highlights') || '[]');
+    let bodyHtml = document.body.innerHTML;
+
+    highlightData.forEach((highlight) => {
+        let tempDiv = document.createElement('div');
+        tempDiv.textContent = highlight.text;
+        let highlightHtml = `<span class="${highlight.class}">${tempDiv.innerHTML}</span>`;
+        bodyHtml = bodyHtml.replace(highlight.text, highlightHtml);
+    });
+    document.body.innerHTML = bodyHtml;
+}
+
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+<h2>
+    4. Đặt câu hỏi - Trở lại với chính mình
+</h2>
+<table border="1" align="center" cellpadding="30" cellspacing="20" width="1000" height="100" style="border-collapse: collapse;">
+    <tr style="text-align: center; background-color: rgb(235, 145, 145)">
+        <th>Thời kỳ nghệ thuật</th>
+        <th>Thời gian</th>
+        <th>Đặc điểm nổi bật</th>
+        <th>Tác phẩm đáng chú ý</th>
+    </tr>
+    <tr>
+        <td>Nghệ thuật hang động</td>
+        <td>15.000 - 10.000 năm trước Công nguyên</td>
+        <td>Vẽ động vật, sử dụng nguyên liệu tự nhiên để tạo nên tác phẩm</td>
+        <td>- <i>Hang bò tót (Hall of Bulls)</i></td>
+    </tr>
+    <tr>
+        <td>Nghệ thuật Ai Cập và Kiếp sau</td>
+        <td>3.000 - 1.000 năm trước Công nguyên</td>
+        <td>Điêu khắc tượng <i>Ka</i></td>
+        <td>- <i>Menkaure và Hoàng hậu Khamerernebty (Menkaure and Queen Khamerernebty)</i></td>
+    </tr>
+    <tr>
+        <td>Nghệ thuật Hy Lạp cổ đại</td>
+        <td>Năm 600 - 480 trước Công nguyên</td>
+        <td>Điêu khắc tượng <i>Kouros</i></td>
+        <td>- <i>Tượng Người thanh niên (Kouros Figure)</i></td>
+    </tr>
+    <tr>
+        <td>Nghệ thuật Hy Lạp cổ điển</td>
+        <td>Năm 490 - 400 trước Công nguyên</td>
+        <td>Điêu khắc tượng người, tập trung vào sự cân đối</td>
+        <td>- <i>Lực sĩ ném đĩa (Discobolus)</i>
+            <br>- <i>Người mang giáo (Doryphorus)</i>
+            <br>- <i>Mái vòm Caryatid</i></td>
+    </tr>
+    <tr>
+        <td>Nghệ thuật La Mã</td>
+        <td>Năm 100 trước Công nguyên - năm 500 trước Công nguyên</td>
+        <td>Điêu khắc tượng người, tập trung khắc hoạ chân thực nhất.</td>
+        <td>- <i>Augustus xứ Prima Porta (Augustus of Prima Porta)</i></td>
+    </tr>
+    <tr>
+        <td rowspan="2">Nghệ thuật thời Trung cổ</td>
+        <td rowspan="2">Năm 300 - 1200</td>
+        <td>Vẽ tranh tượng Kitô giáo</td>
+        <td>- <i>Đức Mẹ và Chúa Hài đồng cùng các thánh và thiên thần (Virgin and Child with Saints and Angels)</i></td>
+    </tr>
+    <tr>
+        <td>Xây dựng nhà thờ kiểu Gothic</td>
+        <td>- <i>Thánh đường Thánh Denis (St. Denis)</i>
+        <br>- <i>Thánh đường Thánh Sernin (St. Sernin)</i>
+        </td>
+    </tr>
+</table>
+<p>
+    Đến lúc này, nghệ thuật đã đặt cho bạn rất nhiều câu hỏi. Bạn cũng đã suy ngẫm về cuộc đời mình, và có lẽ là đã khám phá ra nhiều vùng đất bất ngờ từ những câu trả lời của chính mình. Giờ là lúc chuyển trọng tâm từ việc trả lời câu hỏi sang việc làm thế nào để tự đặt ra câu hỏi. Học cách tự đặt câu hỏi khi nghiên cứu nghệ thuật chính là một cách rèn luyện sự tập trung. Phản ứng tức thì của bạn là gì? Điều gì đang diễn ra trong cơ thể bạn? Bạn đang trở nên căng thẳng hay thư giãn? Bạn có cảm nhận được một nụ cười đang lan tỏa trên gương mặt mình không? Hay bạn đang cau mày vì thất vọng hoặc bối rối?
+</p>
+<p>
+    Việc nghiên cứu nghệ thuật cung cấp cho bạn những điều kiện cần thiết để lắng nghe chính mình: không gian tĩnh lặng, bạn đang đứng hoặc ngồi im, tập trung suy nghĩ về một hình ảnh. Suy xét kỹ hơn thì những hoàn cảnh như thế góp phần tạo nên một sự tự ý thức cao độ. Tất cả những gì bạn cần làm là tập trung “bộ thu sóng” thêm một chút, và lắng nghe một cách có ý thức. Phản ứng của bạn với nghệ thuật lúc này chính là những mối bận tâm hiện tại, là cách thức bạn tiếp nhận cuộc sống và những khía cạnh của bản thân mà có thể bạn đã coi nhẹ nhưng lại tiềm ẩn sự tao nhã. Nghệ thuật có thể giúp bạn bộc lộ ra bên ngoài những đức tính tốt đẹp nhất, cũng như những phẩm chất chúng ta thường hay giấu đi. Nhưng rốt cuộc thì không gì có thể được che giấu mãi. Lưu tâm đến mọi thứ về bản thân thông qua nghệ thuật, đặt câu hỏi từ những phản ứng, viết ra những câu trả lời không bị ai kiểm duyệt... đó là một hành trình suốt đời dẫn đến sự hiểu biết và trân trọng cuộc sống độc đáo của chúng ta. Và nó có thể thẳng thắn một cách bất ngờ.
+</p>
+<p>
+    Hãy tìm trên mạng các tác phẩm nghệ thuật của thời kỳ mà bạn đã chọn (ví dụ, có thể dùng công cụ Image Search của Google) hay trong những quyển sách về nghệ thuật. Khi nhìn vào những bức ảnh, hãy tưởng tượng bạn đang tham quan một viện bảo tàng. Khi bạn cảm thấy mình muốn xem kỹ một hình ảnh, hãy dừng lại ở đó. Nó sẽ là tâm điểm của sự chú ý và là công cụ hỗ trợ cho quá trình tự đặt câu hỏi. Bạn chọn tác phẩm này vì nó trò chuyện với bạn. Vấn đề bây giờ chỉ là lắng nghe những điều nó muốn nói.
+</p>
+<p>
+    Thế giới nội tâm của bạn chỉ mới bắt đầu được hé lộ thôi. Những phản ứng của bạn cũng chính là những chủ đề cá nhân ở thời điểm hiện tại. Có một điều gì đó ở tác phẩm nghệ thuật này đã làm bạn xúc động - và bây giờ, hãy tìm hiểu tại sao. Hãy đọc lại ghi chép về những phản ứng của bạn và gạch dưới một vài câu đặc biệt chân thật hay nổi bật lên hẳn trên trang viết. Hãy biến chúng thành những câu hỏi cho chính mình, và chỉ sử dụng cấu trúc mở. Tức là bắt đầu câu hỏi của bạn bằng những từ như: Ai, ở đâu, khi nào, điều gì, tại sao, như thế nào. 
+</p>
+<p>
+    Trước khi bạn bắt đầu, hãy để tôi cho bạn một ví dụ từ kinh nghiệm của chính tôi: 
+</p>
+<p>
+    <i>Trong đợt nghỉ lễ vừa rồi, tôi có ghé thăm một cửa hàng bán đổ cổ. Sau khi dạo quanh lần lượt những căn phòng treo đầy tranh, cuối cùng tôi cũng dừng lại. Khi đứng trước một bức tranh nọ, tôi tưởng như có một tấm chăn êm ái của sự yên bình đang quấn quanh mình. Chủ thể của bức tranh phong cảnh kia là một cây thích với những chiếc lá to, đang đứng đơn độc trong một góc sân được bao quanh bằng một hàng rào đá cũ kỹ. Thảm cỏ xanh lạnh lẽo khiến tôi thở dài. Mức giá 15 đô la cũng vừa túi tiền.</i>
+</p>
+<p>
+    <i>Tôi mang bức tranh về nhà và bắt đầu suy ngẫm một cách nghiêm túc. Tôi nhớ lại cảm nhận đầu tiên của mình: một cái cây đơn độc, thoải mái và dễ chịu trong góc riêng của nó. Tôi chuyển cảm nhận này thành những câu hỏi sau đây cho bản thân: Tại sao cái cây bơ vơ ấy lại khiến tôi ngừng lại? Có mối liên hệ nào giữa tôi và nó không? Xét tại thời điểm này của cuộc đời tôi thì cái cây đang cho thấy điều gì?</i>
+</p>
+<p>
+    <i>Tôi tiếp tục viết về những ồn ào và hối hả của kỳ nghỉ và mong ước có được không gian riêng biệt và tĩnh lặng hơn. Chiêm nghiệm phản ứng của mình với bức tranh cũng như viết nó ra giúp tôi nhận thức được và tìm thấy sự bình yên tôi thật sự cần, bất cứ khi nào tôi muốn và theo cách của tôi. Sống dựa trên những thứ mình “cần” hơn là những thứ mình “thích” hay “mong đợi” có thể dẫn đến nhiều thứ, và tất cả đều có lợi. Cái cây đơn lẻ, duyên dáng này nhắc tôi rằng, khi cần thiết, phải nhẹ nhàng đóng cửa lại và ẩn mình vào một góc riêng. Để trở nên tươi mới, những ngày đông sôi động thường phải được cảm nhận bằng niềm vui chứ không phải bằng cái tâm trạng thẫn thờ buồn chán kia. Hẳn là bạn biết tôi đang nói về điều gì!</i>
+</p>

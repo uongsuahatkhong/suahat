@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 7 Phần 3</title>
+    <!--DƯỚI ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+<style type="text/css">
+    body{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 21px;
+        width: 960px;
+        margin: 0 auto;
+        text-align: justify;
+        line-height: 1.5;
+    }
+    p{
+        text-indent: 40px;
+    }
+</style>
+<style>
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+<style>
+    .highlight-yellow { background-color: rgb(255, 255, 71); }
+    .highlight-red { background-color: rgb(132, 230, 255); }
+    .highlight-green { background-color: rgb(125, 255, 125); }
+    .highlight-popup {
+        display: none;
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        z-index: 1000;
+    }
+    .highlight-popup button {
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+<style type="text/css">
+    a:hover{
+            text-decoration: none;
+        }
+        a[data-tooltip]{
+            border-bottom: 1px dotted #333;
+            position:relative;
+        }
+        a[data-tooltip]::before{
+            content: attr(data-tooltip);
+            position:absolute;
+            background: #ffafaf;
+            font-size:14px;
+            color: black;
+            text-align: justify;
+            padding: 3px 9px;
+            border-radius: 6px;
+            width: 250px;
+            left: -800%;
+            right: -800%;
+            bottom: 100%;
+            display: none;
+        }
+    a[data-tooltip]:hover::before{
+        display: block;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+
+
+<link rel="stylesheet" href="cssnoidung.css">
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+    <style>
+        .my-gallery img:hover {
+            transform: scale(1.05);
+        }
+        .my-gallery img {
+            /* width: 200px; */
+            height: auto;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+</head>
+
+<body id="text" >
+    <!--DƯỚI ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+    <div class="thanhphai">
+        <a target="_self" href="Chuong7phan4.html"><button id="nut1"><i class="bi bi-arrow-right-circle-fill"></i></button></a>
+    </div>
+    <div class="thanhtrai">
+        <a target="_self" href="Chuong7phan2.html"><button id="nut2"><i class="bi bi-arrow-left-circle-fill"></i></button></a>
+    </div>
+    <!--TRÊN ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+    <div class="highlight-popup" id="highlight-popup">
+        <!-- <p align="center" id="takenote">Ghi chú</p> -->
+        <button onclick="highlightText('yellow')" id="notevang"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('red')" id="notedo"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('green')" id="notexanh"><i class="bi bi-square-fill"></i></button>
+        <button onclick="removeHighlight()" id="xoanote"><i class="bi bi-eraser-fill"></i></i></button>
+    </div>
+<!--TRÊN ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+<div id="backtop1" class="vecuoitrang" >
+    <i onclick="scrollToBottom()" class="bi bi-arrow-down-square-fill"></i>
+</div>
+<div id="backtop" class="vedautrang">
+    <i onclick="scrollToTop()" class="bi bi-arrow-up-square-fill"></i>
+</div>
+<!--TRÊN ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+
+<!-- DƯỚI ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+<!-- PhotoSwipe core JS files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<!-- PhotoSwipe template -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TRÊN ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+</body>
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+<script>
+function scrollToTop() {
+window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+});
+}
+
+function scrollToBottom() {
+window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: 'smooth'
+});
+}
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+loadHighlights();
+
+document.addEventListener('mouseup', function(e) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount || selection.isCollapsed) {
+        hidePopup();
+        return;
+    }
+
+    const range = selection.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+    showPopup(rect.left + window.scrollX, rect.bottom + window.scrollY);
+});
+
+document.addEventListener('mousedown', function(e) {
+    const popup = document.getElementById('highlight-popup');
+    if (!popup.contains(e.target)) {
+        hidePopup();
+    }
+});
+});
+
+function showPopup(x, y) {
+const popup = document.getElementById('highlight-popup');
+popup.style.left = x + 'px';
+popup.style.top = y + 'px';
+popup.style.display = 'block';
+}
+
+function hidePopup() {
+const popup = document.getElementById('highlight-popup');
+popup.style.display = 'none';
+}
+
+function highlightText(color) {
+const selection = window.getSelection();
+if (!selection.rangeCount) return;
+
+const range = selection.getRangeAt(0);
+if (range.collapsed) return;
+
+const span = document.createElement('span');
+span.className = `highlight highlight-${color}`;
+range.surroundContents(span);
+
+saveHighlights();
+hidePopup();
+}
+
+function removeHighlight() {
+const selection = window.getSelection();
+if (!selection.rangeCount) return;
+
+const range = selection.getRangeAt(0);
+const parentElement = range.commonAncestorContainer.parentElement;
+
+if (parentElement.classList.contains('highlight')) {
+    const parent = parentElement.parentNode;
+    while (parentElement.firstChild) {
+        parent.insertBefore(parentElement.firstChild, parentElement);
+    }
+    parent.removeChild(parentElement);
+}
+
+saveHighlights();
+hidePopup();
+}
+
+// Hàm lưu các highlight vào local storage
+function saveHighlights() {
+let highlights = document.querySelectorAll('.highlight-yellow, .highlight-green, .highlight-red');
+let highlightData = [];
+
+highlights.forEach((highlight) => {
+    highlightData.push({
+        text: highlight.textContent,
+        class: highlight.className
+    });
+});
+
+localStorage.setItem('highlights', JSON.stringify(highlightData));
+}
+// Hàm tải các highlight từ local storage
+function loadHighlights() {
+let highlightData = JSON.parse(localStorage.getItem('highlights') || '[]');
+let bodyHtml = document.body.innerHTML;
+
+highlightData.forEach((highlight) => {
+    let tempDiv = document.createElement('div');
+    tempDiv.textContent = highlight.text;
+    let highlightHtml = `<span class="${highlight.class}">${tempDiv.innerHTML}</span>`;
+    bodyHtml = bodyHtml.replace(highlight.text, highlightHtml);
+});
+document.body.innerHTML = bodyHtml;
+}
+
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+<script>
+    // Initialize PhotoSwipe
+    document.addEventListener('DOMContentLoaded', function() {
+        var initPhotoSwipeFromDOM = function(gallerySelector) {
+            var parseThumbnailElements = function(el) {
+                var thumbElements = el.childNodes,
+                    numNodes = thumbElements.length,
+                    items = [],
+                    figureEl,
+                    linkEl,
+                    size,
+                    item;
+
+                for (var i = 0; i < numNodes; i++) {
+                    figureEl = thumbElements[i];
+
+                    if (figureEl.nodeType !== 1) {
+                        continue;
+                    }
+
+                    linkEl = figureEl.children[0];
+                    size = linkEl.getAttribute('data-size').split('x');
+
+                    item = {
+                        src: linkEl.getAttribute('href'),
+                        w: parseInt(size[0], 10),
+                        h: parseInt(size[1], 10)
+                    };
+
+                    if (figureEl.children.length > 1) {
+                        item.title = figureEl.children[1].innerHTML;
+                    }
+
+                    if (linkEl.children.length > 0) {
+                        item.msrc = linkEl.children[0].getAttribute('src');
+                    }
+
+                    item.el = figureEl;
+                    items.push(item);
+                }
+
+                return items;
+            };
+
+            var closest = function closest(el, fn) {
+                return el && (fn(el) ? el : closest(el.parentNode, fn));
+            };
+
+            var onThumbnailsClick = function(e) {
+                e = e || window.event;
+                e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+                var eTarget = e.target || e.srcElement;
+
+                var clickedListItem = closest(eTarget, function(el) {
+                    return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+                });
+
+                if (!clickedListItem) {
+                    return;
+                }
+
+                var clickedGallery = clickedListItem.parentNode,
+                    childNodes = clickedListItem.parentNode.childNodes,
+                    numChildNodes = childNodes.length,
+                    nodeIndex = 0,
+                    index;
+
+                for (var i = 0; i < numChildNodes; i++) {
+                    if (childNodes[i].nodeType !== 1) {
+                        continue;
+                    }
+
+                    if (childNodes[i] === clickedListItem) {
+                        index = nodeIndex;
+                        break;
+                    }
+                    nodeIndex++;
+                }
+
+                if (index >= 0) {
+                    openPhotoSwipe(index, clickedGallery);
+                }
+                return false;
+            };
+
+            var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+                var pswpElement = document.querySelectorAll('.pswp')[0],
+                    gallery,
+                    options,
+                    items;
+
+                items = parseThumbnailElements(galleryElement);
+
+                options = {
+                    galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+                    getThumbBoundsFn: function(index) {
+                        var thumbnail = items[index].el.getElementsByTagName('img')[0],
+                            pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                            rect = thumbnail.getBoundingClientRect();
+
+                        return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+                    }
+                };
+
+                if (fromURL) {
+                    if (options.galleryPIDs) {
+                        for (var j = 0; j < items.length; j++) {
+                            if (items[j].pid == index) {
+                                options.index = j;
+                                break;
+                            }
+                        }
+                    } else {
+                        options.index = parseInt(index, 10) - 1;
+                    }
+                } else {
+                    options.index = parseInt(index, 10);
+                }
+
+                if (isNaN(options.index)) {
+                    return;
+                }
+
+                if (disableAnimation) {
+                    options.showAnimationDuration = 0;
+                }
+
+                gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+                gallery.init();
+            };
+
+            var galleryElements = document.querySelectorAll(gallerySelector);
+
+            for (var i = 0, l = galleryElements.length; i < l; i++) {
+                galleryElements[i].setAttribute('data-pswp-uid', i + 1);
+                galleryElements[i].onclick = onThumbnailsClick;
+            }
+        };
+
+        initPhotoSwipeFromDOM('.my-gallery');
+    });
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+
+<!--PHẦN BẮT ĐẦU NỘI DUNG CHÍNH-->
+<h2>
+    3. Nghệ thuật Phục hưng Ý đỉnh cao
+<br>và Tiềm năng cá nhân
+</h2>
+<p>
+    Các hoạ sĩ thế kỷ 16 ở Ý tìm thấy trong các tác phẩm của Giotto và Masaccio những nền tảng phong cách của nghệ thuật Phục hưng. Theo đó, cách xử lý không gian và màu sắc trung thực, bố cục tĩnh, tiết chế và dáng người lý tưởng tiếp tục được đề cao. Tuy nhiên, cũng có những họa sĩ lại nhìn vào chính mình và lý tưởng của mình để tìm ra mục đích. Đó chính là hai bậc thầy vĩ đại của nghệ thuật Phục hưng Ý Đỉnh cao - Leonardo da Vinci và Michelangelo Buonarroti - những người đã làm đơm hoa kết trái khát vọng của thời đại: phát triển bản thân và chủ nghĩa cá nhân. Và bạn sẽ thấy họ làm việc đó theo những cách khác đáng ngạc nhiên.
+</p>
+<p>
+    Leonardo da Vinci có một tuổi thơ khốn khó... một đứa trẻ ngoài giá thú, thuận tay trái vốn dễ dàng trở thành tâm điểm của những trò chọc ghẹo ở Tuscany vào thế kỷ 16. Tuy lớn lên trong một xã hội đầy sự kỳ thị, nơi người ta gọi bạn là “thứ rác rưởi” hay “đồ bị thịt”, niềm đam mê của ông đối với cơ thể con người chưa bao giờ bị lung lay. Nói cho cùng thì tất cả những thứ ông thích đều thuộc về Thiên nhiên. Và nếu Leonardo có một tôn giáo, thì bạn có thể gọi nó là Chủ nghĩa Huyền bí Thiên nhiên. Ông là một họa sĩ/ nhà khoa học đã quyết chí kết hợp hai lĩnh vực này với nhau, tức là chỉ vẽ theo sự dẫn đường của đôi mắt - chỉ những điều mình có thể nhìn thấy. Phong cách mờ ảo đặc trưng của ông (<b>sfumato</b> hay “làm mờ đường ranh”) là kết quả của cái nhìn thực nghiệm này, lý giải rằng “sáng và tối nên được hòa vào nhau mà không dùng nét và đường ranh, giống như khói vậy”.
+</p>
+<div class="my-gallery">
+    <figure align="center">
+        <a href="/fileanhhtml/a26.jpg" data-size="400x600">
+            <img src="/fileanhhtml/a26.jpg" alt="Image 2" width="600">
+        </a>
+    </figure>
+</div>
+<p id="chuthich" align="center"><i>Mona Lisa</i>, Leonardo da Vinci, 1503 - 1505, Bảo tàng Louvre, Paris</p>
+<p>
+    Nụ cười “huyền bí”, điều bí ẩn đằng sau đôi mắt; <i>Mona Lisa</i> có lẽ là người phụ nữ nổi tiếng nhất thế giới. Có lẽ đây cũng là một bức tranh ưa thích của tác giả, vì Leonardo đã giữ nó cho đến khi qua đời. Điều đáng chú ý là bên cạnh những điểm độc đáo hơn của bức tranh chính là sự xuất hiện của đôi tay và sự nổi bật của chúng. Leonardo tiết lộ cho chúng ta biết thêm về nàng qua cách đặt tay và đặc điểm của chúng: một người phụ nữ đẫy đà với da thịt mềm mại, người mà cả dời hầu như không phải làm việc hay phải chịu đựng sự căng thẳng và đói kém.
+</p>
+<p>
+    <b>
+        Kỹ thuật tạo không gian: Phối cảnh không khí (Atmospheric Perspective) và Tương quan kích thước (Relative Size)
+    </b>
+</p>
+<div class="my-gallery">
+    <figure align="center">
+        <a href="/fileanhhtml/a27.jpg" data-size="1000x700">
+            <img src="/fileanhhtml/a27.jpg" alt="Image 2" width="700">
+        </a>
+    </figure>
+</div>
+<p id="chuthich" align="center"><i>Bữa tối cuối cùng (Tiệc ly, The Last Supper)</i>, Leonardo da Vinci, 1495 - 1498, Tu Viện Santa Maria delle Grazie, Milan</p>
+<p>
+    Bên cạnh kỹ thuật vẽ che lấp và phối cảnh tuyến tính (xem: <i>Bữa tối cuối cùng</i>, da Vinci, 1495-1498, để thấy một ví dụ khác về cách sử dụng những đường trực giao hội tụ tại một điểm), các họa sĩ còn dùng phối cảnh không khí và tương quan kích thước để thuyết phục chúng ta về chiều sâu không gian. Ví dụ như trong bức tranh <i>Mona Lisa</i>, cây cầu nhỏ ở phần hậu cảnh bên phải cho chúng ta một cảm nhận về khoảng cách. Tương quan kích thước - những thứ nhỏ thế nào so với kích thước thật mà chúng ta biết - giúp chúng ta hiểu những mối liên hệ về không gian trong một bố cục. Nhưng cũng chú ý cây cầu bớt đi chi tiết và màu sắc ra sao. Khi một vật càng ở gần thì ta càng nhìn thấy rõ chất bề mặt cụ thể cũng như phổ màu đa sắc hơn. Còn khi vật ở càng xa thì ta càng thấy chúng nhòe đi và xám hơn. Không khí đã làm mờ đi tầm nhìn của chúng ta. Trong tác phẩm này, chiếc cầu bé tí và nhạt nhòa kia đã giúp đặt nhân vật nữ ra trước ở phần tiền cảnh, cách xa phông nền lởm chởm đá. Có phải nàng đã băng qua cây cầu một mình? Có lễ chỉ có nàng mới biết cây cầu dẫn đi đâu.
+</p>
+<p>
+    Michelangelo không thể chia sẻ với Leonardo niềm đam mê khoa học và tự nhiên. Nghệ thuật của ông tập trung vào Con người và Tâm hồn. Là một con chiên ngoan đạo, ông tin rằng vẻ đẹp của linh hồn được thể hiện qua vẻ đẹp của cơ thể. Và con đường dẫn đến với Chúa chính là tạo ra và chiêm ngưỡng cái đẹp trên thế gian này. Đối với người nghệ sĩ cũng như nhà bảo trợ của nền nghệ thuật Phục hưng Ý, cái đẹp đã được xác định bởi quá khứ Cổ điển. Cùng với đa số các nghệ sĩ cùng thời, Michelangelo đã nghiên cứu, vẽ tranh, và tạc tượng theo những nguyên mẫu Hy Lạp. Vậy thì có gì khó hiểu khi bức tượng <i>David</i> của ông (1501 - 1504), bức tượng khoả thân đồ sộ đầu tiên kể từ thế kỷ 5 trước Công nguyên ở Hy Lạp, có nhiều nét tương đồng với <i>Người mang giáo</i> của Polykleitos một cách đáng kinh ngạc như vậy? Trước hết, với tư cách là một điêu khắc gia, Michelangelo đã “giải phóng” nhân vật bằng đá cao hơn bốn mét của mình khỏi sự giam cầm của khối đá hoa cương, rồi phủ lên dó sự hoàn hảo của những vị thần.
+</p>
+<div class="my-gallery">
+    <figure align="center">
+        <a href="/fileanhhtml/a28.jpg" data-size="400x600">
+            <img src="/fileanhhtml/a28.jpg" alt="Image 2" width="600">
+        </a>
+    </figure>
+</div>
+<p id="chuthich" align="center"><i>David</i>, Michelangelo, 1501 - 1504, Phòng trưng bày  Galleria dell'Academia, Florence
+    </p>
+    <div class="my-gallery">
+        <figure align="center">
+            <a href="/fileanhhtml/a29.jpg" data-size="1000x700">
+                <img src="/fileanhhtml/a29.jpg" alt="Image 2" width="600">
+            </a>
+        </figure>
+    </div>
+    <p id="chuthich" align="center"><i>Chúa tạo ra Adam (Creation of Adam)</i>, Michelangelo, 1508 - 1512, Nhà nguyện Sistine, Vatican, Rome
+        </p>
+    <p>
+        Michelangelo cho rằng một bức tranh càng giống một bức tượng thì càng đẹp. Bức bích họa <i>Chúa tạo ra Adam</i>, (Nhà nguyện Sistine, 1508 - 1512), là một minh chứng cho quan điểm này của ông. Adam - được vẽ rất giống một bức tượng David đang ngồi dựa - nổi bật lên hẳn khỏi khung cảnh xung quanh. Người nghệ sĩ muốn mắt ta phải hướng về sự kiện trọng đại ở đây. Theo phong cách Phục hưng tiết chế, ta được chứng kiến khoảnh khắc ngay trước khi chàng Adam lực lưỡng nhưng yếu đuối nhận được “tia lửa” đầy sinh khí từ cái chạm tay của Chúa. Đặc điểm chính của một bức tượng là nó tách biệt ra khỏi môi trường xung quanh. Michelangelo tách nhân vật của ông khỏi phần hậu cảnh bằng cách viền toàn bộ hình khối. Hình bẹt của Adam được xác định rõ ràng đến nỗi ta có thể dễ dàng hình dung việc chàng bị cắt rời khỏi bức tranh.
+    </p>
+    <p>
+        <b>Hình bẹt (Shape)</b>
+    </p>
+    <p>
+        Hình bẹt luôn nổi bật. Bằng một cách nào đó, chúng tự tách mình ra khỏi những mẫu hình chung quanh và khiến bản thân trở nên tách biệt và đáng chú ý. Hình bẹt có thể có những ranh giới ảo do màu, sắc độ, hay chất của chúng khác với không gian xung quanh. Hình bẹt có thể nổi bật đơn giản chỉ vì chúng được xác định bằng những đường viền, như <i>Adam</i> của Michelangelo. Mối liên hệ giữa hình bẹt (“hình”) dễ thấy và môi trường xung quanh nó (“nền”) được gọi là mối quan hệ hình - nền. Hiểu cách khác, phần “hình” giống như một mảng đặc, còn phần nền chính là mảng rỗng. Tuy nhiên, dù cho phần hình thường giành được sự chú ý, nhưng chính phần nền mới là nơi chứa đựng nhiều ý nghĩa sâu xa hơn; cứ tưởng tượng bức <i>Mona Lisa</i> mà thiếu đi phần phong cảnh bí ẩn và hoang vắng đằng sau. Mối quan hệ hình - nền là một trong những màn kịch tính luôn tiếp diễn trong lòng nghệ thuật phương Tây. Và khi thế kỷ 20 đang đến gần, tình trạng căng thẳng này biến thành một cuộc chiến tổng lực và tóe... sơn.
+    </p>

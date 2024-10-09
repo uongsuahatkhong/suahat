@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 4 phần 3</title>
+    <!--DƯỚI ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+<style type="text/css">
+    body{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 21px;
+        width: 960px;
+        margin: 0 auto;
+        text-align: justify;
+        line-height: 1.5;
+    }
+    p{
+        text-indent: 40px;
+    }
+</style>
+<style>
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+<style>
+    .highlight-yellow { background-color: rgb(255, 255, 71); }
+    .highlight-red { background-color: rgb(132, 230, 255); }
+    .highlight-green { background-color: rgb(125, 255, 125); }
+    .highlight-popup {
+        display: none;
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        z-index: 1000;
+    }
+    .highlight-popup button {
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC TRẢ LỜI CÂU TƯƠNG TÁC-->
+<style>
+    #textArea {
+        width: 100%;
+        height: 200px;
+    }
+    #saveButton, #clearButton {
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC TRẢ LỜI CÂU TƯƠNG TÁC-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+<style type="text/css">
+    a:hover{
+            text-decoration: none;
+        }
+        a[data-tooltip]{
+            border-bottom: 1px dotted #333;
+            position:relative;
+        }
+        a[data-tooltip]::before{
+            content: attr(data-tooltip);
+            position:absolute;
+            background: #ffafaf;
+            font-size:14px;
+            color: black;
+            text-align: justify;
+            padding: 3px 9px;
+            border-radius: 6px;
+            width: 250px;
+            left: -800%;
+            right: -800%;
+            bottom: 100%;
+            display: none;
+        }
+    a[data-tooltip]:hover::before{
+        display: block;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+
+
+<link rel="stylesheet" href="cssnoidung.css">
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+    <style>
+        .my-gallery img:hover {
+            transform: scale(1.05);
+        }
+        .my-gallery img {
+            /* width: 200px; */
+            height: auto;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+</head>
+
+<body id="text" >
+    <!--DƯỚI ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+    <div class="thanhphai">
+        <a target="_self" href="Chuong5phan1.html"><button id="nut1"><i class="bi bi-arrow-right-circle-fill"></i></button></a>
+    </div>
+    <div class="thanhtrai">
+        <a target="_self" href="Chuong4phan2.html"><button id="nut2"><i class="bi bi-arrow-left-circle-fill"></i></button></a>
+    </div>
+    <!--TRÊN ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+    <div class="highlight-popup" id="highlight-popup">
+        <!-- <p align="center" id="takenote">Ghi chú</p> -->
+        <button onclick="highlightText('yellow')" id="notevang"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('red')" id="notedo"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('green')" id="notexanh"><i class="bi bi-square-fill"></i></button>
+        <button onclick="removeHighlight()" id="xoanote"><i class="bi bi-eraser-fill"></i></i></button>
+    </div>
+<!--TRÊN ĐÂY LÀ PHẦN POP UP ĐỂ HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+<div id="backtop1" class="vecuoitrang" >
+    <i onclick="scrollToBottom()" class="bi bi-arrow-down-square-fill"></i>
+</div>
+<div id="backtop" class="vedautrang">
+    <i onclick="scrollToTop()" class="bi bi-arrow-up-square-fill"></i>
+</div>
+<!--TRÊN ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+<script>
+    function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+function scrollToBottom() {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+    });
+}
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+    loadHighlights();
+
+    document.addEventListener('mouseup', function(e) {
+        const selection = window.getSelection();
+        if (!selection.rangeCount || selection.isCollapsed) {
+            hidePopup();
+            return;
+        }
+
+        const range = selection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+        showPopup(rect.left + window.scrollX, rect.bottom + window.scrollY);
+    });
+
+    document.addEventListener('mousedown', function(e) {
+        const popup = document.getElementById('highlight-popup');
+        if (!popup.contains(e.target)) {
+            hidePopup();
+        }
+    });
+});
+
+function showPopup(x, y) {
+    const popup = document.getElementById('highlight-popup');
+    popup.style.left = x + 'px';
+    popup.style.top = y + 'px';
+    popup.style.display = 'block';
+}
+
+function hidePopup() {
+    const popup = document.getElementById('highlight-popup');
+    popup.style.display = 'none';
+}
+
+function highlightText(color) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    if (range.collapsed) return;
+
+    const span = document.createElement('span');
+    span.className = `highlight highlight-${color}`;
+    range.surroundContents(span);
+
+    saveHighlights();
+    hidePopup();
+}
+
+function removeHighlight() {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    const parentElement = range.commonAncestorContainer.parentElement;
+
+    if (parentElement.classList.contains('highlight')) {
+        const parent = parentElement.parentNode;
+        while (parentElement.firstChild) {
+            parent.insertBefore(parentElement.firstChild, parentElement);
+        }
+        parent.removeChild(parentElement);
+    }
+
+    saveHighlights();
+    hidePopup();
+}
+
+// Hàm lưu các highlight vào local storage
+function saveHighlights() {
+    let highlights = document.querySelectorAll('.highlight-yellow, .highlight-green, .highlight-red');
+    let highlightData = [];
+
+    highlights.forEach((highlight) => {
+        highlightData.push({
+            text: highlight.textContent,
+            class: highlight.className
+        });
+    });
+
+    localStorage.setItem('highlights', JSON.stringify(highlightData));
+}
+// Hàm tải các highlight từ local storage
+function loadHighlights() {
+    let highlightData = JSON.parse(localStorage.getItem('highlights') || '[]');
+    let bodyHtml = document.body.innerHTML;
+
+    highlightData.forEach((highlight) => {
+        let tempDiv = document.createElement('div');
+        tempDiv.textContent = highlight.text;
+        let highlightHtml = `<span class="${highlight.class}">${tempDiv.innerHTML}</span>`;
+        bodyHtml = bodyHtml.replace(highlight.text, highlightHtml);
+    });
+    document.body.innerHTML = bodyHtml;
+}
+
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC CỦA CÂU HỎI TƯƠNG TÁC-->
+<!-- <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const textArea = document.getElementById('textArea');
+    const saveButton = document.getElementById('saveButton');
+    const clearButton = document.getElementById('clearButton');
+
+    // Load the saved text from Local Storage when the page loads
+    const savedText = localStorage.getItem('textAreaContent');
+    if (savedText) {
+        textArea.value = savedText;
+    }
+
+    // Save the text to Local Storage when the "Save" button is clicked
+    saveButton.addEventListener('click', function() {
+        localStorage.setItem('textAreaContent', textArea.value);
+        alert('Bạn muốn lưu ghi chép của mình?');
+    });
+
+    // Clear the text from Local Storage and the text area when the "Clear" button is clicked
+    clearButton.addEventListener('click', function() {
+        localStorage.removeItem('textAreaContent');
+        textArea.value = '';
+        alert('Bạn muốn xóa ghi chép?');
+    });
+});
+
+</script> -->
+<script>
+    // Function to save data to local storage
+    function saveData(id) {
+        const data = document.getElementById(id).value;
+        localStorage.setItem(id, data);
+        alert('Câu trả lời của bạn đã được lưu!');
+    }
+
+    // Function to load data from local storage
+    function loadData() {
+        const writingAreas = document.querySelectorAll('.writing-area');
+        writingAreas.forEach(area => {
+            const savedData = localStorage.getItem(area.id);
+            if (savedData) {
+                area.value = savedData;
+            }
+        });
+    }
+
+    // Load data when the page loads
+    window.onload = loadData;
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC CỦA CÂU HỎI TƯƠNG TÁC-->
+<div>
+    <p align="center" style="margin-top: 0px; margin-bottom: 10px;; font-size: 30px; font-weight: bold;">&#128366;</p>
+    <p align="center" style="margin-top: 0px;"><img src="/fileanhhtml/linbreak.png" width="280px"></p>
+</div>
+<p>
+    <b>Câu 1: Dành chút thời gian tìm kiếm một bức ảnh ghi lại khoảnh khắc mà bạn còn nhớ rõ. Ngồi nhớ lại chi tiết của trải nghiệm phong phú đó. Bây giờ, hãy viết về nó, mở rộng sự mô phỏng hiện thực này bằng cách miêu tả những mùi vị, nguồn năng lượng, ánh sáng, không khí... của khoảnh khắc này mà bạn còn nhớ chính xác. Chủ nghĩa hiện thực trong nghệ thuật có thể mở những cửa xả của dòng kỷ niệm, và tạo ra điện từ dòng nước ấy theo những cách mạnh mẽ và đầy bất ngờ.
+    </b>
+</p>
+<textarea id="writingArea1" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea1')">Lưu</button>
+<p>
+    <b>Câu 2: Bạn nghĩ gì về mục đích của câu nói "một trí óc minh mẫn ở trong một cơ thể tráng kiện?". Cụ thể nó có nghĩa gì hay đem lại suy nghĩ gì? Có người nào bạn quen biết là hiện thân của quan niệm này không?
+    </b>
+</p>
+<textarea id="writingArea2" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea2')">Lưu</button>
+<p>
+    <b>Câu 3: Hãy nhìn kỹ tác phẩm nghệ thuật yêu thích của bạn trên tường. Hãy thử che những phần khác nhau của bố cục và xem nó tác động đến sự cân bằng tổng thể của tác phẩm như thế nào. Tính đối xứng và thống nhất của nghệ thuật có thể rất mong manh. Chỉ cần thay đổi một chút thôi cũng có thể phá vỡ kết cấu này.
+    </b>
+</p>
+<textarea id="writingArea3" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea3')">Lưu</button>
+<p>
+    <b>Câu 4: Hãy nhìn quanh căn phòng. Có vật dụng, đồ đạc, hay chậu kiểng nào quá to hay quá bé nhưng trông vừa mắt? Nó đặc biệt mang đến niềm vui cho bạn như thế nào?
+    <br>Trong nhà bạn, căn phòng nào hoàn hảo về tỉ lệ cho nhu cầu của bạn? Bếp của bạn có đủ to để nấu những món ăn bạn dự kiến không? Phòng khách của bạn có đủ bé cho những chuyến viếng thăm thân tình bạn mong muốn không? Bạn sẽ sắp xếp lại những không gian khác trong nhà mình như thế nào để phù hợp với mong ước của mình?
+    </b>
+</p>
+<textarea id="writingArea4" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea4')">Lưu</button>
+<p>
+    <b>Câu 5: Bạn giúp gia đình mình như thế nào với sức mạnh thể chất? Bạn dùng sức mạnh vảo việc gì? Sự kiên trì sẽ mang đến cho bạn lợi ích nào?
+    </b>
+</p>
+<textarea id="writingArea5" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea5')">Lưu</button>
+<p>
+    <b>Câu 6: Số đo trọng lượng trên cái cân nhà tắm có làm hỏng một ngày của bạn không? Nếu có, những nguyên tắc toán học của Polykleitos về cơ thể hoàn hảo có thể sẽ ảnh hưởng đến sự tự nhận thức của bạn. Trong trường hợp đó, có lẽ đã đến lúc bạn phải thoát y! Hãy nhìn cơ thể của bạn trong gương. Hãy miêu tả cơ thể tuyệt đẹp và duy nhất của bạn bằng lời hay phác họa nó Ta. Hãy làm như thể bạn là một nghệ sĩ đang rất say mê chủ đề của mình. Bạn nghĩ việc bạn nặng thêm hai, năm, mười ký hay nhiều hơn nữa so với cân nặng "hoàn hảo" của mình có tạo nên khác biệt gì trong mắt người nghệ sĩ ấy không?
+    </b>
+</p>
+<textarea id="writingArea6" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea6')">Lưu</button>
+<p>
+    <b>Câu 7: Bạn thấy màu, hình, chất, hay đường nét nào được lặp đi lặp lại khắp nhà mình? Sự lặp lại nào khiến bạn lập tức mỉm cười, mang đến niềm vui và nguồn năng lượng tức thì cho cuộc sống hằng ngày của bạn? 
+    </b>
+</p>
+<textarea id="writingArea7" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea7')">Lưu</button>

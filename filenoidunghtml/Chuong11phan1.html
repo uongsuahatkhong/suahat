@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 11 Phần 1</title>
+    <!--DƯỚI ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+<style type="text/css">
+    body{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 21px;
+        width: 960px;
+        margin: 0 auto;
+        text-align: justify;
+        line-height: 1.5;
+    }
+    p{
+        text-indent: 40px;
+    }
+</style>
+<style>
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+<style>
+    .highlight-yellow { background-color: rgb(255, 255, 71); }
+    .highlight-red { background-color: rgb(132, 230, 255); }
+    .highlight-green { background-color: rgb(125, 255, 125); }
+    .highlight-popup {
+        display: none;
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        z-index: 1000;
+    }
+    .highlight-popup button {
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+<style type="text/css">
+    a:hover{
+            text-decoration: none;
+        }
+        a[data-tooltip]{
+            border-bottom: 1px dotted #333;
+            position:relative;
+        }
+        a[data-tooltip]::before{
+            content: attr(data-tooltip);
+            position:absolute;
+            background: #ffafaf;
+            font-size:14px;
+            color: black;
+            text-align: justify;
+            padding: 3px 9px;
+            border-radius: 6px;
+            width: 250px;
+            left: -800%;
+            right: -800%;
+            bottom: 100%;
+            display: none;
+        }
+    a[data-tooltip]:hover::before{
+        display: block;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+
+
+<link rel="stylesheet" href="cssnoidung.css">
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+    <style>
+        .my-gallery img:hover {
+            transform: scale(1.05);
+        }
+        .my-gallery img {
+            /* width: 200px; */
+            height: auto;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+</head>
+
+<body id="text" >
+    <!--DƯỚI ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+    <div class="thanhphai">
+        <a target="_self" href="Chuong11phan2.html"><button id="nut1"><i class="bi bi-arrow-right-circle-fill"></i></button></a>
+    </div>
+    <div class="thanhtrai">
+        <a target="_self" href="Chuong10phan2.html"><button id="nut2"><i class="bi bi-arrow-left-circle-fill"></i></button></a>
+    </div>
+    <!--TRÊN ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+    <div class="highlight-popup" id="highlight-popup">
+        <!-- <p align="center" id="takenote">Ghi chú</p> -->
+        <button onclick="highlightText('yellow')" id="notevang"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('red')" id="notedo"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('green')" id="notexanh"><i class="bi bi-square-fill"></i></button>
+        <button onclick="removeHighlight()" id="xoanote"><i class="bi bi-eraser-fill"></i></i></button>
+    </div>
+<!--TRÊN ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+<div id="backtop1" class="vecuoitrang" >
+    <i onclick="scrollToBottom()" class="bi bi-arrow-down-square-fill"></i>
+</div>
+<div id="backtop" class="vedautrang">
+    <i onclick="scrollToTop()" class="bi bi-arrow-up-square-fill"></i>
+</div>
+<!--TRÊN ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+
+<!-- DƯỚI ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+<!-- PhotoSwipe core JS files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<!-- PhotoSwipe template -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TRÊN ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+</body>
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+<script>
+function scrollToTop() {
+window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+});
+}
+
+function scrollToBottom() {
+window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: 'smooth'
+});
+}
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+loadHighlights();
+
+document.addEventListener('mouseup', function(e) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount || selection.isCollapsed) {
+        hidePopup();
+        return;
+    }
+
+    const range = selection.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+    showPopup(rect.left + window.scrollX, rect.bottom + window.scrollY);
+});
+
+document.addEventListener('mousedown', function(e) {
+    const popup = document.getElementById('highlight-popup');
+    if (!popup.contains(e.target)) {
+        hidePopup();
+    }
+});
+});
+
+function showPopup(x, y) {
+const popup = document.getElementById('highlight-popup');
+popup.style.left = x + 'px';
+popup.style.top = y + 'px';
+popup.style.display = 'block';
+}
+
+function hidePopup() {
+const popup = document.getElementById('highlight-popup');
+popup.style.display = 'none';
+}
+
+function highlightText(color) {
+const selection = window.getSelection();
+if (!selection.rangeCount) return;
+
+const range = selection.getRangeAt(0);
+if (range.collapsed) return;
+
+const span = document.createElement('span');
+span.className = `highlight highlight-${color}`;
+range.surroundContents(span);
+
+saveHighlights();
+hidePopup();
+}
+
+function removeHighlight() {
+const selection = window.getSelection();
+if (!selection.rangeCount) return;
+
+const range = selection.getRangeAt(0);
+const parentElement = range.commonAncestorContainer.parentElement;
+
+if (parentElement.classList.contains('highlight')) {
+    const parent = parentElement.parentNode;
+    while (parentElement.firstChild) {
+        parent.insertBefore(parentElement.firstChild, parentElement);
+    }
+    parent.removeChild(parentElement);
+}
+
+saveHighlights();
+hidePopup();
+}
+
+// Hàm lưu các highlight vào local storage
+function saveHighlights() {
+let highlights = document.querySelectorAll('.highlight-yellow, .highlight-green, .highlight-red');
+let highlightData = [];
+
+highlights.forEach((highlight) => {
+    highlightData.push({
+        text: highlight.textContent,
+        class: highlight.className
+    });
+});
+
+localStorage.setItem('highlights', JSON.stringify(highlightData));
+}
+// Hàm tải các highlight từ local storage
+function loadHighlights() {
+let highlightData = JSON.parse(localStorage.getItem('highlights') || '[]');
+let bodyHtml = document.body.innerHTML;
+
+highlightData.forEach((highlight) => {
+    let tempDiv = document.createElement('div');
+    tempDiv.textContent = highlight.text;
+    let highlightHtml = `<span class="${highlight.class}">${tempDiv.innerHTML}</span>`;
+    bodyHtml = bodyHtml.replace(highlight.text, highlightHtml);
+});
+document.body.innerHTML = bodyHtml;
+}
+
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+<script>
+    // Initialize PhotoSwipe
+    document.addEventListener('DOMContentLoaded', function() {
+        var initPhotoSwipeFromDOM = function(gallerySelector) {
+            var parseThumbnailElements = function(el) {
+                var thumbElements = el.childNodes,
+                    numNodes = thumbElements.length,
+                    items = [],
+                    figureEl,
+                    linkEl,
+                    size,
+                    item;
+
+                for (var i = 0; i < numNodes; i++) {
+                    figureEl = thumbElements[i];
+
+                    if (figureEl.nodeType !== 1) {
+                        continue;
+                    }
+
+                    linkEl = figureEl.children[0];
+                    size = linkEl.getAttribute('data-size').split('x');
+
+                    item = {
+                        src: linkEl.getAttribute('href'),
+                        w: parseInt(size[0], 10),
+                        h: parseInt(size[1], 10)
+                    };
+
+                    if (figureEl.children.length > 1) {
+                        item.title = figureEl.children[1].innerHTML;
+                    }
+
+                    if (linkEl.children.length > 0) {
+                        item.msrc = linkEl.children[0].getAttribute('src');
+                    }
+
+                    item.el = figureEl;
+                    items.push(item);
+                }
+
+                return items;
+            };
+
+            var closest = function closest(el, fn) {
+                return el && (fn(el) ? el : closest(el.parentNode, fn));
+            };
+
+            var onThumbnailsClick = function(e) {
+                e = e || window.event;
+                e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+                var eTarget = e.target || e.srcElement;
+
+                var clickedListItem = closest(eTarget, function(el) {
+                    return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+                });
+
+                if (!clickedListItem) {
+                    return;
+                }
+
+                var clickedGallery = clickedListItem.parentNode,
+                    childNodes = clickedListItem.parentNode.childNodes,
+                    numChildNodes = childNodes.length,
+                    nodeIndex = 0,
+                    index;
+
+                for (var i = 0; i < numChildNodes; i++) {
+                    if (childNodes[i].nodeType !== 1) {
+                        continue;
+                    }
+
+                    if (childNodes[i] === clickedListItem) {
+                        index = nodeIndex;
+                        break;
+                    }
+                    nodeIndex++;
+                }
+
+                if (index >= 0) {
+                    openPhotoSwipe(index, clickedGallery);
+                }
+                return false;
+            };
+
+            var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+                var pswpElement = document.querySelectorAll('.pswp')[0],
+                    gallery,
+                    options,
+                    items;
+
+                items = parseThumbnailElements(galleryElement);
+
+                options = {
+                    galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+                    getThumbBoundsFn: function(index) {
+                        var thumbnail = items[index].el.getElementsByTagName('img')[0],
+                            pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                            rect = thumbnail.getBoundingClientRect();
+
+                        return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+                    }
+                };
+
+                if (fromURL) {
+                    if (options.galleryPIDs) {
+                        for (var j = 0; j < items.length; j++) {
+                            if (items[j].pid == index) {
+                                options.index = j;
+                                break;
+                            }
+                        }
+                    } else {
+                        options.index = parseInt(index, 10) - 1;
+                    }
+                } else {
+                    options.index = parseInt(index, 10);
+                }
+
+                if (isNaN(options.index)) {
+                    return;
+                }
+
+                if (disableAnimation) {
+                    options.showAnimationDuration = 0;
+                }
+
+                gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+                gallery.init();
+            };
+
+            var galleryElements = document.querySelectorAll(gallerySelector);
+
+            for (var i = 0, l = galleryElements.length; i < l; i++) {
+                galleryElements[i].setAttribute('data-pswp-uid', i + 1);
+                galleryElements[i].onclick = onThumbnailsClick;
+            }
+        };
+
+        initPhotoSwipeFromDOM('.my-gallery');
+    });
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+
+<!--PHẦN BẮT ĐẦU NỘI DUNG CHÍNH-->
+
+<div align="center" style="margin-top: 20px;"><img src="/fileanhhtml/Chương 11_ Niềm đam mê, nỗi sợ hãi, sự choáng ngợp và những điều siêu phàm trong nghệ thuật lãng mạn.png"></div>
+<h1 align="center">
+    Chương 11 <br/> Niềm đam mê, nỗi sợ hãi,
+    <br>sự choáng ngợp và những điều siêu phàm 
+    <br>trong nghệ thuật Lãng mạn
+    
+</h1>
+<p align="center" style="font-size: 30px;">(1770 - 1850)</p>
+<h2>
+    1. Phong cách mang đậm tính cá nhân
+</h2>
+<p>
+    Trong khi các họa sĩ theo trường phái Tân cổ điển cẩn thận sắp xếp thế giới duy lý của mình, những họa sĩ phương Tây khác lại tập trung vào những trải nghiệm mang đậm tính cá nhân, với mong muốn tìm ra cách bộc lộ những cảm xúc sâu kín nhất của họ về niềm đam mê, nỗi sợ hãi, sự choáng ngợp và những điều siêu phàm. Chủ nghĩa Lãng mạn vào thời kỳ đó là một hướng đi đối lập với trường phái Tân cổ điển có phần gò bó.
+</p>
+<p>
+    Từ cuối thế kỷ 18 đến đầu thế kỷ 19, châu Âu và châu Mỹ chẳng hề bình lặng. Những cuộc cách mạng cả trong chính trị lẫn công nghiệp đã mở bung những biên giới và phá vỡ cách sống đã kéo dài hàng thế kỷ. Chính phong cách của phong trào nghệ thuật Lãng mạn dường như đã nắm bắt được những thay đổi mang tính động lực này. Đối lập với bố cục khắc khổ và kiềm chế của David, các họa sĩ theo trường phái Lãng mạn như Eugene Delacroix đã làm cho các tác phẩm của mình trở nên “nổi loạn” bằng cách dùng những nhát cọ phóng khoáng, làm mờ ranh hình, dùng màu mạnh, và những đường chéo mạnh mẽ.
+</p>
+<div class="my-gallery">
+    <figure align="center">
+        <a href="/fileanhhtml/a43.jpg" data-size="1000x700">
+            <img src="/fileanhhtml/a43.jpg" alt="Image 2" width="700">
+        </a>
+    </figure>
+</div>
+<p id="chuthich" align="center"><i>Nữ thần Tự do dẫn dắt nhân dân (Liberty Leading the People)</i>, Eugene Delacroix, 1830, Bảo tàng Louvre, Paris</p>
+<p>
+    Cuộc cách mạng lần hai hậu Napoleon ở Pháp là đề tài của Delacroix trong bức tranh <i>Nữ thần Tự do dẫn dắt nhân dân</i> (1830). Trong tranh, những lời răn dạy về đạo đức của David trước đây đã nhường chỗ cho cảm xúc mãnh liệt của Delacroix. Đó là hình ảnh Nữ thần Tự do với bộ ngực trần và gương mặt ửng hồng đang dẫn dắt nhân dân đi đến chiến thắng. Làn khói tan đi xung quanh khi nàng mạnh mẽ nắm trong tay lá cờ Pháp rực rỡ. Với kích thước 244 x 305cm, những người chết và hấp hối gần như đổ nhào vào người chúng ta. Có thể đúng khi cho rằng chiến tranh là xấu xí và nhơ nhuốc, nhưng dưới bàn tay của Delacroix, nó vẫn bước tới đầy cảm xúc.
+</p>
+<p>
+    Trong khi David và Delacroix nhìn thấy hy vọng trong binh đao thì Francisco de Goya chỉ thấy nỗi kinh hoàng. Họa sĩ người Tây Ban Nha theo trường phái Lãng mạn này bỏ ra cả đời để khám phá mặt tối của con người: những tiếng nói thuyết phục chúng ta rằng việc chém giết lẫn nhau là đúng đắn và công bằng.
+</p>
+<div class="my-gallery">
+    <figure align="center">
+        <a href="/fileanhhtml/a44.jpg" data-size="1000x700">
+            <img src="/fileanhhtml/a44.jpg" alt="Image 2" width="700">
+        </a>
+    </figure>
+</div>
+<p id="chuthich" align="center"><i>Ngày 3 tháng 5 năm 1808 (Tie Third of May, 1808)</i>, Francisco de Goya, 1814, Prado, Madrid</p>
+<p>
+    Đề tài của bức tranh <i>Ngày 3 tháng 5 năm 1808</i> (1814) của Goya dựa trên một cuộc thảm sát có thật hơn một ngàn người Tây Ban Nha ở Madrid do quân Napoleon gây ra. Bất cứ người nào bị nghi ngờ ủng hộ cuộc nổi dậy chống quân xâm lược Pháp đều bị xếp thành hàng và bắn mà không cần xét xử. Goya chia bố cục ra làm hai: phía bên phải là một hàng dài vô tận và tối đen những người lính không rõ mặt, đứng bắt động, nòng súng trường đồng loạt chĩa về phía trước thành cỗ máy chiến tranh. Phía bên trái cũng là một dãy dài vô tận khác, nhưng lần này là những nạn nhân vô vọng và kinh hãi đang van xin tha mạng, che mặt kinh hoàng, và xác người chết ghê rợn nằm trên vũng máu. Đứng giữa nhóm người này là một nhân vật mặc áo trắng, sáng bật lên theo phong cách Baroque, đang nhìn chăm chăm vào những nòng súng phía trước một cách van lơn. Hai tay người này đưa lên cao và dang rộng. Và bạn có thể nhìn thấy những vết thương trong mỗi lòng bàn tay đưa lên của ông ta. Goya đã rất táo bạo khi so sánh người vô tội vô danh kia với Chúa Giêsu bị đóng đinh.
+</p>
+<p>
+    Goya muốn bạn phải có chính kiến. Một lần nữa, bằng cách sử dụng tỉ lệ (244 x 396cm), phần sáng và phần tối tiếp giáp như thể có một đường thẳng kẻ giữa tấm toan, đi xuống ngay chỗ người xem tranh đứng. Goya vẽ bức tranh này, như ông nói, là: “để cảnh báo con người đừng bao giờ tái phạm”. Vì thế, Goya hỏi bạn đứng về phía nào, bóng tối hay ánh sáng?
+</p>
+<p>
+    Sự kinh hoàng do con người gây ra đã tàn phá thể xác và linh hồn của rất nhiều người châu Âu ở nửa đầu thế kỷ 19. Nếu không phải là đội quân hùng mạnh của Napoleon thì cũng là sự tàn sát của nền công nghiệp, đã xua đuổi các hộ gia đình và hủy hoại kế sinh nhai của họ. Có hai họa sĩ đã đi ngược lại với bối cảnh đương thời. Chủ đề của họ, dù mang tính nhân đạo, đã không đặt chúng ta ở vị trí trung tâm như “thước đo của vạn vật” nữa. Thay vào đó, Thiên nhiên mới chính là tâm điểm của họ. Và điều đó khiến ta nhớ lại rằng chúng ta thực sự nhỏ bé biết bao!
+</p>
+<div class="my-gallery">
+    <figure align="center">
+        <a href="/fileanhhtml/a45.jpg" data-size="1000x700">
+            <img src="/fileanhhtml/a45.jpg" alt="Image 2" width="700">
+        </a>
+    </figure>
+</div>
+<p id="chuthich" align="center"><i>Vụ cháy toà nhà Quốc hội (The Burning of the Houses of Parliament)</i>, William J. M. Turner, 1834 - 1835, Bảo tàng Nghệ thuật Philadelphia
+    </p>
+    <div class="my-gallery">
+        <figure align="center">
+            <a href="/fileanhhtml/a46.jpg" data-size="1000x700">
+                <img src="/fileanhhtml/a46.jpg" alt="Image 2" width="700">
+            </a>
+        </figure>
+    </div>
+    <p id="chuthich" align="center"><i>Chiếc tàu buôn nô lệ (The Slave Ship)</i>, William J. M. Turner, 1840, Bảo tàng Mỹ thuật, Boston
+        </p>
+<p>
+    Hoạ sĩ người Anh William J. M. Turner và họa sĩ người Đức Casper David Friedrich cảm nhận được Thiên nhiên. Trong những tác phẩm như <i>Vụ cháy tòa nhà Quốc hội</i> (1834 - 1835) và <i>Chiếc tàu buôn nô lệ</i> (1840), Turner đã tấn công vào mặt toan bằng cọ vẽ, bàn tay, và móng tay để vẽ nên khung cảnh cuồng nộ dữ dội của bầu trời, gió và biển. Những đám mây bay thành từng cụm, buổi hoàng hôn nổ tung trong màu cam đỏ nóng rực, và lớp sương mù dày đặc bao phủ lấy đất liền. Thiên nhiên nhấn chìm chúng ta. Và như Turner đã nhìn ra, chúng ta thật mong manh trong cơn kích động đáng sợ của nó.
+</p>
+<p>
+    Friedrich thường hay đặt chúng ta trước những khung cảnh thiên nhiên hùng vĩ của ông, cùng với một (hay hai) nhân vật nhỏ bé cô đơn, quay lưng lại và nhìn về cõi vô tận trước mặt mình. Chúng ta đứng bên cạnh, lúc thì suy ngẫm về khoảng trống phía chân trời đã bị sương che phủ như trong bức <i>Kẻ lãng du phía trên biển sương mù</i> (1818), lúc khác lại về mặt biển xanh u buồn trong bức <i>Hoàng hôn (Hai anh em)</i> (1835). Có một cái gì đó vô hình trong các tác phẩm của Friedrich luôn để lại một cảm giác lạnh lẽo u buồn, dù quang cảnh trong tranh có đẹp thế nào đi chăng nữa.
+</p>
+<div class="my-gallery">
+    <figure align="center">
+        <a href="/fileanhhtml/a47.jpeg" data-size="400x600">
+            <img src="/fileanhhtml/a47.jpeg" alt="Image 2" width="600">
+        </a>
+    </figure>
+</div>
+<p id="chuthich" align="center"><i>Kẻ lãng du phía trên biển sương mù (Wanderer above the Sea of Fog)</i>, Casper David Friedrich, 1818, Bảo tàng Kunsthalle, Hamburg, Đức
+    
+    </p>
+<div class="my-gallery">
+        <figure align="center">
+            <a href="/fileanhhtml/a48.jpg" data-size="1000x700">
+                <img src="/fileanhhtml/a48.jpg" alt="Image 2" width="700">
+            </a>
+        </figure>
+</div>
+    <p id="chuthich" align="center"><i>Hoàng hôn (Hai anh em (Sunset (Brothers)))</i>, Casper David Friedrich, 1835, Bảo tàng Tu viện Nhà nước, St - Petersburg, Nga
+        </p>
+<p>
+    Mặc dù bốn họa sĩ Lãng mạn được nhắc đến trong chương này hướng niềm đam mê của mình vào những chủ đề khác nhau, những tác phẩm của họ đều thể hiện một sự tương đồng: bầu trời hết sức nổi bật. Là một công cụ có tác động mạnh mẽ trong việc truyền tải tâm trạng, tâm lý, và cảm xúc, bầu trời luôn là phông nền bất tận cho người họa sĩ trình bày và hoàn thiện chủ đề chính trên đó.
+</p>
+<p align="center" style="font-size: 23px;">
+    Hãy chú ý xem sự biến đổi quang cảnh bầu trời tác động thế nào đến bạn.
+</p>

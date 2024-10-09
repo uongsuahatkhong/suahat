@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 7 phần 5</title>
+    <!--DƯỚI ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+<style type="text/css">
+    body{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 21px;
+        width: 960px;
+        margin: 0 auto;
+        text-align: justify;
+        line-height: 1.5;
+    }
+    p{
+        text-indent: 40px;
+    }
+</style>
+<style>
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+<style>
+    .highlight-yellow { background-color: rgb(255, 255, 71); }
+    .highlight-red { background-color: rgb(132, 230, 255); }
+    .highlight-green { background-color: rgb(125, 255, 125); }
+    .highlight-popup {
+        display: none;
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        z-index: 1000;
+    }
+    .highlight-popup button {
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC TRẢ LỜI CÂU TƯƠNG TÁC-->
+<style>
+    #textArea {
+        width: 100%;
+        height: 200px;
+    }
+    #saveButton, #clearButton {
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC TRẢ LỜI CÂU TƯƠNG TÁC-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+<style type="text/css">
+    a:hover{
+            text-decoration: none;
+        }
+        a[data-tooltip]{
+            border-bottom: 1px dotted #333;
+            position:relative;
+        }
+        a[data-tooltip]::before{
+            content: attr(data-tooltip);
+            position:absolute;
+            background: #ffafaf;
+            font-size:14px;
+            color: black;
+            text-align: justify;
+            padding: 3px 9px;
+            border-radius: 6px;
+            width: 250px;
+            left: -800%;
+            right: -800%;
+            bottom: 100%;
+            display: none;
+        }
+    a[data-tooltip]:hover::before{
+        display: block;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+
+
+<link rel="stylesheet" href="cssnoidung.css">
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+    <style>
+        .my-gallery img:hover {
+            transform: scale(1.05);
+        }
+        .my-gallery img {
+            /* width: 200px; */
+            height: auto;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+</head>
+
+<body id="text" >
+    <!--DƯỚI ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+    <div class="thanhphai">
+        <a target="_self" href="Chuong8phan1.html"><button id="nut1"><i class="bi bi-arrow-right-circle-fill"></i></button></a>
+    </div>
+    <div class="thanhtrai">
+        <a target="_self" href="Chuong7phan4.html"><button id="nut2"><i class="bi bi-arrow-left-circle-fill"></i></button></a>
+    </div>
+    <!--TRÊN ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+    <div class="highlight-popup" id="highlight-popup">
+        <!-- <p align="center" id="takenote">Ghi chú</p> -->
+        <button onclick="highlightText('yellow')" id="notevang"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('red')" id="notedo"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('green')" id="notexanh"><i class="bi bi-square-fill"></i></button>
+        <button onclick="removeHighlight()" id="xoanote"><i class="bi bi-eraser-fill"></i></i></button>
+    </div>
+<!--TRÊN ĐÂY LÀ PHẦN POP UP ĐỂ HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+<div id="backtop1" class="vecuoitrang" >
+    <i onclick="scrollToBottom()" class="bi bi-arrow-down-square-fill"></i>
+</div>
+<div id="backtop" class="vedautrang">
+    <i onclick="scrollToTop()" class="bi bi-arrow-up-square-fill"></i>
+</div>
+<!--TRÊN ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+<script>
+    function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+function scrollToBottom() {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+    });
+}
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+    loadHighlights();
+
+    document.addEventListener('mouseup', function(e) {
+        const selection = window.getSelection();
+        if (!selection.rangeCount || selection.isCollapsed) {
+            hidePopup();
+            return;
+        }
+
+        const range = selection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+        showPopup(rect.left + window.scrollX, rect.bottom + window.scrollY);
+    });
+
+    document.addEventListener('mousedown', function(e) {
+        const popup = document.getElementById('highlight-popup');
+        if (!popup.contains(e.target)) {
+            hidePopup();
+        }
+    });
+});
+
+function showPopup(x, y) {
+    const popup = document.getElementById('highlight-popup');
+    popup.style.left = x + 'px';
+    popup.style.top = y + 'px';
+    popup.style.display = 'block';
+}
+
+function hidePopup() {
+    const popup = document.getElementById('highlight-popup');
+    popup.style.display = 'none';
+}
+
+function highlightText(color) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    if (range.collapsed) return;
+
+    const span = document.createElement('span');
+    span.className = `highlight highlight-${color}`;
+    range.surroundContents(span);
+
+    saveHighlights();
+    hidePopup();
+}
+
+function removeHighlight() {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+    const parentElement = range.commonAncestorContainer.parentElement;
+
+    if (parentElement.classList.contains('highlight')) {
+        const parent = parentElement.parentNode;
+        while (parentElement.firstChild) {
+            parent.insertBefore(parentElement.firstChild, parentElement);
+        }
+        parent.removeChild(parentElement);
+    }
+
+    saveHighlights();
+    hidePopup();
+}
+
+// Hàm lưu các highlight vào local storage
+function saveHighlights() {
+    let highlights = document.querySelectorAll('.highlight-yellow, .highlight-green, .highlight-red');
+    let highlightData = [];
+
+    highlights.forEach((highlight) => {
+        highlightData.push({
+            text: highlight.textContent,
+            class: highlight.className
+        });
+    });
+
+    localStorage.setItem('highlights', JSON.stringify(highlightData));
+}
+// Hàm tải các highlight từ local storage
+function loadHighlights() {
+    let highlightData = JSON.parse(localStorage.getItem('highlights') || '[]');
+    let bodyHtml = document.body.innerHTML;
+
+    highlightData.forEach((highlight) => {
+        let tempDiv = document.createElement('div');
+        tempDiv.textContent = highlight.text;
+        let highlightHtml = `<span class="${highlight.class}">${tempDiv.innerHTML}</span>`;
+        bodyHtml = bodyHtml.replace(highlight.text, highlightHtml);
+    });
+    document.body.innerHTML = bodyHtml;
+}
+
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC CỦA CÂU HỎI TƯƠNG TÁC-->
+<!-- <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const textArea = document.getElementById('textArea');
+    const saveButton = document.getElementById('saveButton');
+    const clearButton = document.getElementById('clearButton');
+
+    // Load the saved text from Local Storage when the page loads
+    const savedText = localStorage.getItem('textAreaContent');
+    if (savedText) {
+        textArea.value = savedText;
+    }
+
+    // Save the text to Local Storage when the "Save" button is clicked
+    saveButton.addEventListener('click', function() {
+        localStorage.setItem('textAreaContent', textArea.value);
+        alert('Bạn muốn lưu ghi chép của mình?');
+    });
+
+    // Clear the text from Local Storage and the text area when the "Clear" button is clicked
+    clearButton.addEventListener('click', function() {
+        localStorage.removeItem('textAreaContent');
+        textArea.value = '';
+        alert('Bạn muốn xóa ghi chép?');
+    });
+});
+
+</script> -->
+<script>
+    // Function to save data to local storage
+    function saveData(id) {
+        const data = document.getElementById(id).value;
+        localStorage.setItem(id, data);
+        alert('Câu trả lời của bạn đã được lưu!');
+    }
+
+    // Function to load data from local storage
+    function loadData() {
+        const writingAreas = document.querySelectorAll('.writing-area');
+        writingAreas.forEach(area => {
+            const savedData = localStorage.getItem(area.id);
+            if (savedData) {
+                area.value = savedData;
+            }
+        });
+    }
+
+    // Load data when the page loads
+    window.onload = loadData;
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC CỦA CÂU HỎI TƯƠNG TÁC-->
+
+<div>
+    <p align="center" style="margin-top: 0px; margin-bottom: 10px;; font-size: 30px; font-weight: bold;">&#128366;</p>
+    <p align="center" style="margin-top: 0px;"><img src="/fileanhhtml/linbreak.png" width="280px"></p>
+</div>
+<p>
+    <b>Câu 1: Ta có thể hiểu rõ những cung bậc cảm xúc của các nhân vật trong tác phẩm của Giotto. Không thể lầm lẫn về nỗi thống khổ của con người được ông miêu tả, như bức <i>Khóc Chúa Giêsu</i> (Nhà nguyện Arena, 1305). Giotto đã cường điệu hóa biểu hiện của các nhân vật bằng cặp lông mày cau lại, đôi bàn tay giơ lên và miệng há hốc đau đớn.
+    <br>Bạn bày tỏ niềm vui, nỗi buồn, sự tức giận, hay tình yêu như thế nào? Hãy trao đổi với một người thân và tìm hiểu cách nhìn nhận của họ. Người khác “đọc” được gì từ bạn... hay là họ không thể?
+    </b>
+</p>
+<textarea id="writingArea1" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea1')">Lưu</button>
+<p>
+    <b>Câu 2: Hãy nhìn thẳng vào bức tường gần bạn nhất. Từng bước một, hãy nhìn kỹ vào vật nào đang che khuất vật nào cho đến khi bạn nhìn đến đồ vật ngay trước mắt mình. Cái gì đang ở trước cái gì? Bạn đang ở trước cái gì? Đây chính là không gian sống của bạn. Bạn cảm thấy gì vào lúc này, khi thấy mình hiện diện một cách trọn vẹn trong không gian của chính mình?</b>
+</p>
+<textarea id="writingArea2" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea2')">Lưu</button>
+<p>
+    <b>Câu 3: Điều gì làm cho bạn cảm thấy cân bằng trong cuộc sống? Bạn khao khát tìm kiếm sự yên ổn và trật tự ở nơi nào?</b>
+</p>
+<textarea id="writingArea3" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea3')">Lưu</button>
+<p>
+    <b>Câu 4: Bạn có đang ngồi gần một cái bàn không? Hãy nhìn các cạnh của nó ở cả hai phía và để ý cách các đường song song bắt đầu hội tụ (như thế này / \). Hãy tưởng tượng một điểm ở đằng xa và quan sát những đường trực giao kia hội tụ ở đó. Bạn vừa mới vẽ trong đầu chiều sâu không gian rồi đấy.</b>
+</p>
+<textarea id="writingArea4" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea4')">Lưu</button>
+<p>
+    <b>Câu 5: Hãy nhìn thật kỹ vào cánh tay bạn. Bạn có để ý thấy sắc da, tương phản sắc độ (hay chính là màn trình diễn của ánh sáng và bóng tối trên màu da) chuyển từ từ thật tinh không? Người nghệ sĩ càng điêu luyện và có chủ ý bao nhiêu trong việc tạo ra những độ chuyển tinh tế này thì bạn sẽ càng bị thuyết phục bấy nhiêu rằng nhân vật trong tranh kia thật sự là một con người bằng xương bằng thịt. Quả là một điều kỳ diệu! </b>
+</p>
+<textarea id="writingArea5" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea5')">Lưu</button>
+<p>
+    <b>Câu 6: Những lề thói văn hóa khiến cho thần Vệ Nữ phải giấu đi dục tính của mình. Có điều gì đang cản trở cuộc sống hôn nhân của bạn không? Bạn đã khám phá điều gì về bản thân thông qua tình yêu thể xác?</b>
+</p>
+<textarea id="writingArea6" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea6')">Lưu</button>
+<p>
+    <b>Câu 7: Bạn đang phát triển bản thân theo những cách nào? Những cách này có thể là về mặt thể chất, trí tuệ, óc sáng tạo hay tinh thần, bình dị hoặc vĩ đại. Vậy bạn thật sự muốn học điều gì?</b>
+</p>
+<textarea id="writingArea7" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea7')">Lưu</button>
+<p>
+    <b>Câu 8: Bạn dựa trên sự dẫn dắt của ai hay điều gì? Ai hay điều gì dẫn dắt các quyết định và ý kiến của bạn? Bạn cảm thấy như thế nào khi nghi ngờ sự dẫn dắt đó? Hay khi nó bị người khác nghi ngờ?
+        <br>Mượn lý thuyết của da Vinci và tưởng tượng rằng chỉ có thể tin vào mắt mình, bạn thấy điều gì là thực?
+    </b>
+</p>
+<textarea id="writingArea8" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea8')">Lưu</button>
+<p>
+    <b>Câu 9: Bàn tay của bạn tiết lộ điều gì về cuộc sống vật chất và cá tính của bạn?</b>
+</p>
+<textarea id="writingArea9" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea9')">Lưu</button>
+<p>
+    <b>Câu 10: Hãy nhìn ra ngoài cửa sổ, đến nơi xa nhất mà bạn có thế - hay tốt hơn là hãy bước ra ngoài để thấy được phối cảnh không khí. Hãy chú ý cách không khí tác động lên chất và màu sắc của cây cối, núi non, hay nhà cửa khi chúng ở xa. Bây giờ, hãy nhìn ngay trước mắt bạn, ở phần tiền cảnh của bạn. Hãy phân biệt màu và chất ở đó. Hãy để mắt bạn được dạo khắp phần tiền cảnh, trung cảnh và hậu cảnh, và cảm nhận hình ảnh sắc nét hơn và nhòe đi... đang rõ, đang mờ... rõ hơn, mờ hơn.</b>
+</p>
+<textarea id="writingArea10" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea10')">Lưu</button>
+<p>
+    <b>Câu 11: Cơ thể bạn bộc lộ trạng thái tinh thần như thế nào? Hãy nhớ rằng, trong mỗi chúng ta lúc nào cũng tồn tại hai trạng thái - thoải mái và bất an.</b>
+</p>
+<textarea id="writingArea11" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea11')">Lưu</button>
+<p>
+    <b>Câu 12: Dạng hình bẹt nào có nhiều ở nhà bạn? Bạn nghiêng về những hình kỷ hà hay những hình tròn của thế giới tự nhiên? Tại sao?</b>
+</p>
+<textarea id="writingArea12" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea12')">Lưu</button>
+<p>
+    <b>Câu 13: Hãy nhìn vào những vật dụng xung quanh bạn. Có vật nào mang ý nghĩa tượng trưng đối với bạn không? Chúng thể hiện những giá trị, ý tưởng, hay niềm tin nào? Còn ý nghĩa tượng trưng của bạn là gì?</b>
+</p>
+<textarea id="writingArea13" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea13')">Lưu</button>
+<p>
+    <b>Câu 14: Khi mặc màu nào bạn được khen nhiều nhất? Bạn nghĩ màu nào tôn màu da<sup><a href="#" data-tooltip="Nguyên bản dùng “màu mắt”, nhưng do người Việt đều có màu mắt đen nên chúng tôi mạn phép đổi thành “màu da” (BTV).">[1]</a></sup> bạn nhất? Còn màu nào làm cho bạn “nhạt nhòa” đi?</b>
+</p>
+<textarea id="writingArea14" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea14')">Lưu</button>
+<p>
+    <b>Câu 15: Nhưng khoan hãy tin lời tôi. Hãy lấy hai tờ giấy trắng. Ở ngay giữa một tờ vẽ một vòng tròn màu đỏ, to cỡ đồng 25 cent. Tô kín vòng tròn cho đến khi màu đỏ trở nên thật đậm trên tờ giấy. Tập trung nhìn vào đốm đỏ đỏ trong 30 giây (cố gắng đừng chớp mắt nhiều quá). Sau đó nhìn sang tờ giấy trắng còn lại trong vài giây.
+    <br>Bạn có thấy dư ảnh không? Màu xanh lá? Đó chính là cách mắt bạn tham gia vào quá trình. Hãy bắt đầu chú ý đến những bảng hiệu. Rồi bạn sẽ để ý thấy thêm nhiều cặp màu bổ túc đỏ/ xanh lá, xanh dương/ cam, vàng/ tím. Chúng ta có được những lời gợi ý từ thiên nhiên. Rõ ràng là những chú chim và ong lúc nào cũng dừng lại trước những khu vườn xanh ngát đầy hoa đỏ. Và dù cho họa sĩ và người làm quảng cáo có thể là những nhà ảo thuật về màu sắc, mỗi nhà ảo thuật đều cần có một phụ tá. Mắt người xem cũng có một vài trò bổ túc màu của riêng nó.
+    </b>
+</p>
+<textarea id="writingArea15" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea15')">Lưu</button>
+<p>
+    <b>Câu 16: Hãy nhìn vào tủ quần áo của bạn. Trong đó chủ yếu là màu nóng hay màu lạnh? Bạn mặc gì khi muốn trở nên nổi bật? Còn những lúc muốn hòa vào đám đông?</b>
+</p>
+<textarea id="writingArea16" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea16')">Lưu</button>
+<p>
+    <b>Câu 17: Hãy sờ tay lên chiếc ghế bạn đang ngồi một cách chầm chậm... lên bức tường cạnh bạn... lên quần áo bạn đang mặc... lên tóc bạn... Lên sàn nhà dưới chân... làn da tay, da chân bạn... Bây giờ, hãy đi khắp nhà và chạm vào mọi thứ, hãy cảm nhận vô số bề mặt mà bạn sống cùng. Những thứ nào mang đến cảm giác dễ chịu, thậm chí là khoái cảm khi chạm vào? Những thứ nào làm bạn bất ngờ, mang đến cảm giác rất khác so với những gì bạn từng tưởng tượng trước đây?</b>
+</p>
+<textarea id="writingArea17" class="writing-area" placeholder="Nhập câu trả lời của bạn ở đây"></textarea>
+<button class="save-button" onclick="saveData('writingArea17')">Lưu</button>

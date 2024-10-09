@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 7 Phần 4</title>
+    <!--DƯỚI ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+<style type="text/css">
+    body{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 21px;
+        width: 960px;
+        margin: 0 auto;
+        text-align: justify;
+        line-height: 1.5;
+    }
+    p{
+        text-indent: 40px;
+    }
+</style>
+<style>
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHUNG CHUNG-->
+
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+<style>
+    .highlight-yellow { background-color: rgb(255, 255, 71); }
+    .highlight-red { background-color: rgb(132, 230, 255); }
+    .highlight-green { background-color: rgb(125, 255, 125); }
+    .highlight-popup {
+        display: none;
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        z-index: 1000;
+    }
+    .highlight-popup button {
+        margin-right: 10px;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO MỤC HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+<style type="text/css">
+    a:hover{
+            text-decoration: none;
+        }
+        a[data-tooltip]{
+            border-bottom: 1px dotted #333;
+            position:relative;
+        }
+        a[data-tooltip]::before{
+            content: attr(data-tooltip);
+            position:absolute;
+            background: #ffafaf;
+            font-size:14px;
+            color: black;
+            text-align: justify;
+            padding: 3px 9px;
+            border-radius: 6px;
+            width: 250px;
+            left: -800%;
+            right: -800%;
+            bottom: 100%;
+            display: none;
+        }
+    a[data-tooltip]:hover::before{
+        display: block;
+    }
+</style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE CHO CHÚ THÍCH-->
+
+
+<link rel="stylesheet" href="cssnoidung.css">
+
+<!--DƯỚI ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+    <style>
+        .my-gallery img:hover {
+            transform: scale(1.05);
+        }
+        .my-gallery img {
+            /* width: 200px; */
+            height: auto;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+<!--TRÊN ĐÂY LÀ PHẦN STYLE ZOOM ẢNH-->
+
+</head>
+
+<body id="text" >
+    <!--DƯỚI ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+    <div class="thanhphai">
+        <a target="_self" href="Chuong7phan5.html"><button id="nut1"><i class="bi bi-arrow-right-circle-fill"></i></button></a>
+    </div>
+    <div class="thanhtrai">
+        <a target="_self" href="Chuong7phan3.html"><button id="nut2"><i class="bi bi-arrow-left-circle-fill"></i></button></a>
+    </div>
+    <!--TRÊN ĐÂY LÀ PHẦN CỦA THANH CHUYỂN TRANG-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+    <div class="highlight-popup" id="highlight-popup">
+        <!-- <p align="center" id="takenote">Ghi chú</p> -->
+        <button onclick="highlightText('yellow')" id="notevang"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('red')" id="notedo"><i class="bi bi-square-fill"></i></button>
+        <button onclick="highlightText('green')" id="notexanh"><i class="bi bi-square-fill"></i></button>
+        <button onclick="removeHighlight()" id="xoanote"><i class="bi bi-eraser-fill"></i></i></button>
+    </div>
+<!--TRÊN ĐÂY LÀ PHẦN PHẦN POP UP ĐỂ HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+<div id="backtop1" class="vecuoitrang" >
+    <i onclick="scrollToBottom()" class="bi bi-arrow-down-square-fill"></i>
+</div>
+<div id="backtop" class="vedautrang">
+    <i onclick="scrollToTop()" class="bi bi-arrow-up-square-fill"></i>
+</div>
+<!--TRÊN ĐÂY LÀ PHẦN CHO THANH ĐẦU VÀ CUỐI TRANG-->
+
+<!-- DƯỚI ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+<!-- PhotoSwipe core JS files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<!-- PhotoSwipe template -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TRÊN ĐÂY LÀ CẤU TRÚC CẦN CÓ CHO PHẦN ZOOM ẢNH -->
+
+</body>
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+<script>
+function scrollToTop() {
+window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+});
+}
+
+function scrollToBottom() {
+window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: 'smooth'
+});
+}
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO NÚT BACK TO TOP-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+loadHighlights();
+
+document.addEventListener('mouseup', function(e) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount || selection.isCollapsed) {
+        hidePopup();
+        return;
+    }
+
+    const range = selection.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+    showPopup(rect.left + window.scrollX, rect.bottom + window.scrollY);
+});
+
+document.addEventListener('mousedown', function(e) {
+    const popup = document.getElementById('highlight-popup');
+    if (!popup.contains(e.target)) {
+        hidePopup();
+    }
+});
+});
+
+function showPopup(x, y) {
+const popup = document.getElementById('highlight-popup');
+popup.style.left = x + 'px';
+popup.style.top = y + 'px';
+popup.style.display = 'block';
+}
+
+function hidePopup() {
+const popup = document.getElementById('highlight-popup');
+popup.style.display = 'none';
+}
+
+function highlightText(color) {
+const selection = window.getSelection();
+if (!selection.rangeCount) return;
+
+const range = selection.getRangeAt(0);
+if (range.collapsed) return;
+
+const span = document.createElement('span');
+span.className = `highlight highlight-${color}`;
+range.surroundContents(span);
+
+saveHighlights();
+hidePopup();
+}
+
+function removeHighlight() {
+const selection = window.getSelection();
+if (!selection.rangeCount) return;
+
+const range = selection.getRangeAt(0);
+const parentElement = range.commonAncestorContainer.parentElement;
+
+if (parentElement.classList.contains('highlight')) {
+    const parent = parentElement.parentNode;
+    while (parentElement.firstChild) {
+        parent.insertBefore(parentElement.firstChild, parentElement);
+    }
+    parent.removeChild(parentElement);
+}
+
+saveHighlights();
+hidePopup();
+}
+
+// Hàm lưu các highlight vào local storage
+function saveHighlights() {
+let highlights = document.querySelectorAll('.highlight-yellow, .highlight-green, .highlight-red');
+let highlightData = [];
+
+highlights.forEach((highlight) => {
+    highlightData.push({
+        text: highlight.textContent,
+        class: highlight.className
+    });
+});
+
+localStorage.setItem('highlights', JSON.stringify(highlightData));
+}
+// Hàm tải các highlight từ local storage
+function loadHighlights() {
+let highlightData = JSON.parse(localStorage.getItem('highlights') || '[]');
+let bodyHtml = document.body.innerHTML;
+
+highlightData.forEach((highlight) => {
+    let tempDiv = document.createElement('div');
+    tempDiv.textContent = highlight.text;
+    let highlightHtml = `<span class="${highlight.class}">${tempDiv.innerHTML}</span>`;
+    bodyHtml = bodyHtml.replace(highlight.text, highlightHtml);
+});
+document.body.innerHTML = bodyHtml;
+}
+
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC HIGHLIGHT-->
+
+<!--DƯỚI ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+<script>
+    // Initialize PhotoSwipe
+    document.addEventListener('DOMContentLoaded', function() {
+        var initPhotoSwipeFromDOM = function(gallerySelector) {
+            var parseThumbnailElements = function(el) {
+                var thumbElements = el.childNodes,
+                    numNodes = thumbElements.length,
+                    items = [],
+                    figureEl,
+                    linkEl,
+                    size,
+                    item;
+
+                for (var i = 0; i < numNodes; i++) {
+                    figureEl = thumbElements[i];
+
+                    if (figureEl.nodeType !== 1) {
+                        continue;
+                    }
+
+                    linkEl = figureEl.children[0];
+                    size = linkEl.getAttribute('data-size').split('x');
+
+                    item = {
+                        src: linkEl.getAttribute('href'),
+                        w: parseInt(size[0], 10),
+                        h: parseInt(size[1], 10)
+                    };
+
+                    if (figureEl.children.length > 1) {
+                        item.title = figureEl.children[1].innerHTML;
+                    }
+
+                    if (linkEl.children.length > 0) {
+                        item.msrc = linkEl.children[0].getAttribute('src');
+                    }
+
+                    item.el = figureEl;
+                    items.push(item);
+                }
+
+                return items;
+            };
+
+            var closest = function closest(el, fn) {
+                return el && (fn(el) ? el : closest(el.parentNode, fn));
+            };
+
+            var onThumbnailsClick = function(e) {
+                e = e || window.event;
+                e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+                var eTarget = e.target || e.srcElement;
+
+                var clickedListItem = closest(eTarget, function(el) {
+                    return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+                });
+
+                if (!clickedListItem) {
+                    return;
+                }
+
+                var clickedGallery = clickedListItem.parentNode,
+                    childNodes = clickedListItem.parentNode.childNodes,
+                    numChildNodes = childNodes.length,
+                    nodeIndex = 0,
+                    index;
+
+                for (var i = 0; i < numChildNodes; i++) {
+                    if (childNodes[i].nodeType !== 1) {
+                        continue;
+                    }
+
+                    if (childNodes[i] === clickedListItem) {
+                        index = nodeIndex;
+                        break;
+                    }
+                    nodeIndex++;
+                }
+
+                if (index >= 0) {
+                    openPhotoSwipe(index, clickedGallery);
+                }
+                return false;
+            };
+
+            var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+                var pswpElement = document.querySelectorAll('.pswp')[0],
+                    gallery,
+                    options,
+                    items;
+
+                items = parseThumbnailElements(galleryElement);
+
+                options = {
+                    galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+                    getThumbBoundsFn: function(index) {
+                        var thumbnail = items[index].el.getElementsByTagName('img')[0],
+                            pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                            rect = thumbnail.getBoundingClientRect();
+
+                        return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+                    }
+                };
+
+                if (fromURL) {
+                    if (options.galleryPIDs) {
+                        for (var j = 0; j < items.length; j++) {
+                            if (items[j].pid == index) {
+                                options.index = j;
+                                break;
+                            }
+                        }
+                    } else {
+                        options.index = parseInt(index, 10) - 1;
+                    }
+                } else {
+                    options.index = parseInt(index, 10);
+                }
+
+                if (isNaN(options.index)) {
+                    return;
+                }
+
+                if (disableAnimation) {
+                    options.showAnimationDuration = 0;
+                }
+
+                gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+                gallery.init();
+            };
+
+            var galleryElements = document.querySelectorAll(gallerySelector);
+
+            for (var i = 0, l = galleryElements.length; i < l; i++) {
+                galleryElements[i].setAttribute('data-pswp-uid', i + 1);
+                galleryElements[i].onclick = onThumbnailsClick;
+            }
+        };
+
+        initPhotoSwipeFromDOM('.my-gallery');
+    });
+</script>
+<!--TRÊN ĐÂY LÀ PHẦN JAVA CHO VIỆC ZOOM ẢNH-->
+
+<!--PHẦN BẮT ĐẦU NỘI DUNG CHÍNH-->
+<h2>
+    3. Nghệ thuật Phục hưng phương Bắc và
+<br>Chủ nghĩa Biểu tượng của vật thể
+</h2>
+<p>
+    Trong khi Masaccio dẫn đầu nhóm các họa sĩ ở thành Florence vào thế kỷ 15, thì Jan van Eyck thống trị ở Amsterdam. Tuy nhiên, những họa sĩ Phục hưng phương Bắc này không hề hứng thú chút nào với việc làm sống lại quá khứ Hy - La. Thay vào đó, nghệ thuật của họ tập trung vào việc kết hợp thế giới thần thánh với đời sống thế tục. Như trong bức tranh nổi tiếng của mình, <i>Đám cưới Arnolfini</i> (1434), Van Eyck đã khắc họa Giovanni Arnolfini và cô dâu của ông đang đọc thời thề nguyện thiêng liêng trong PHÒNG NGỦ! Không hề có một cây cột kiểu Hy Lạp hay một mái vòm La Mã nào xuất hiện ở đây. 
+</p>
+<div class="my-gallery">
+    <figure align="center">
+        <a href="/fileanhhtml/a30.jpg" data-size="400x600">
+            <img src="/fileanhhtml/a30.jpg" alt="Image 2" width="600">
+        </a>
+    </figure>
+</div>
+<p id="chuthich" align="center"><i>Đám cưới Arnolfini (Arnolfini Wedding)</i>, Jan van Eyck, 1434, Phòng trưng bày Quốc gia, London</p>
+<p>
+    Và dù trông rất thơ ngây, nàng Giovanna trẻ trung, dịu dàng vẫn hoàn toàn ý thức được những gì đang chờ đợi mình trong vai trò mới là một người vợ. Đứng không xa chiếc giường tân hôn của mình, nàng giữ lấy tấm áo nặng trĩu trước bụng, điềm báo cho một ngày làm mẹ không xa. Theo phong cách Phục hưng phương Bắc, tác giả đã đặt vào khung cảnh bó buộc thường nhật những vật mang tính tượng trưng hay <b>Tiếu tượng học</b>: chú chó đứng ở phần tiền cảnh tượng trưng cho sự chung thủy trong hôn nhân, hai vợ chồng đi chân trần đứng sánh vai trên khoảng đất thiêng của họ, chiếc chổi nhỏ ở hậu cảnh tượng trưng cho công việc nội trợ của cô dâu, và một cây nến được thắp lên phía trên tượng trưng cho sự hiện diện của bậc thánh thần chứng giám cuộc hòa hợp này. Thêm vào đó, kỹ thuật sơn dầu bậc thầy của Van Eyck đã khiến cho mọi chất liệu trong toàn bộ khung cảnh trở nên thật như thể ta có thể chạm vào được. Thật vậy, “Cha đẻ của tranh sơn dầu” đã để lại một bảng màu vô hạn và những chất hoàn mỹ đến nỗi ta cần một chiếc kính lúp để xem bức tranh giá vẽ nhỏ này.
+</p>
+<div class="my-gallery">
+    <figure align="center">
+        <a href="/fileanhhtml/a4(bs).png" data-size="1000x700">
+            <img src="/fileanhhtml/a4(bs).png" alt="Image 2" width="700">
+        </a>
+    </figure>
+</div>
+<div class="my-gallery">
+    <figure align="center">
+        <a href="/fileanhhtml/a31.jpg" data-size="400x600">
+            <img src="/fileanhhtml/a31.jpg" alt="Image 2" width="600">
+        </a>
+    </figure>
+</div>
+<p id="chuthich" align="center"><i>Chân dung một quý cô (Portrait of a Lady)</i>, Rogier van der Weyden, khoảng 1455, Phòng trưng bày Nghệ thuật Quốc gia, Washington, DC</p>
+<p>
+    Những hoạ sĩ Phục hưng phương Bắc như Jan van Eyck và Rogier van der Weyden (xem: <i>Chân dung một Quý cô</i>, khoảng 1455) đã phát triển chất liệu sơn dầu lên đến trình độ như chúng ta biết ngày nay. Và với sự vượt trội về kỹ thuật như vậy, phong cách càng ngày càng trở nên hiện thực. Do bột màu được trộn với dầu lanh nên sơn lâu khô hơn những chất liệu khác, như màu vẽ bích họa hay tempera chẳng hạn. Và vì thời gian khô chậm hơn nên càng lúc các họa sĩ càng có điều kiện thường xuyên pha trộn được nhiều màu hơn. Nói cách khác, chính tranh sơn dầu đã mở ra một phổ màu vô tận, hệt như những gì chúng ta thấy ngoài đời thật.
+</p>
+<p>
+    <b>Màu sắc (Color)</b>
+</p>
+<p>
+    Khi nhìn ra ngoài cửa sổ, mắt tôi lập tức chú ý đến những bông hồng ở hàng hiên. Tuy nhiên, không phải do vẻ đẹp vốn có của chúng thu hút sự chú ý của tôi mà là chúng được tôn lên. Màu đỏ của những bông hồng này, thật ra có đủ mọi màu hồng, rất giống màu da người. Dù cho mỗi chúng ta đều là độc nhất, nhưng chúng ta cũng bị tác động bởi môi trường xung quanh. Những bông hồng đỏ rực nổi bật lộng lẫy được là nhờ vào màu lá xanh đậm của những tán cây phía sau. Cũng những bồng hoa đỏ này, nhưng đặt trong một phông nền nhạt hơn, xám hơn, sẽ trở nên bớt dữ dội và phô trương hẳn đi. Điều kỳ diệu về màu sắc này rất quen thuộc với bạn. Rất nhiều người trong chúng ta đều cân nhắc về nó mỗi sáng khi suy nghĩ xem mình sẽ mặc màu gì hôm nay.
+</p>
+<p>
+    <b>Màu bổ túc (Complementary Color)</b>
+</p>
+<p>
+    Nếu như tâm trí của chúng ta luôn bận rộn kết nối những đường ảo trong cuộc sống, thì mắt của chúng ta cũng liên tục làm cho thế giới đầy màu sắc này trở nên mãnh liệt hơn. Màu đỏ của những bông hồng và màu xanh của những tán cây xung quanh đi vào mắt tôi và tiếp tục bổ trợ cho nhau một cách nhiệt thành. Đỏ và xanh lá là những màu bổ túc của nhau, tức là, chúng nằm đối diện nhau trên bánh xe màu. Điều này có nghĩa là, hoàn toàn không có màu đỏ trong màu xanh lá, và ngược lại. Thế nên có một trò ảo thuật khác ở đây: khi màu đỏ và xanh lá đứng liền kề nhau, hay thậm chí chỉ nằm hơi gần nhau, mắt ta sẽ hoạt động hết công suất và tạo ra những dư ảnh, trong trường hợp đó, khiến cho màu đỏ trông đỏ hơn và màu xanh trông xanh hơn.
+</p>
+<p>
+    <b>Màu nóng và màu lạnh (Hot/ Cool Color)</b>
+</p>
+<p>
+    Đỏ, vàng, và cam được gọi là những màu “nóng” và ta cảm thấy chúng nổi bật và gây chú ý. Chúng là nơi mắt ta hướng đến đầu tiên. Không phải vô tình mà những bảng cấm đường có màu đỏ và đường cao tốc được phân chia bằng những vạch kẻ màu vàng. Ngược lại, những màu xanh dương, xanh lá và tím là những màu “lạnh” và trông như đang lùi xa. Chúng thường xuất hiện trong những không gian nhỏ hẹp khi muốn tạo cảm giác rộng rãi hơn, chẳng hạn như những căn phòng trong khách sạn.
+</p>
+<p>
+    <b>Chất (Texture)</b>
+</p>Màu sắc cũng có vai trò rất lớn trong việc mô tả cảm nhận về một vật. Và cùng với đường nét và hình, chất trong nghệ thuật cũng có thể là ảo hoặc thật.
+Sinh ra một thập kỷ sau khi Van Eyck qua đời, Leonardo da Vinci cũng đã tìm tòi và nắm vững cách sử dụng chất liệu sơn dầu. Trong bức tranh <i>Mona Lisa</i>, ông đã tạo được khối và sắc da của đôi tay nhân vật một cách tinh tế đến nỗi ta có thể cảm nhận được sự mềm mại của chúng trong tay mình. Nhưng nếu bạn có thể sờ tay lên mặt tranh (trước khi bảo vệ tống bạn ra ngoài), bạn sẽ cảm nhận được nó phẳng như kính vậy. Bây giờ, hãy nhìn lại bức <i>Đám cưới Arnolfini</i> một lần nữa. Hãy cố gắng chỉ ra có bao nhiêu loại chất khác nhau mà bạn có thể tìm thấy. Từ bộ lông xù của con chó đến đôi guốc mộc, từ tấm áo choàng thêu kim tuyến đến tấm gương, tất cả đều thể hiện Van Eyck là một bậc thầy trong việc cảm nhận các sự vật. Tôi đã nói với bạn rằng kích thước bức tranh này chỉ khoảng 84 x 56cm chưa! Cả Leonardo lẫn Van Eyck đều sử dụng kỹ thuật tô bóng để thể hiện chất. Và, một lần nữa, chính chất liệu sơn dầu lâu khô đã cho phép tạo khối bằng vô vàn sự pha trộn này. 
+<P>
+    Ở chương sau bạn sẽ thấy nếu sờ tay lên một bức tranh của Rembrandt, bạn lại cảm nhận được một vài vết xước. Các nghệ sĩ cũng dùng những lớp sơn dày (lối vẽ đắp) để tạo ra chất thực của các sự vật như ván lót sàn, mặt bàn, hay nếp gấp quần áo. Bản thân sơn cũng giúp diễn tả sự gồ ghề hay xù xì. Lớp sơn dày mang đến cho bức tranh một chất thực, làm tăng thêm độ sâu vật lý cho một mặt phẳng.
+</P>
+<p>
+    Bây giờ, hãy nhìn vào môi trường đầy những chất quanh bạn. Nếu không chạm vào bất kỳ thứ gì, bạn có thể cảm nhận được tất cả những bề mặt khác thường không? Bề mặt nào đem đến cho bạn niềm vui đặc biệt? Bạn nghĩ sao về việc thêm vào cuộc sống của mình những niềm vui gợi cảm như thế?
+</p>
+<p align="center" style="font-size: 23px;">
+    Hãy chú ý đến chất trong cuộc sống mỗi ngày.
+</p>
